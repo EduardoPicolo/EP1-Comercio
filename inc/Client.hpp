@@ -8,10 +8,10 @@ class Client {
 
     public:
         Client();
+        Client(string name, bool vip);
         string get_name();
         bool get_vipStatus();
 
         void set_name(string name);
         void set_vipStatus(bool vip);
-        void registerClient(string name, bool vip);
 };

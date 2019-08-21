@@ -1,13 +1,12 @@
 #include "Client.hpp"
+#include <iostream>
+#include <fstream>
+#include <vector>
 #include <string>
 
 Client:: Client(){
+    this-> name= "";
     this-> vip = false;
-}
-
-void Client:: registerClient(string name, bool vip){
-    this-> name = name;
-    this-> vip = vip;
 }
 
 string Client:: get_name(){
