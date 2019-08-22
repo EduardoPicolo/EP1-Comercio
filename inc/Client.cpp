@@ -23,7 +23,7 @@ Client Client:: verifyClient(string name){
     in>> temp;
     while (in) {
         if(temp.get_name()== name){
-            cout<< "Client already registered."<< endl;
+            cout<< "Signing in..."<< endl;
             in.close();
             return temp;
         }

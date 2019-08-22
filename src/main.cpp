@@ -40,7 +40,7 @@ int main() {
     cin>> name;
     client = client.verifyClient(name);
 
-    product = product.registerNewProduct("Foo", "Bar", 99.99, 99);
+    product.registerNewProduct("FOOD", "OOF", 1.5, 999);
     // product.displayProduct();
  
 	return 0;

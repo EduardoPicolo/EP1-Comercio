@@ -11,15 +11,21 @@ class Stock{
     public:
         Stock();
         Stock(string product_name, string category, double price, int amount);
-        Stock registerNewProduct(string name, string category, double price, int amount);
+        void registerNewProduct(string name, string category, double price, int amount);
+        bool verifyProduct(string product_name);
+
         string get_product_name();
-        string get_product_category();
-        double get_product_price();
-        int get_product_amount();
         void set_product_name(string name);
+
+        string get_product_category();
         void set_product_category(string category);
+
+        double get_product_price();
         void set_product_price(double price);
+
+        int get_product_amount();
         void set_product_amount(int amount);
+
         void displayProduct();
 
 

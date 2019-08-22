@@ -11,13 +11,32 @@ product_price(price), product_amount(amount){
     cout<< "New product added."<< endl;
 }
 
-Stock Stock:: registerNewProduct(string product_name, string category, double price, int amount){
-    cout<< "Adding new product..."<< endl;
-    Stock product(product_name, category, price, amount);
-    std::ofstream out("stock.txt", ios:: app);
-    out<< product;
-    out.close();
-    return product;
+void Stock:: registerNewProduct(string product_name, string category, double price, int amount){
+    if(verifyProduct(product_name)){
+        cout<< "Adding new product..."<< endl;
+        Stock product(product_name, category, price, amount);
+        std::ofstream out("stock.txt", ios:: app);
+        out<< product;
+        out.close();
+    }
+    else{
+        cout<< "Product alredy registered."<< endl;
+    }
+}
+
+bool Stock:: verifyProduct(string product_name){
+    std::ifstream in("stock.txt");
+    Stock temp_p;
+    in>> temp_p;
+    while (in) {
+        if(temp_p.get_product_name()== product_name){
+            // cout<< "Product found."<< endl;
+            in.close();
+            return false;
+        }
+        in>> temp_p;
+    }
+    return true;
 }
 
 void  Stock:: displayProduct(){
@@ -59,15 +78,18 @@ void Stock:: set_product_amount(int amount){
 
 
 bool Stock:: operator== (const Stock & obj){
-    return (product_name == obj.product_name);
+    return (product_name == obj.product_name)&& (product_category== obj.product_category)&& (product_price== obj.product_price)&& (product_amount== obj.product_amount);
 }
 
 ostream & operator << (std::ostream &out, const Stock & obj){
-    	out<< obj.product_name<< "\t"<< obj.product_category<< "\t"<< obj.product_price<< "\t"<< obj.product_amount<< endl;
-		return out;
+    out<< obj.product_name<< "\t"<< obj.product_category<< "\t"<< obj.product_price<< "\t"<< obj.product_amount<< std::endl;
+    return out;
 }
 
 istream & operator >> (std::istream &in,  Stock &obj){
-    	in >> obj.product_name;
-		return in;
+    in >> obj.product_name;
+    in >> obj.product_category;
+    in >> obj.product_price;
+    in >> obj.product_amount;
+    return in;
 }
