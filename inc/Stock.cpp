@@ -1,21 +1,27 @@
 #include "Stock.hpp"
-#include "iostream"
+#include <iostream>
+#include <fstream>
 #include <string>
 
-Stock:: Stock(){
+Stock:: Stock(){}
 
+Stock:: Stock(string product_name, string category, double price, int amount)
+:product_name(product_name), product_category(category),
+product_price(price), product_amount(amount){
+    cout<< "New product added."<< endl;
 }
 
-void Stock:: registerNewProduct(string product_name, string category, double price, int amount){
+Stock Stock:: registerNewProduct(string product_name, string category, double price, int amount){
     cout<< "Adding new product..."<< endl;
     Stock product(product_name, category, price, amount);
     std::ofstream out("stock.txt", ios:: app);
     out<< product;
     out.close();
+    return product;
 }
 
 void  Stock:: displayProduct(){
-    cout<< this-> product_name+"-"<< this-> product_category+" "+"$"<< this-> product_price<< endl;
+    cout<< this-> product_name<< "\t"<< this-> product_category<< "\t"<< this-> product_price<<endl;
 }
 
 string Stock:: get_product_name(){
@@ -52,7 +58,7 @@ void Stock:: set_product_amount(int amount){
 
 
 
-bool Stock::  operator== (const Stock & obj){
+bool Stock:: operator== (const Stock & obj){
     return (product_name == obj.product_name);
 }
 
@@ -64,3 +70,4 @@ ostream & operator << (std::ostream &out, const Stock & obj){
 istream & operator >> (std::istream &in,  Stock &obj){
     	in >> obj.product_name;
 		return in;
+}

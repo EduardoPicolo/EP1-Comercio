@@ -1,0 +1,3 @@
+Foo	Bar	99.99	99
+Foo	Bar	99.99	99
+Foo	Bar	99.99	99

@@ -5,13 +5,12 @@
 Client:: Client(){}
 
 Client:: Client(string name, bool vip=false):name(name),vip(vip){
-    cout<< "New client successfully created!"<<endl;
+    cout<< "New client successfully registered!"<<endl;
 }
 
 Client Client:: registerClient(string name){
     cout<< "Registering new client..."<< endl;
     Client client(name);
-    // cout<< "New client successfully registed!"<< endl;
     std::ofstream out("clients.txt", ios:: app);
     out<< client;
     out.close();
@@ -31,7 +30,8 @@ Client Client:: verifyClient(string name){
         in>> temp;
     }
     cout<< "Client not found."<< endl;
-    this-> registerClient(name);
+    // this-> registerClient(name);
+    return this-> registerClient(name);
 }
 
 string Client:: get_name(){

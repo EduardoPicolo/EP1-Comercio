@@ -33,11 +33,15 @@ using namespace std;
 
 int main() {
     Client client;
+    Stock product;
     string name;
     cout<< "Login\n"<< endl;
     cout<< "Username: ";
     cin>> name;
     client = client.verifyClient(name);
+
+    product = product.registerNewProduct("Foo", "Bar", 99.99, 99);
+    // product.displayProduct();
  
 	return 0;
 }
