@@ -19,9 +19,9 @@ class Client {
         Client verifyClient(string name);
         Client registerClient(string name);
 
-        bool operator== (const Client & obj);
+        bool operator== (Client & obj);
         // Overload operator <<
-        friend std::ostream & operator << (std::ostream &out, const Client & obj);
+        friend std::ostream & operator << (std::ostream &out, Client & obj);
         // Overload operator >>
         friend std::istream & operator >> (std::istream &in,  Client &obj);
 };

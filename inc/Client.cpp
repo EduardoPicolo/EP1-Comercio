@@ -53,12 +53,12 @@ void Client:: set_vipStatus(bool vip){
 
 
 
-bool Client::  operator== (const Client & obj){
+bool Client::  operator== (Client & obj){
     return (name == obj.name) && (vip == obj.vip);
 }
 
-ostream & operator << (std::ostream &out, const Client & obj){
-    	out<< obj.name<< "\n"<< obj.vip<< "\n"<< std::endl;
+ostream & operator << (std::ostream &out, Client & obj){
+    	out<< obj.name<< "\t"<< obj.vip<< std::endl;
 		return out;
 }
 
