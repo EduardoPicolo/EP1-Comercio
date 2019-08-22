@@ -3,46 +3,41 @@
 #include "Cart.cpp"
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <string>
 using namespace std;
 
-void registerClient(string name){
-    Client client;
-    client.set_name(name);
-    ofstream file("clientList.txt", ios::app);
-    if(file.is_open())
-    {
-        file<< client.get_name()<< endl;
-        file.close();
-    }
-    cout<< "New client successfully registered."<< endl;
-}
+// Client registerClient(string name){
+//     Client client(name);
+//     cout<< "New client successfully registed!"<< endl;
+//     std::ofstream out("clients.txt", ios:: app);
+//     out<< client;
+//     out.close();
+//     return client;
+// }
 
-bool verifyClient(string name){
-    string clients;
-    ifstream getFromFile("clientList.txt");
-    if(getFromFile.is_open())
-    {
-        while(getFromFile.good())
-        {
-            getline(getFromFile, clients);
-            if(name ==  clients){
-                cout<< "Client already registered."<< endl;
-                return false;
-            }
-        }
-        return true;
-    }
-}
+// Client verifyClient(string name){
+//     std::ifstream in("clients.txt");
+//     Client temp;
+//     in>> temp;
+//     while (in) {
+//         if(temp.get_name()== name){
+//             // cout<< "Client already registered."<< endl;
+//             in.close();
+//             return temp;
+//         }
+//         in>> temp;
+//     }
+//     cout<< "Signing up new client..."<< endl;
+//     registerClient(name);
+// }
 
 int main() {
+    Client client;
     string name;
-    cout<< "Login:\n"<< endl;
+    cout<< "Login\n"<< endl;
     cout<< "Username: ";
     cin>> name;
-    if(verifyClient(name)){
-        cout<< "..."<< endl;
-        registerClient(name);
-    }
+    client = client.verifyClient(name);
+ 
+	return 0;
 }

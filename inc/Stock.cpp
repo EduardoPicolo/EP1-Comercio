@@ -6,11 +6,12 @@ Stock:: Stock(){
 
 }
 
-void Stock:: registerNewProduct(string name, string category, double price, int amount){
-    this-> product_name = name;
-    this-> product_category = category;
-    this-> product_price = price;
-    this-> product_amount = amount;
+void Stock:: registerNewProduct(string product_name, string category, double price, int amount){
+    cout<< "Adding new product..."<< endl;
+    Stock product(product_name, category, price, amount);
+    std::ofstream out("stock.txt", ios:: app);
+    out<< product;
+    out.close();
 }
 
 void  Stock:: displayProduct(){
@@ -48,3 +49,18 @@ void Stock:: set_product_price(double price){
 void Stock:: set_product_amount(int amount){
     this-> product_amount = amount;
 }
+
+
+
+bool Stock::  operator== (const Stock & obj){
+    return (product_name == obj.product_name);
+}
+
+ostream & operator << (std::ostream &out, const Stock & obj){
+    	out<< obj.product_name<< "\t"<< obj.product_category<< "\t"<< obj.product_price<< "\t"<< obj.product_amount<< endl;
+		return out;
+}
+
+istream & operator >> (std::istream &in,  Stock &obj){
+    	in >> obj.product_name;
+		return in;

@@ -9,9 +9,19 @@ class Client {
     public:
         Client();
         Client(string name, bool vip);
+        
         string get_name();
-        bool get_vipStatus();
-
         void set_name(string name);
+
+        bool get_vipStatus();
         void set_vipStatus(bool vip);
+
+        Client verifyClient(string name);
+        Client registerClient(string name);
+
+        bool operator== (const Client & obj);
+        // Overload operator <<
+        friend std::ostream & operator << (std::ostream &out, const Client & obj);
+        // Overload operator >>
+        friend std::istream & operator >> (std::istream &in,  Client &obj);
 };
