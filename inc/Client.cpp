@@ -1,8 +1,14 @@
 #include "Client.hpp"
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <string>
-Client:: Client(){}
+
+vector<Client> clientList;
+int clientPostion;
+
+Client:: Client(){
+}
 
 Client:: Client(string name, bool vip=false):name(name),vip(vip){
     cout<< "New client successfully registered!"<<endl;
@@ -11,27 +17,36 @@ Client:: Client(string name, bool vip=false):name(name),vip(vip){
 Client Client:: registerClient(string name){
     cout<< "Registering new client..."<< endl;
     Client client(name);
+    clientList.push_back(client);
+    // Write new client
     std::ofstream out("clients.txt", ios:: app);
     out<< client;
     out.close();
     return client;
 }
 
-Client Client:: verifyClient(string name){
+Client Client:: login(){
+    return clientList[clientPostion];
+}
+
+bool Client:: verifyClient(string name){
+    // Open the file and fill in vector with objects
     std::ifstream in("clients.txt");
     Client temp;
-    in>> temp;
-    while (in) {
-        if(temp.get_name()== name){
-            cout<< "Signing in..."<< endl;
-            in.close();
-            return temp;
-        }
+    while(in){
         in>> temp;
+        clientList.push_back(temp);
     }
-    cout<< "Client not found."<< endl;
-    // this-> registerClient(name);
-    return this-> registerClient(name);
+    in.close();
+
+    //  Search client
+    for(int i =0; i<clientList.size();i++){
+        if(name== clientList[i].get_name()){
+            clientPostion = i;
+            return true;
+        }
+    }
+    return false;
 }
 
 string Client:: get_name(){

@@ -14,40 +14,63 @@ int main() {
     cout<< "Login\n"<< endl;
     cout<< "Username: ";
     cin>> name;
-    client.verifyClient(name);
 
-    
-    std::ifstream in("clients.txt");
-    vector<Client> c;
-    Client t;
-    while(in){
-        in>> t;
-        c.push_back(t);
+    if(!client.verifyClient(name)){
+        client = client.registerClient(name);
     }
-    in.close();
-    
-    // for(int i =0; i<c.size();i++){
-    //     if("b"== c[i].get_name()){
-    //         c[i].set_name("PICOLO");
-    //     }
-    //     // cout<< c[i]<< endl;
+    else{
+        cout<< "Client already registered."<< endl;
+    }
+
+    if(client.verifyClient(name)){
+        client = client.login();
+    }
+    else{
+        cout<< "Client not found."<< endl;
+    }
+
+    // cout<< client.get_name()<< endl;
+
+
+
+
+
+
+
+
+
+    // // Open the file and fill in vector with objects
+    // std::ifstream in("clients.txt");
+    // vector<Client> c;
+    // Client t;
+    // while(in){
+    //     in>> t;
+    //     c.push_back(t);
     // }
+    // in.close();
+
+    // // Change something in the vector
+    // // for(int i =0; i<c.size();i++){
+    // //     if("b"== c[i].get_name()){
+    // //         c[i].set_name("PICOLO");
+    // //     }
+    // //     // cout<< c[i]<< endl;
+    // // }
     
-    std::ofstream out("clients.txt");
-    for(int i=0;i<c.size()-1;i++){
-        out<< c[i];
-        cout<< i<< endl;
-    }
-    out.close();
+    // // Update the file with the vector
+    // std::ofstream out("clients.txt");
+    // for(int i=0;i<c.size()-1;i++){
+    //     out<< c[i];
+    //     cout<< i<< endl;
+    // }
+    // out.close();
 
     
 
 
 
 
-    // cout<< client.get_vipStatus()<< endl;
-
-    product.registerNewProduct("OBELIXO", "LIXO", 1.5, 999);
+    // product.registerNewProduct("OBELIXO", "LIXO", 1.5, 999);
     // product.displayProduct();
  
 	return 0;

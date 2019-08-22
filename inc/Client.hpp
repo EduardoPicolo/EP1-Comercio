@@ -16,9 +16,11 @@ class Client {
         bool get_vipStatus();
         void set_vipStatus(bool vip);
 
-        Client verifyClient(string name);
+        bool verifyClient(string name);
         Client registerClient(string name);
+        Client login();
 
+        // Overload operator == 
         bool operator== (Client & obj);
         // Overload operator <<
         friend std::ostream & operator << (std::ostream &out, Client & obj);
