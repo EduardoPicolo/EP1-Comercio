@@ -1,5 +1,5 @@
 #include "Client.cpp"
-#include "Stock.cpp"
+#include "Product.cpp"
 #include "Cart.cpp"
 #include <iostream>
 #include <fstream>
@@ -10,23 +10,23 @@ using namespace std;
 
 int main() {
     Client client;
-    Stock product;
     string name, password;
-    cout<< "Login\n"<< endl;
-    cout<< "Username: ";
-    cin>> name;
-    cout<< "Password: ";
-    cin>> password;
+    // cout<< "Login\n"<< endl;
+    // cout<< "Username: ";
+    // cin>> name;
+    // cout<< "Password: ";
+    // cin>> password;
 
-
+    Product product;
+    product.registerProduct("Fuzz", "Buzz", 10, 99);
     // client.registerClient(name, password);
-    // LOGIN
-    while(client.login(&client,name, password)== false){
-        cout<< "Username: ";
-        cin>> name;
-        cout<< "Password: ";
-        cin>> password;
-    }
+    // // LOGIN
+    // while(client.login(&client,name, password)== false){
+    //     cout<< "Username: ";
+    //     cin>> name;
+    //     cout<< "Password: ";
+    //     cin>> password;
+    // }
 
 
 
