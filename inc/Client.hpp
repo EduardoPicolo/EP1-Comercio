@@ -4,21 +4,25 @@ using namespace std;
 class Client {
     private:
         string name;
+        string password;
         bool vip = false;
 
     public:
         Client();
-        Client(string name, bool vip);
+        Client(string name,string password, bool vip);
         
         string get_name();
         void set_name(string name);
+
+        string get_password();
+        void set_password(string password);
 
         bool get_vipStatus();
         void set_vipStatus(bool vip);
 
         bool verifyClient(string name);
-        Client registerClient(string name);
-        Client login();
+        void registerClient(string name, string password);
+        bool login(Client *client, string name, string password);
 
         // Overload operator == 
         bool operator== (Client & obj);

@@ -10,23 +10,41 @@ int clientPostion;
 Client:: Client(){
 }
 
-Client:: Client(string name, bool vip=false):name(name),vip(vip){
+Client:: Client(string name, string password, bool vip=false):name(name),password(password), vip(vip){
     cout<< "New client successfully registered!"<<endl;
 }
 
-Client Client:: registerClient(string name){
-    cout<< "Registering new client..."<< endl;
-    Client client(name);
-    clientList.push_back(client);
-    // Write new client
-    std::ofstream out("clients.txt", ios:: app);
-    out<< client;
-    out.close();
-    return client;
+void Client:: registerClient(string name, string password){
+    if(!verifyClient(name)){
+        cout<< "Registering new client..."<< endl;
+        Client client(name, password);
+        clientList.push_back(client);
+        // Write new client
+        std::ofstream out("clients.txt", ios:: app);
+        out<< client;
+        out.close();
+    }
+    else{
+        cout<< "Client already registered."<< endl;
+    }
 }
 
-Client Client:: login(){
-    return clientList[clientPostion];
+bool Client:: login(Client *client, string name, string password){
+    if(verifyClient(name)){
+        if(password== clientList[clientPostion].password){
+            cout<< "Signing in..."<< endl;
+            client-> set_name(name);
+            client-> set_password(password);
+            return true;
+        }
+        else{
+            cout<< "Wrong password."<< endl;
+        }
+    }
+    else if(!verifyClient(name)){
+        cout<< "Username not found."<< endl;
+        return false;
+    }
 }
 
 bool Client:: verifyClient(string name){
@@ -41,12 +59,12 @@ bool Client:: verifyClient(string name){
 
     //  Search client
     for(int i =0; i<clientList.size();i++){
-        if(name== clientList[i].get_name()){
+        if(name== clientList[i].get_name()){ // Client already registered
             clientPostion = i;
             return true;
         }
     }
-    return false;
+    return false; // Client NOT registered
 }
 
 string Client:: get_name(){
@@ -55,6 +73,14 @@ string Client:: get_name(){
 
 void Client:: set_name(string name){
     this-> name = name;
+}
+
+string Client:: get_password(){
+    return password;
+}
+
+void Client:: set_password(string password){
+    this-> password = password;
 }
 
 bool Client:: get_vipStatus(){
@@ -69,17 +95,18 @@ void Client:: set_vipStatus(bool vip){
 
 
 bool Client::  operator== (Client & obj){
-    return (name == obj.name) && (vip == obj.vip);
+    return (name == obj.name) && (vip == obj.vip)&& (password== obj.password);
 }
 
 ostream & operator << (std::ostream &out, Client & obj){
-    	out<< obj.name<< "\t"<< obj.vip<< std::endl;
+    	out<< obj.name<< "\t"<< obj.vip<< "\t"<< obj.password<< std::endl;
 		return out;
 }
 
 istream & operator >> (std::istream &in,  Client &obj){
     	in >> obj.name;
 		in >> obj.vip;
+        in >> obj.password;
 		return in;
 }
 

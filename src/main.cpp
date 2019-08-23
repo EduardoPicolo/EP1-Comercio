@@ -7,27 +7,42 @@
 #include <string>
 using namespace std;
 
+
 int main() {
     Client client;
     Stock product;
-    string name;
+    string name, password;
     cout<< "Login\n"<< endl;
     cout<< "Username: ";
     cin>> name;
+    cout<< "Password: ";
+    cin>> password;
 
-    if(!client.verifyClient(name)){
-        client = client.registerClient(name);
-    }
-    else{
-        cout<< "Client already registered."<< endl;
+
+    // client.registerClient(name, password);
+    // LOGIN
+    while(client.login(&client,name, password)== false){
+        cout<< "Username: ";
+        cin>> name;
+        cout<< "Password: ";
+        cin>> password;
     }
 
-    if(client.verifyClient(name)){
-        client = client.login();
-    }
-    else{
-        cout<< "Client not found."<< endl;
-    }
+
+
+    // if(!client.verifyClient(name)){
+    //     client = client.registerClient(name);
+    // }
+    // else{
+    //     cout<< "Client already registered."<< endl;
+    // }
+
+    // if(client.verifyClient(name)){
+    //     client = client.login(name);
+    // }
+    // else{
+    //     cout<< "Client not found."<< endl;
+    // }
 
     // cout<< client.get_name()<< endl;
 
