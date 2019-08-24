@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 
-vector<Product> productList;
 int productPosition;
 
 Product:: Product(){}
@@ -20,9 +19,7 @@ void Product:: registerProduct(string product_name, string category, double pric
         Product product(product_name, category, price, amount);
         productList.push_back(product);
         // Write new product
-        std::ofstream out("stock.txt", ios:: app);
-        out<< product;
-        out.close();
+        writeFile<Product>("stock.txt", product);
     }
     else{
         cout<< "Product already registered."<< endl;
@@ -30,16 +27,8 @@ void Product:: registerProduct(string product_name, string category, double pric
 }
 
 bool Product:: verifyProduct(string product_name){
-    // Open the file and fill in vector with objects
-    std::ifstream in("stock.txt");
-    Product temp;
-    while(in){
-        in>> temp;
-        productList.push_back(temp);
-    }
-    in.close();
-
-    //  Search client
+    productList =  readFile<Product>("stock.txt");
+    //  Search product
     for(size_t i =0; i<productList.size();i++){
         if(product_name== productList[i].get_product_name()){ // Product already registered
             productPosition = i;

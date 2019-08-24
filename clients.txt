@@ -6,3 +6,8 @@ e	0	e
 x	0	x
 w	0	w
 q	0	q
+a	0	a
+a	0	a
+a	0	a
+f	0	f
+Edu	0	01

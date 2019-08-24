@@ -1,3 +1,6 @@
+#ifndef BASECLASS_HPP
+#define BASECLASS_HPP
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -29,20 +32,6 @@ class BaseClass{
             out<< obj;
             out.close();
         }
-        
-
-        template<class myClass>
-        bool verifyObject(string obj_name, vector<myClass> objList){
-            for(int i =0; i<objList.size(); i++){
-                if (obj_name== objList[i].get_name())// Object already registered
-                    return true;
-                else {
-                    return false;
-                }
-            }
-        }
-
-
-        bool registerObject();
-
 };
+
+#endif

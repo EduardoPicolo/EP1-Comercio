@@ -1,12 +1,19 @@
+#ifndef PRODUCT_HPP
+#define PRODUCT_HPP
+
+#include "BaseClass.hpp"
 #include <string>
+#include <vector>
 using namespace std;
 
-class Product{
+class Product : public BaseClass{
     private:
         string product_name;
         string category;
         double price;
         int amount;
+        vector<Product> productList;
+
     
     public:
         Product();
@@ -34,4 +41,8 @@ class Product{
         friend std::ostream & operator << (std::ostream &out, Product & obj);
         // Overload operator >>
         friend std::istream & operator >> (std::istream &in,  Product &obj);
+
+        void abstract(){}
 };
+
+#endif

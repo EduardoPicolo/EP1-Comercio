@@ -18,14 +18,16 @@ int main() {
     cin>> password;
 
     product.registerProduct("Fuzz", "Buzz", 10, 99);
-    client.registerClient(name, password);
-    // LOGIN
-    while(client.login(&client,name, password)== false){
-        cout<< "Username: ";
-        cin>> name;
-        cout<< "Password: ";
-        cin>> password;
-    }
+    product.registerProduct("Buzz", "Foo", 10, 99);
+
+    // client.registerClient(name, password);
+    // // LOGIN
+    // while(client.login(&client,name, password)== false){
+    //     cout<< "Username: ";
+    //     cin>> name;
+    //     cout<< "Password: ";
+    //     cin>> password;
+    // }
 
 
 

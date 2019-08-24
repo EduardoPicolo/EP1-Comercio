@@ -1,3 +1,6 @@
+#ifndef CLIENT_HPP
+#define CLIENT_HPP
+
 #include "BaseClass.hpp"
 #include <string>
 #include <vector>
@@ -36,3 +39,5 @@ class Client: public BaseClass{
 
         void abstract(){}
 };
+
+#endif

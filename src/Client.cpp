@@ -18,10 +18,6 @@ void Client:: registerClient(string name, string password){
         cout<< "Registering new client..."<< endl;
         Client client(name, password);
         clientList.push_back(client);
-        // Write new client
-        // std::ofstream out("clients.txt", ios:: app);
-        // out<< client;
-        // out.close();
         writeFile<Client>("clients.txt", client);
     }
     else{
@@ -49,17 +45,8 @@ bool Client:: login(Client *client, string name, string password){
 }
 
 bool Client:: verifyClient(string name){
-    // Open the file and fill in vector with objects
-    // std::ifstream in("clients.txt");
-    // Client temp;
-    // while(in){
-    //     in>> temp;
-    //     clientList.push_back(temp);
-    // }
-    // in.close();
     clientList = readFile<Client>("clients.txt");
-
-    //  Search client
+    // Search client
     for(size_t i =0; i<clientList.size();i++){
         if(name== clientList[i].get_name()){ // Client already registered
             clientPostion = i;

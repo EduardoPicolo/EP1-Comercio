@@ -1,2 +1,3 @@
 Foo	Bar	99.9	100
 Fuzz	Buzz	10	99
+Buzz	Foo	10	99
