@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 
-vector<Client> clientList;
 int clientPostion;
 
 Client:: Client(){
@@ -20,9 +19,10 @@ void Client:: registerClient(string name, string password){
         Client client(name, password);
         clientList.push_back(client);
         // Write new client
-        std::ofstream out("clients.txt", ios:: app);
-        out<< client;
-        out.close();
+        // std::ofstream out("clients.txt", ios:: app);
+        // out<< client;
+        // out.close();
+        writeFile<Client>("clients.txt", client);
     }
     else{
         cout<< "Client already registered."<< endl;
@@ -39,6 +39,7 @@ bool Client:: login(Client *client, string name, string password){
         }
         else{
             cout<< "Wrong password."<< endl;
+            return false;
         }
     }
     else if(!verifyClient(name)){
@@ -49,13 +50,14 @@ bool Client:: login(Client *client, string name, string password){
 
 bool Client:: verifyClient(string name){
     // Open the file and fill in vector with objects
-    std::ifstream in("clients.txt");
-    Client temp;
-    while(in){
-        in>> temp;
-        clientList.push_back(temp);
-    }
-    in.close();
+    // std::ifstream in("clients.txt");
+    // Client temp;
+    // while(in){
+    //     in>> temp;
+    //     clientList.push_back(temp);
+    // }
+    // in.close();
+    clientList = readFile<Client>("clients.txt");
 
     //  Search client
     for(int i =0; i<clientList.size();i++){

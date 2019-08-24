@@ -1,11 +1,14 @@
+#include "BaseClass.hpp"
 #include <string>
+#include <vector>
 using namespace std;
 
-class Client {
+class Client: public BaseClass{
     private:
         string name;
         string password;
         bool vip = false;
+        vector<Client> clientList;
 
     public:
         Client();

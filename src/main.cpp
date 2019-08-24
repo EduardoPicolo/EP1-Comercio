@@ -1,6 +1,5 @@
-#include "Client.cpp"
-#include "Product.cpp"
-#include "Cart.cpp"
+#include "Client.hpp"
+#include "Product.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -10,41 +9,25 @@ using namespace std;
 
 int main() {
     Client client;
-    string name, password;
-    // cout<< "Login\n"<< endl;
-    // cout<< "Username: ";
-    // cin>> name;
-    // cout<< "Password: ";
-    // cin>> password;
-
     Product product;
+    string name, password;
+    cout<< "Login\n"<< endl;
+    cout<< "Username: ";
+    cin>> name;
+    cout<< "Password: ";
+    cin>> password;
+
     product.registerProduct("Fuzz", "Buzz", 10, 99);
-    // client.registerClient(name, password);
-    // // LOGIN
-    // while(client.login(&client,name, password)== false){
-    //     cout<< "Username: ";
-    //     cin>> name;
-    //     cout<< "Password: ";
-    //     cin>> password;
-    // }
+    client.registerClient(name, password);
+    // LOGIN
+    while(client.login(&client,name, password)== false){
+        cout<< "Username: ";
+        cin>> name;
+        cout<< "Password: ";
+        cin>> password;
+    }
 
 
-
-    // if(!client.verifyClient(name)){
-    //     client = client.registerClient(name);
-    // }
-    // else{
-    //     cout<< "Client already registered."<< endl;
-    // }
-
-    // if(client.verifyClient(name)){
-    //     client = client.login(name);
-    // }
-    // else{
-    //     cout<< "Client not found."<< endl;
-    // }
-
-    // cout<< client.get_name()<< endl;
 
 
 
@@ -79,14 +62,6 @@ int main() {
     //     cout<< i<< endl;
     // }
     // out.close();
-
-    
-
-
-
-
-    // product.registerNewProduct("OBELIXO", "LIXO", 1.5, 999);
-    // product.displayProduct();
  
 	return 0;
 }
