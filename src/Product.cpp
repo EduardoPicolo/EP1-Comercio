@@ -40,7 +40,7 @@ bool Product:: verifyProduct(string product_name){
     in.close();
 
     //  Search client
-    for(int i =0; i<productList.size();i++){
+    for(size_t i =0; i<productList.size();i++){
         if(product_name== productList[i].get_product_name()){ // Product already registered
             productPosition = i;
             return true;

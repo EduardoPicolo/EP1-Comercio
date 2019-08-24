@@ -33,4 +33,6 @@ class Client: public BaseClass{
         friend std::ostream & operator << (std::ostream &out, Client & obj);
         // Overload operator >>
         friend std::istream & operator >> (std::istream &in,  Client &obj);
+
+        void abstract(){}
 };

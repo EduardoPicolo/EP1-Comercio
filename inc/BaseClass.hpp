@@ -5,6 +5,8 @@
 using namespace std;
 
 class BaseClass{
+    public:
+        virtual void abstract() = 0;
     protected:
         template<class myClass>
         vector<myClass> readFile(string file){

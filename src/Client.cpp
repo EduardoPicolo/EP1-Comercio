@@ -42,7 +42,7 @@ bool Client:: login(Client *client, string name, string password){
             return false;
         }
     }
-    else if(!verifyClient(name)){
+    else{
         cout<< "Username not found."<< endl;
         return false;
     }
@@ -60,7 +60,7 @@ bool Client:: verifyClient(string name){
     clientList = readFile<Client>("clients.txt");
 
     //  Search client
-    for(int i =0; i<clientList.size();i++){
+    for(size_t i =0; i<clientList.size();i++){
         if(name== clientList[i].get_name()){ // Client already registered
             clientPostion = i;
             return true;
