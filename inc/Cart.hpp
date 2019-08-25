@@ -10,7 +10,7 @@
 
 class Cart : public BaseClass{
     private:
-        vector<Product> productList;
+        vector<Product> cart;
         double total;
 
         void add_product(Product product);
@@ -21,7 +21,7 @@ class Cart : public BaseClass{
         double get_total();
         void set_total();
 
-        vector<Product> get_productList();
+        vector<Product> get_cart();
 };
 
 #endif

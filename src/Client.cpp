@@ -6,7 +6,7 @@
 
 int clientPostion;
 
-Client:: Client(){
+Client:: Client():name(""){
 }
 
 Client:: Client(string name, string password, bool vip=false):name(name),password(password), vip(vip){
@@ -15,7 +15,7 @@ Client:: Client(string name, string password, bool vip=false):name(name),passwor
 
 void Client:: registerClient(string name, string password){
     if(!verifyClient(name)){
-        cout<< "Registering new client..."<< endl;
+        cout<< "Registering new client... ";
         Client client(name, password);
         clientList.push_back(client);
         writeFile<Client>("clients.txt", client);
@@ -29,8 +29,9 @@ bool Client:: login(Client *client, string name, string password){
     if(verifyClient(name)){
         if(password== clientList[clientPostion].password){
             cout<< "Signing in..."<< endl;
-            client-> set_name(name);
-            client-> set_password(password);
+            // client-> set_name(name);
+            // client-> set_password(password);
+            *client = clientList[clientPostion];
             return true;
         }
         else{

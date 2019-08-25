@@ -20,6 +20,12 @@ class Product : public BaseClass{
         Product(string product_name, string category, double price, int amount);
         void registerProduct(string product_name, string category, double price, int amount);
         bool verifyProduct(string product_name);
+        void selectProduct(Product *product);
+        void restock(int amount);
+        void displayProduct();
+
+        void teste();
+
 
         string get_product_name();
         void set_product_name(string product_name);
@@ -33,7 +39,9 @@ class Product : public BaseClass{
         int get_amount();
         void set_amount(int amount);
 
-        void displayProduct();
+        vector<Product> get_productList();
+
+
 
         // Overload operator == 
         bool operator== (Product & obj);

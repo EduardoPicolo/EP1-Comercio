@@ -30,8 +30,18 @@ class BaseClass{
             // Write new obj to file
             std::ofstream out(file, ios:: app);
             out<< obj;
+            out.flush();
             out.close();
         }
+
+        template<class myClass>
+        void overWrite(string file, vector<myClass> list){
+            std::ofstream out(file, ios::trunc);
+            for(size_t i=0; i<list.size()-1; i++){
+                out<<list[i];
+            }
+            out.close();  
+        } 
 };
 
 #endif

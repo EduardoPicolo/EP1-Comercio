@@ -11,3 +11,6 @@ a	0	a
 a	0	a
 f	0	f
 Edu	0	01
+teste	0	teste
+n	0	n
+Eduardo	0	123

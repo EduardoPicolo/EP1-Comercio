@@ -38,6 +38,15 @@ bool Product:: verifyProduct(string product_name){
     return false; // Product NOT registered
 }
 
+void Product:: selectProduct(Product *product){
+    *product = productList[productPosition];
+}
+
+void Product:: restock(int amount){
+    productList[productPosition].set_amount(productList[productPosition].get_amount()+amount);
+    overWrite("stock.txt", productList);
+}
+
 void  Product:: displayProduct(){
     cout<< this-> product_name<< "\t"<< this-> category<< "\t"<< this-> price<<endl;
 }
@@ -74,6 +83,10 @@ void Product:: set_amount(int amount){
     this-> amount = amount;
 }
 
+vector<Product> Product:: get_productList(){
+    return productList;
+}
+
 
 
 bool Product:: operator== (Product & obj){
@@ -91,4 +104,10 @@ istream & operator >> (std::istream &in,  Product &obj){
         in >> obj.price;
         in >> obj.amount;
 		return in;
+}
+
+void Product:: teste(){
+    for(size_t i=0; i<productList.size(); i++){
+        cout<<productList[i]<<endl;
+    }
 }
