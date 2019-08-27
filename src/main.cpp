@@ -55,8 +55,18 @@ int shop(void){
     Product product;
     vector<Product> productList = product.get_productList();
 
-    cart.add_product(productList[5], 15);
+
+
+    cart.add_product(productList[2], 15);
+    cart.add_product(productList[0], 10);
+
+    for(size_t i=0; i<cart.get_cart().size();i++){
+        cout<<cart.get_cart()[i];
+    }
+
     cout<<cart.get_total()<<endl;
+
+    cart.cancel_purchase();
 
 
     return 0;

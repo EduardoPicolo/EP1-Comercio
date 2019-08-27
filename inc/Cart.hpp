@@ -13,7 +13,6 @@ class Cart : public BaseClass{
         vector<Product> cart;
         double total;
 
-        void cancel_purchase();
         void update_total();
 
     public:
@@ -22,7 +21,10 @@ class Cart : public BaseClass{
 
         void add_product(Product product, int amount);
         vector<Product> get_cart();
+        void set_cart(vector<Product> list);
 
+        void cancel_purchase();
+        
         void abstract(){};
 };
 

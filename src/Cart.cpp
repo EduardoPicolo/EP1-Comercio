@@ -27,9 +27,20 @@ double Cart:: get_total(){
 }
 
 vector<Product> Cart:: get_cart(){
+    return cart;
+}
 
+void Cart:: set_cart(vector<Product> list){
+    this-> cart = list;
 }
 
 void Cart:: cancel_purchase(){
+    Product product; vector<Product> list = product.get_productList();
+    for(size_t i=0; i<cart.size(); i++){
+        for(size_t j=0; j<list.size()-1; j++){
+            if(cart[i]==list[j])
+                cart[i].set_amount(list[i].get_amount());
+        }
+    }
     total = 0.0;
 }
