@@ -6,31 +6,31 @@
 
 int clientPostion;
 
-Client:: Client():name(""){
+Client:: Client(){
 }
 
-Client:: Client(string name, string password, bool vip=false):name(name),password(password), vip(vip){
+Client:: Client(string name, string cpf, string password, bool vip=false):name(name), cpf(cpf), password(password), vip(vip){
     cout<< "New client successfully registered!"<<endl;
 }
 
-void Client:: registerClient(string name, string password){
-    if(!verifyClient(name)){
+bool Client:: registerClient(string name, string cpf, string password){
+    if(!verifyClient(cpf)){
         cout<< "Registering new client... ";
-        Client client(name, password);
+        Client client(name, cpf, password);
         clientList.push_back(client);
         writeFile<Client>("clients.txt", client);
+        return true;
     }
     else{
         cout<< "Client already registered."<< endl;
+        return false;
     }
 }
 
-bool Client:: login(Client *client, string name, string password){
-    if(verifyClient(name)){
-        if(password== clientList[clientPostion].password){
+bool Client:: login(Client *client, string cpf, string password){
+    if(verifyClient(cpf)){
+        if(password == clientList[clientPostion].password){
             cout<< "Signing in..."<< endl;
-            // client-> set_name(name);
-            // client-> set_password(password);
             *client = clientList[clientPostion];
             return true;
         }
@@ -40,16 +40,16 @@ bool Client:: login(Client *client, string name, string password){
         }
     }
     else{
-        cout<< "Username not found."<< endl;
+        cout<< "Client not found."<< endl;
         return false;
     }
 }
 
-bool Client:: verifyClient(string name){
+bool Client:: verifyClient(string cpf){
     clientList = readFile<Client>("clients.txt");
     // Search client
-    for(size_t i =0; i<clientList.size();i++){
-        if(name== clientList[i].get_name()){ // Client already registered
+    for(size_t i=0; i<clientList.size();i++){
+        if(cpf == clientList[i].get_cpf()){ // Client already registered
             clientPostion = i;
             return true;
         }
@@ -73,6 +73,14 @@ void Client:: set_password(string password){
     this-> password = password;
 }
 
+string Client:: get_cpf(){
+    return cpf;
+}
+
+void Client:: set_cpf(string cpf){
+    this->cpf = cpf;
+}
+
 bool Client:: get_vipStatus(){
     return vip;
 }
@@ -83,20 +91,21 @@ void Client:: set_vipStatus(bool vip){
 
 
 
-
-bool Client::  operator== (Client & obj){
-    return (name == obj.name) && (vip == obj.vip)&& (password== obj.password);
+bool Client::  operator == (Client & obj){
+    return (name == obj.name) && (vip == obj.vip) && (password== obj.password) && (cpf == obj.cpf);
+    // return cpf == obj.cpf;
 }
 
-ostream & operator << (std::ostream &out, Client & obj){
-    	out<< obj.name<< "\t"<< obj.vip<< "\t"<< obj.password<< std::endl;
+ostream & operator << (ostream &out, Client & obj){
+    	out<< obj.name <<"\t"<< obj.cpf <<"\t"<< obj.password <<"\t"<< obj.vip <<std::endl;
 		return out;
 }
 
-istream & operator >> (std::istream &in,  Client &obj){
-    	in >> obj.name;
-		in >> obj.vip;
-        in >> obj.password;
+istream & operator >> (istream &in,  Client &obj){
+    	in>> obj.name;
+        in>> obj.cpf;
+        in>> obj.password;
+		in>> obj.vip;
 		return in;
 }
 

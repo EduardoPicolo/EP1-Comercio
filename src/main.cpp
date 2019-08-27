@@ -7,46 +7,60 @@
 #include <string>
 using namespace std;
 
-string name, password;
-
+int login(void);
 int stock(void);
 int shop(void);
 
 int main(void) {
     Client guest;
+    string name, cpf, password;
     int option;
-
-    stock();
-    // shop();
 
     cout<< "1:Sign in"<< "\t"<< "2:Register"<< endl;
     cin>>  option;
     switch(option){
         case 1: // Sign in
             do{
-                cout<< "Username: ";
-                cin>> name;
+                cout<< "CPF: ";
+                cin>> cpf;
                 cout<< "Password: ";
                 cin>> password;
-            } while(guest.login(&guest,name, password)== false);
+            } while(guest.login(&guest,cpf, password)== false);
             cout<< "Welcome "<< guest.get_name()+"!"<< endl;
-            break;
+            shop();
+        break;
 
         case 2: // Register
-            cin>> name>> password;
-            guest.registerClient(name, password);
-            guest.login(&guest, name, password);
-            break;
-
-        case 3:// Add products/replenish stock
-            // cin>> product_name;
-            break;
+            do{
+                cout<< "Name: ";
+                cin>> name;
+                cout<< "Cpf: ";
+                cin>> cpf;
+                cout<< "Password: ";
+                cin>> password;  
+            } while((guest.registerClient(name, cpf, password)));
+            guest.login(&guest, cpf, password);
+            shop();
+        break;
 
         default:
             break;
     }
 
     return 0;
+}
+
+int shop(void){
+    Cart cart;
+    Product product;
+    vector<Product> productList = product.get_productList();
+
+    cart.add_product(productList[5], 15);
+    cout<<cart.get_total()<<endl;
+
+
+    return 0;
+
 }
 
 int stock(void){
@@ -61,18 +75,18 @@ int stock(void){
         case 1: // Add product
             cout<< "Product name: ";
             cin>> product_name;
-            if(product.verifyProduct(product_name)){
-                cout<< "Product already registered"<< endl;
+            while((product.verifyProduct(product_name))==true){
+                cout<< "Product already registered"<<endl;
+                cout<< "Product name: ";
+                cin>>product_name;
             }
-            else{
-                cout<< "Product category: ";
-                cin >> category;
-                cout<< "Price: ";
-                cin >> price;
-                cout<< "Quantity: ";
-                cin >> amount;
-                product.registerProduct(product_name, category, price, amount);
-            }
+            cout<< "Product category: ";
+            cin >> category;
+            cout<< "Price: ";
+            cin >> price;
+            cout<< "Quantity: ";
+            cin >> amount;
+            product.registerProduct(product_name, category, price, amount);
         break;
 
         case 2: //Increase product amount
@@ -94,10 +108,3 @@ int stock(void){
     return 0;
 }
 
-
-int shop(void){
-    string name, password;
-
-    return 0;
-
-}

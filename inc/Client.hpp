@@ -9,13 +9,14 @@ using namespace std;
 class Client: public BaseClass{
     private:
         string name;
+        string cpf;
         string password;
         bool vip = false;
         vector<Client> clientList;
 
     public:
         Client();
-        Client(string name,string password, bool vip);
+        Client(string name, string cpf, string password, bool vip);
         
         string get_name();
         void set_name(string name);
@@ -23,19 +24,22 @@ class Client: public BaseClass{
         string get_password();
         void set_password(string password);
 
+        string get_cpf();
+        void set_cpf(string cpf);
+
         bool get_vipStatus();
         void set_vipStatus(bool vip);
 
-        bool verifyClient(string name);
-        void registerClient(string name, string password);
-        bool login(Client *client, string name, string password);
+        bool registerClient(string name,string cpf, string password);
+        bool login(Client *client, string cpf, string password);
+        bool verifyClient(string cpf);
 
         // Overload operator == 
         bool operator== (Client & obj);
         // Overload operator <<
-        friend std::ostream & operator << (std::ostream &out, Client & obj);
+        friend ostream & operator << (ostream &out, Client & obj);
         // Overload operator >>
-        friend std::istream & operator >> (std::istream &in,  Client &obj);
+        friend istream & operator >> (istream &in,  Client &obj);
 
         void abstract(){}
 };

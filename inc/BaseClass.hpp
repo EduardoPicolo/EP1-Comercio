@@ -41,7 +41,8 @@ class BaseClass{
                 out<<list[i];
             }
             out.close();  
-        } 
+        }
+
 };
 
 #endif
