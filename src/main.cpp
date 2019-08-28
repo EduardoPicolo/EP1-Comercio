@@ -18,6 +18,17 @@ int main(void) {
 
     cout<< "1:Sign in"<< "\t"<< "2:Register"<< endl;
     cin>>  option;
+    while(option!=1&&option!=2){
+        if (cin.fail()){
+            // get rid of failure state
+            cin.clear();
+            cin.ignore(1000, '\n');
+        }
+        cout << "Invalid. Enter 1 for shop or 2 for stock: ";
+        cin>>  option;
+
+    }
+
     switch(option){
         case 1: // Sign in
             do{
@@ -55,18 +66,21 @@ int shop(void){
     Product product;
     vector<Product> productList = product.get_productList();
 
-
-
-    cart.add_product(productList[2], 15);
-    cart.add_product(productList[0], 10);
-
-    for(size_t i=0; i<cart.get_cart().size();i++){
-        cout<<cart.get_cart()[i];
-    }
+    cart.add_product(productList[2], 5);
+    cart.add_product(productList[0], 5);
 
     cout<<cart.get_total()<<endl;
+    cart.confirm_purchase();
 
-    cart.cancel_purchase();
+    // cart.cancel_purchase();
+    // cout<<"CARRINHO: "<<endl;
+    // for(size_t i=0; i<cart.display_cart().size();i++){
+    //     cout<<cart.display_cart()[i]<<endl;
+    // }
+    // cout<<"TOTAL: ";
+    // cout<<cart.get_total()<<endl;
+
+
 
 
     return 0;

@@ -84,6 +84,10 @@ vector<Product> Product:: get_productList(){
     return productList;
 }
 
+void Product:: update_productList(vector<Product> productList){
+    overWrite("stock.txt", productList);
+}
+
 
 
 bool Product:: operator== (Product & obj){

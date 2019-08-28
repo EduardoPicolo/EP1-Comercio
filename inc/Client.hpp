@@ -14,6 +14,8 @@ class Client: public BaseClass{
         bool vip = false;
         vector<Client> clientList;
 
+        bool verifyClient(string cpf);
+
     public:
         Client();
         Client(string name, string cpf, string password, bool vip);
@@ -32,7 +34,6 @@ class Client: public BaseClass{
 
         bool registerClient(string name,string cpf, string password);
         bool login(Client *client, string cpf, string password);
-        bool verifyClient(string cpf);
 
         // Overload operator == 
         bool operator== (Client & obj);

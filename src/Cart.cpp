@@ -4,15 +4,49 @@
 #include <vector>
 #include <string>
 
-Cart:: Cart():total(0){
+int productIndex;
 
+Cart:: Cart():total(0){
 }
 
 void Cart:: add_product(Product product, int amount){
-    product.set_amount(amount);
-    cart.push_back(product);
-    update_total();
-    // total += product.get_price()*product.get_amount();
+    if(verifyCart(product)){ // Product already in cart, increase its amount
+        // cout<<"Increasing amount..."<<endl;
+        cart[productIndex].set_amount(cart[productIndex].get_amount()+amount);
+        update_total();
+    }
+    else{
+        cout<<"Adding product to cart..."<<endl;
+        product.set_amount(amount);
+        cart.push_back(product);
+        update_total();
+    }
+}
+
+bool Cart:: verifyCart(Product product){
+    for(size_t i=0; i<cart.size();i++){
+        if(product==cart[i]){
+            productIndex = i;
+            return true;
+        }
+    }
+    return false;
+}
+
+void Cart::confirm_purchase(){
+    Product product; vector<Product> productList = product.get_productList();
+    for(size_t i=0; i<cart.size(); i++){
+        for(size_t j=0; j<productList.size(); j++){
+            if(cart[i]==productList[j])
+                productList[j].set_amount(productList[j].get_amount()-cart[i].get_amount());
+        }
+    }
+    product.update_productList(productList);
+}
+
+void Cart:: cancel_purchase(){
+    cart.clear();
+    total = 0.0;
 }
 
 void Cart:: update_total(){
@@ -26,21 +60,6 @@ double Cart:: get_total(){
     return total;
 }
 
-vector<Product> Cart:: get_cart(){
+vector<Product> Cart:: display_cart(){
     return cart;
-}
-
-void Cart:: set_cart(vector<Product> list){
-    this-> cart = list;
-}
-
-void Cart:: cancel_purchase(){
-    Product product; vector<Product> list = product.get_productList();
-    for(size_t i=0; i<cart.size(); i++){
-        for(size_t j=0; j<list.size()-1; j++){
-            if(cart[i]==list[j])
-                cart[i].set_amount(list[i].get_amount());
-        }
-    }
-    total = 0.0;
 }

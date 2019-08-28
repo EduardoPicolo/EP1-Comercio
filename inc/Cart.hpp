@@ -10,9 +10,10 @@
 
 class Cart : public BaseClass{
     private:
-        vector<Product> cart;
         double total;
+        vector<Product> cart;
 
+        bool verifyCart(Product product);
         void update_total();
 
     public:
@@ -20,10 +21,10 @@ class Cart : public BaseClass{
         double get_total();
 
         void add_product(Product product, int amount);
-        vector<Product> get_cart();
-        void set_cart(vector<Product> list);
-
+        void confirm_purchase();
         void cancel_purchase();
+
+        vector<Product> display_cart();
         
         void abstract(){};
 };

@@ -36,6 +36,7 @@ class Product : public BaseClass{
         void set_amount(int amount);
 
         vector<Product> get_productList();
+        void update_productList(vector<Product> productList);
 
 
 
