@@ -14,11 +14,13 @@ class BaseClass{
         template<class myClass>
         static vector<myClass> readFile(string file){
             vector<myClass> objList;
-            // Open the file and fill in vector with objects
-            std::ifstream in(file);    
+            ifstream in;
+            in.open(file);
+            if(!in){
+                cerr<<"ERROR OPENING FILE."<<endl;
+            }
             myClass temp;
-            while(in){
-                in>> temp;
+            while(in>>temp){
                 objList.push_back(temp);
             }
             in.close();
@@ -37,7 +39,7 @@ class BaseClass{
         template<class myClass>
         static void overWrite(string file, vector<myClass> list){
             std::ofstream out(file);
-            for(size_t i=0; i<list.size()-1; i++){
+            for(size_t i=0; i<list.size(); i++){
                 out<<list[i];
             }
             out.close();  

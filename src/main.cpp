@@ -55,7 +55,7 @@ int shop(void){
     vector<Product> productList = Stock::get_productList();
 
     cout<<"CATALOGUE"<<endl;
-    for(size_t i=0; i<productList.size()-1; i++){
+    for(size_t i=0; i<productList.size(); i++){
         cout<<i<<"\t";productList[i].displayProduct();
     }
 
@@ -73,7 +73,7 @@ int shop(void){
         }
 
         cout<<"CATALOGUE"<<endl;
-        for(size_t i=0; i<productList.size()-1; i++){
+        for(size_t i=0; i<productList.size(); i++){
             cout<<i<<"\t";productList[i].displayProduct();
         }
     } while(option==1);
