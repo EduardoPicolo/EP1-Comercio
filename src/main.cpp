@@ -51,22 +51,36 @@ int start(void){
 
 int shop(void){
     Cart cart;
-    Product product;
+    int product, amount, option;
     vector<Product> productList = Stock::get_productList();
 
-    cart.add_product(productList[2], 5);
-    cart.add_product(productList[0], 5);
+    cout<<"CATALOGUE"<<endl;
+    for(size_t i=0; i<productList.size()-1; i++){
+        cout<<i<<"\t";productList[i].displayProduct();
+    }
 
-    cout<<cart.get_total()<<endl;
+    do{
+        cout<< "Product: ";
+        cin>> product;
+        cout<< "Amount: ";
+        cin>> amount;
+        cart.add_product(productList[product], amount);
+        cout<< "1:Continue shoppping"<<"\t"<<"2:Confirm purchase"<<endl;
+        cin>> option;
+
+        if(Stock:: verify_amount(productList[product], amount)){
+            productList[product].set_amount(productList[product].get_amount()-amount);
+        }
+
+        cout<<"CATALOGUE"<<endl;
+        for(size_t i=0; i<productList.size()-1; i++){
+            cout<<i<<"\t";productList[i].displayProduct();
+        }
+    } while(option==1);
+
+    cout<<"Total: "<<cart.get_total()<<endl;
     cart.confirm_purchase();
-
-    // cart.cancel_purchase();
-    // cout<<"CARRINHO: "<<endl;
-    // for(size_t i=0; i<cart.display_cart().size();i++){
-    //     cout<<cart.display_cart()[i]<<endl;
-    // }
-    // cout<<"TOTAL: ";
-    // cout<<cart.get_total()<<endl;
+    start();
 
     return 0;
 }
@@ -84,6 +98,7 @@ int stock(void){
         break;
 
         case 2: //Increase product amount
+            cout<<"Product: ";
             cin>> product_name;
             while(!(Stock::verify_product(product_name))){
                 cout<<"Product: ";

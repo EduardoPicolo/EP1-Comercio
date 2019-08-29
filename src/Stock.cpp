@@ -31,17 +31,18 @@ bool Stock:: verify_product(string product_name){
     return false; // Product NOT registered
 }
 
-bool Stock:: verify_amount(Product product){
-    
+bool Stock:: verify_amount(Product product, int amount){
+    if(product.get_amount()>=amount){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 bool Stock:: restock(string product_name,int amount){
     if(verify_product(product_name)){
-        // cout<<"RESTOCKING..."<<endl;
         productList[pos].set_amount(productList[pos].get_amount()+amount);
-        // for(size_t i=0; i<productList.size(); i++){
-        //     cout<<"P_LIST: "<<productList[i];
-        // }
         overWrite<Product>("stock.txt", productList);
         return true;
     }
@@ -53,5 +54,8 @@ bool Stock:: restock(string product_name,int amount){
 
 vector<Product> Stock:: get_productList(){
     return productList = readFile<Product>("stock.txt");
+}
+
+void Stock:: update_productList(){
 }
 
