@@ -12,7 +12,7 @@ class BaseClass{
         virtual void abstract() = 0;
     protected:
         template<class myClass>
-        vector<myClass> readFile(string file){
+        static vector<myClass> readFile(string file){
             vector<myClass> objList;
             // Open the file and fill in vector with objects
             std::ifstream in(file);    
@@ -26,7 +26,7 @@ class BaseClass{
         }
 
         template<class myClass>
-        void writeFile(string file, myClass obj){
+        static void writeFile(string file, myClass obj){
             // Write new obj to file
             std::ofstream out(file, ios:: app);
             out<< obj;
@@ -35,8 +35,8 @@ class BaseClass{
         }
 
         template<class myClass>
-        void overWrite(string file, vector<myClass> list){
-            std::ofstream out(file, ios::trunc);
+        static void overWrite(string file, vector<myClass> list){
+            std::ofstream out(file);
             for(size_t i=0; i<list.size()-1; i++){
                 out<<list[i];
             }

@@ -13,38 +13,8 @@ Product:: Product(string product_name, string category, double price, int amount
     cout<< "New product added!"<< endl;
 }
 
-void Product:: registerProduct(string product_name, string category, double price, int amount){
-    if(!verifyProduct(product_name)){
-        cout<< "Adding new product"<< endl;
-        Product product(product_name, category, price, amount);
-        productList.push_back(product);
-        // Write new product
-        writeFile<Product>("stock.txt", product);
-    }
-    else{
-        cout<< "Product already registered."<< endl;
-    }
-}
-
-bool Product:: verifyProduct(string product_name){
-    productList =  readFile<Product>("stock.txt");
-    //  Search product
-    for(size_t i =0; i<productList.size();i++){
-        if(product_name== productList[i].get_product_name()){ // Product already registered
-            productPosition = i;
-            return true;
-        }
-    }
-    return false; // Product NOT registered
-}
-
-void Product:: restock(int amount){
-    productList[productPosition].set_amount(productList[productPosition].get_amount()+amount);
-    overWrite("stock.txt", productList);
-}
-
 void  Product:: displayProduct(){
-    cout<< this-> product_name<< "\t"<< this-> category<< "\t"<< this-> price<<endl;
+    cout<< this-> product_name<< "\t"<< this-> category<< "\t"<< this-> price<<"\t"<< this-> amount<<endl;
 }
 
 string Product:: get_product_name(){
@@ -77,11 +47,6 @@ void Product:: set_price(double price){
 
 void Product:: set_amount(int amount){
     this-> amount = amount;
-}
-
-vector<Product> Product:: get_productList(){
-    productList = readFile<Product>("stock.txt");
-    return productList;
 }
 
 void Product:: update_productList(vector<Product> productList){

@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 
+vector<Client> Client::clientList = readFile<Client>("clients.txt");
 int clientPostion;
 
 Client:: Client(){
@@ -46,7 +47,7 @@ bool Client:: login(Client *client, string cpf, string password){
 }
 
 bool Client:: verifyClient(string cpf){
-    clientList = readFile<Client>("clients.txt");
+    // clientList = readFile<Client>("clients.txt");
     // Search client
     for(size_t i=0; i<clientList.size();i++){
         if(cpf == clientList[i].get_cpf()){ // Client already registered
@@ -87,6 +88,10 @@ bool Client:: get_vipStatus(){
 
 void Client:: set_vipStatus(bool vip){
     this-> vip = vip;
+}
+
+vector<Client> Client:: get_clientList(){
+    return clientList;
 }
 
 

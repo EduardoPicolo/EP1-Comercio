@@ -12,15 +12,10 @@ class Product : public BaseClass{
         string category;
         double price;
         int amount;
-        vector<Product> productList;
-
     
     public:
         Product();
         Product(string product_name, string category, double price, int amount);
-        void registerProduct(string product_name, string category, double price, int amount);
-        bool verifyProduct(string product_name);
-        void restock(int amount);
         void displayProduct();
 
         string get_product_name();
@@ -35,8 +30,7 @@ class Product : public BaseClass{
         int get_amount();
         void set_amount(int amount);
 
-        vector<Product> get_productList();
-        void update_productList(vector<Product> productList);
+        static void update_productList(vector<Product> productList);
 
 
 

@@ -1,4 +1,5 @@
 #include "Cart.hpp"
+#include "Stock.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -34,14 +35,14 @@ bool Cart:: verifyCart(Product product){
 }
 
 void Cart::confirm_purchase(){
-    Product product; vector<Product> productList = product.get_productList();
+    vector<Product> productList = Stock::get_productList();
     for(size_t i=0; i<cart.size(); i++){
         for(size_t j=0; j<productList.size(); j++){
             if(cart[i]==productList[j])
                 productList[j].set_amount(productList[j].get_amount()-cart[i].get_amount());
         }
     }
-    product.update_productList(productList);
+    Product::update_productList(productList);
 }
 
 void Cart:: cancel_purchase(){
