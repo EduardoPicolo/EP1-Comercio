@@ -2,13 +2,12 @@
 #define CART_HPP
 
 #include "Product.hpp"
-#include "BaseClass.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
 
-class Cart : public BaseClass{
+class Cart{
     private:
         double total;
         vector<Product> cart;

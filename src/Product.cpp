@@ -49,25 +49,6 @@ void Product:: set_amount(int amount){
     this-> amount = amount;
 }
 
-void Product:: update_productList(vector<Product> productList){
-    overWrite("stock.txt", productList);
-}
-
-
-
 bool Product:: operator== (Product & obj){
     return (product_name == obj.product_name) && (category == obj.category)&& (price== obj.price);
-}
-
-ostream & operator << (std::ostream &out, Product & obj){
-    	out<< obj.product_name<< "\t"<< obj.category<< "\t"<< obj.price<< "\t"<< obj.amount<< std::endl;
-		return out;
-}
-
-istream & operator >> (std::istream &in,  Product &obj){
-    	in >> obj.product_name;
-		in >> obj.category;
-        in >> obj.price;
-        in >> obj.amount;
-		return in;
 }

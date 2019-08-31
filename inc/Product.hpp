@@ -1,12 +1,11 @@
 #ifndef PRODUCT_HPP
 #define PRODUCT_HPP
 
-#include "BaseClass.hpp"
 #include <string>
 #include <vector>
 using namespace std;
 
-class Product : public BaseClass{
+class Product{
     private:
         string product_name;
         string category;
@@ -30,18 +29,8 @@ class Product : public BaseClass{
         int get_amount();
         void set_amount(int amount);
 
-        static void update_productList(vector<Product> productList);
+        bool operator == (Product & obj);
 
-
-
-        // Overload operator == 
-        bool operator== (Product & obj);
-        // Overload operator <<
-        friend std::ostream & operator << (std::ostream &out, Product & obj);
-        // Overload operator >>
-        friend std::istream & operator >> (std::istream &in,  Product &obj);
-
-        void abstract(){}
 };
 
 #endif

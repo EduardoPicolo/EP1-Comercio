@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <type_traits>
 using namespace std;
 
 class BaseClass{
@@ -13,18 +14,7 @@ class BaseClass{
     protected:
         template<class myClass>
         static vector<myClass> readFile(string file){
-            vector<myClass> objList;
-            ifstream in;
-            in.open(file);
-            if(!in){
-                cerr<<"ERROR OPENING FILE."<<endl;
-            }
-            myClass temp;
-            while(in>>temp){
-                objList.push_back(temp);
-            }
-            in.close();
-            return objList;
+
         }
 
         template<class myClass>

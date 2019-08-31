@@ -2,12 +2,11 @@
 #define STOCK_HPP
 
 #include "Product.hpp"
-#include "BaseClass.hpp"
 #include <string>
 #include <vector>
 using namespace std;
 
-class Stock: public BaseClass{
+class Stock{
     virtual void abstract() = 0;
     private:
         static vector<Product> productList;
@@ -19,6 +18,10 @@ class Stock: public BaseClass{
         static bool restock(string product_name, int amount);
         static void update_productList();
         static vector<Product> get_productList();
+        static vector<Product> read_file(string file_name);
+        static void write_file(string file_name, Product new_product);
+        static void overwrite_file(string file_name, vector<Product> list);
+        static void getData();
 
 };
 

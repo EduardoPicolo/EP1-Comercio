@@ -1,4 +1,16 @@
-a	a	1	1
-b	b	1	1
-c	c	1	0
-d	d	1	11
+biscoito sal
+food
+5
+10
+obelixo
+lixo
+3.5
+25
+coelho
+food
+30
+30
+teste teste
+teste
+1.99
+2
