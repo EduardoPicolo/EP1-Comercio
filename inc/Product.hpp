@@ -29,7 +29,13 @@ class Product{
         int get_amount();
         void set_amount(int amount);
 
+    
         bool operator == (Product & obj);
+        // Overload operator <<
+        friend ostream & operator << (ostream &out, const Product & obj);
+        // Overload operator >>
+        friend istream & operator >> (istream &in,  Product &obj);
+
 
 };
 

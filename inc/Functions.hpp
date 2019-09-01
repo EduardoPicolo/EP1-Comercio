@@ -1,6 +1,7 @@
 #ifndef FUNCTIONS_HPP
 #define FUNCTIONS_HPP
 
+#include "BaseClass.hpp"
 #include "Client.hpp"
 #include "Product.hpp"
 #include "Stock.hpp"

@@ -1,16 +1,3 @@
-biscoito sal
-food
-5
-10
-obelixo
-lixo
-3.5
-25
-coelho
-food
-30
-30
-teste teste
-teste
-1.99
-2
+teste-teste	teste	10	20
+new-new	new	1	15
+bisc-sal	food	10.99	99

@@ -1,6 +1,9 @@
 #include "Functions.hpp"
 
 void add_product();
+void login();
+void fill_string_spaces(string & str);
+void restock();
 
 int start(void){
     int option = 0;
@@ -36,10 +39,12 @@ int shop(void){
     Cart cart;
     int product, amount, option = 0;
     vector<Product> productList = Stock::get_productList();
+    
+    login();
 
     do{
         cout<<"CATALOGUE"<<endl;
-        cout<<"Index"<<"\t"<<"Product"<<"\t\t"<<"Category"<<"\t"<<"Price"<<"\t"<<"Amount"<<endl;
+        cout<<"Index"<<"\t"<<"Product"<<"\t"<<"Category"<<"\t"<<"Price"<<"\t"<<"Amount"<<endl;
         for(size_t i=0; i<productList.size(); i++){
             cout<<i<<"\t";productList[i].displayProduct();
         }
@@ -76,9 +81,7 @@ int shop(void){
 }
 
 int stock(void){
-    string product_name, category;
-    int option = 0, amount;
-    Product product;
+    int option;
     cout<< "STOCK"<< endl;
     cout<< "1: Add product"<< "\t"<< "2: Replenish stock"<< endl;
     cin >> option;
@@ -87,35 +90,25 @@ int stock(void){
             add_product();
         break;
 
-        case 2: //Increase product amount
-            cout<<"Product: ";
-            getline(cin>>ws, product_name);
-            while(!(Stock::verify_product(product_name))){
-                cout<<"Product: ";
-                getline(cin>>ws, product_name);
-            }
-            cout<< "Quantity increase "<<"⇪ ";
-            cin>> amount;
-            Stock::restock(product_name, amount);
+        case 2: //Increase product amount       
+            restock();    
+        break;
+
+        default:
             start();
         break;
-
-    default:
-        break;
     }
-
     return 0;
 }
 
 void add_product(){
-    // char option = 'a';
     int option = 0;
     string product_name, category;
-    double price;
-    int amount;
+    double price; int amount;
 
     cout<< "Product name: ";
     getline(cin>>ws, product_name);
+    fill_string_spaces(product_name);
     while(Stock::verify_product(product_name)){
         cout<< "Product already registered"<<endl;
         cout<< "1:Add new product"<<"\t"<<"2:Cancel"<<endl;
@@ -138,6 +131,7 @@ void add_product(){
     }
     cout<< "Product category: ";
     getline(cin>>ws, category);
+        fill_string_spaces(category);
     cout<< "Price: ";
     cin>> price;
     price = price*100;
@@ -145,4 +139,43 @@ void add_product(){
     cin>> amount;
     Stock::register_product(product_name, category, price, amount);
     start();
+}
+
+void restock(){
+    string product_name, category;
+    int amount;
+
+    cout<<"Product: ";
+    getline(cin>>ws, product_name);
+        fill_string_spaces(product_name);
+
+    while(!(Stock::verify_product(product_name))){
+        cout<<"Product: ";
+        getline(cin>>ws, product_name);
+            fill_string_spaces(product_name);
+    }
+
+    cout<< "Quantity increase "<<"⇪ ";
+    cin>> amount;
+    Stock::restock(product_name, amount);
+    start();
+}
+
+void fill_string_spaces(string & str){
+    for(size_t i=0; i<str.length(); i++){
+        if(str[i] == ' ')
+            str[i] = '-';
+    }
+}
+
+void login(){
+    string cpf;
+
+    cout<<"Client CPF: ";
+    getline(cin>>ws, cpf);
+    for(size_t i=0; i<cpf.length(); i++){
+        if(!isdigit(cpf[i])){
+            cout<<"Invalid."<<endl;
+        }
+    }
 }

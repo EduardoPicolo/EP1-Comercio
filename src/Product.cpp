@@ -14,7 +14,7 @@ Product:: Product(string product_name, string category, double price, int amount
 }
 
 void  Product:: displayProduct(){
-    cout<< this-> product_name<< "\t"<< this-> category<< "\t"<< this-> price<<"\t"<< this-> amount<<endl;
+    cout<< product_name <<"\t"<< category <<"\t"<< price <<"\t"<< amount<<endl;
 }
 
 string Product:: get_product_name(){
@@ -49,6 +49,22 @@ void Product:: set_amount(int amount){
     this-> amount = amount;
 }
 
-bool Product:: operator== (Product & obj){
+
+bool Product:: operator == (Product & obj){
     return (product_name == obj.product_name) && (category == obj.category)&& (price== obj.price);
 }
+
+// Overload operator <<
+ostream & operator << (ostream &out, const Product & obj){
+	out << obj.product_name << "\t" << obj.category << "\t" << obj.price << "\t" << obj.amount <<endl;
+	return out;
+}
+// Overload operator >>
+istream & operator >> (istream &in,  Product &obj){
+	in >> obj.product_name;
+	in >> obj.category;
+	in >> obj.price;
+    in >> obj.amount;
+	return in;
+}
+

@@ -1,5 +1,6 @@
 #include "Cart.hpp"
 #include "Stock.hpp"
+#include "BaseClass.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -47,7 +48,8 @@ void Cart::confirm_purchase(){
                 productList[j].set_amount(productList[j].get_amount()-cart[i].get_amount());
         }
     }
-    Stock::overwrite_file("stock.txt" , productList);
+    // Stock::overwrite_file("stock.txt" , productList);
+    Stock::over_write<Product>("stock.txt", productList);
     cart.clear();
 }
 

@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-vector<Client> Client::clientList = read_file("clients.txt");
+vector<Client> Client::clientList;
 int clientPostion;
 
 Client:: Client(){
@@ -20,7 +20,7 @@ bool Client:: registerClient(string name, string cpf){
         cout<< "Registering new client... ";
         Client client(name, cpf);
         clientList.push_back(client);
-        write_file("clients.txt", client);
+        write_file<Client>("clients.txt", client);
         return true;
     }
     else{
@@ -30,7 +30,7 @@ bool Client:: registerClient(string name, string cpf){
 }
 
 bool Client:: verifyClient(string cpf){
-    clientList = read_file("clients.txt");
+    clientList = read_file<Client>("clients.txt");
     // Search client
     for(size_t i=0; i<clientList.size(); i++){
         if(cpf == clientList[i].get_cpf()){ // Client already registered
@@ -66,44 +66,63 @@ void Client:: set_vipStatus(bool vip){
 }
 
 vector<Client> Client:: get_clientList(){
+    clientList = read_file<Client>("clients.txt");
     return clientList;
 }
 
-vector<Client> Client:: read_file(string file_name){
-    fstream file;
-    file.open(file_name, ios::in);
-    vector<Client> list;
-    Client temp;
-    string name, cpf;
-    // file.seekg(0);
-    while(getline(file, name)&&getline(file, cpf)){
-        temp.set_name(name);
-        temp.set_cpf(cpf);
-        temp.set_vipStatus(temp.get_vipStatus());
-        list.push_back(temp);
-    }
-    file.close();
 
-    return list;
+bool Client:: operator == (Client & obj){
+    return (name == obj.name) && (cpf == obj.cpf);
 }
 
-void Client:: write_file(string file_name, Client newClient){
-    fstream file;
-    file.open(file_name, ios::out | ios::app);
-    file<<newClient.get_name()<< endl;
-    file<<newClient.get_cpf()<< endl;
-    file<<newClient.get_vipStatus()<<endl;
-    file.close();
+// Overload operator <<
+ostream & operator << (ostream &out, const Client & obj){
+	out << obj.name << "\t" << obj.cpf <<endl;
+	return out;
+}
+// Overload operator >>
+istream & operator >> (istream &in,  Client &obj){
+	in >> obj.name;
+	in >> obj.cpf;
+	return in;
 }
 
+// *BUGGADO* //
+// vector<Client> Client:: read_file(string file_name){
+//     fstream file;
+//     file.open(file_name, ios::in);
+//     vector<Client> list;
+//     Client temp;
+//     string name, cpf;
+//     // file.seekg(0);
+//     while(getline(file, name)&&getline(file, cpf)){
+//         temp.set_name(name);
+//         temp.set_cpf(cpf);
+//         temp.set_vipStatus(temp.get_vipStatus());
+//         list.push_back(temp);
+//     }
+//     file.close();
 
-void Client:: overwrite_file(string file_name, vector<Client> list){
-    fstream file;
-    file.open(file_name, ios::out);
-    for(size_t i=0; i<list.size(); i++){
-        file<<list[i].get_name()<< endl;
-        file<<list[i].get_cpf()<< endl;
-        file<<list[i].get_vipStatus()<<endl;
-    }
-    file.close();
-}
+//     return list;
+// }
+
+// void Client:: write_file(string file_name, Client newClient){
+//     fstream file;
+//     file.open(file_name, ios::out | ios::app);
+//     file<<newClient.get_name()<< endl;
+//     file<<newClient.get_cpf()<< endl;
+//     file<<newClient.get_vipStatus()<<endl;
+//     file.close();
+// }
+
+
+// void Client:: overwrite_file(string file_name, vector<Client> list){
+//     fstream file;
+//     file.open(file_name, ios::out);
+//     for(size_t i=0; i<list.size(); i++){
+//         file<<list[i].get_name()<< endl;
+//         file<<list[i].get_cpf()<< endl;
+//         file<<list[i].get_vipStatus()<<endl;
+//     }
+//     file.close();
+// }
