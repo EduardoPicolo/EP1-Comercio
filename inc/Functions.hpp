@@ -6,6 +6,8 @@
 #include "Product.hpp"
 #include "Stock.hpp"
 #include "Cart.hpp"
+#include "stockMode.hpp"
+#include "shopMode.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -13,8 +15,9 @@
 
 using namespace std;
 
+void fill_string_spaces(string & str);
 int start(void);
-int stock(void);
-int shop(void);
+// int stock(void);
+// int shop(void);
 
 #endif
