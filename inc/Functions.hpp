@@ -17,7 +17,5 @@ using namespace std;
 
 void fill_string_spaces(string & str);
 int start(void);
-// int stock(void);
-// int shop(void);
 
 #endif

@@ -41,6 +41,12 @@ bool Client:: verifyClient(string cpf){
     return false; // Client NOT registered
 }
 
+Client Client:: login_client(string cpf){
+    verifyClient(cpf);
+    cout<<"\t" "Client: "<< clientList[clientPostion];
+    return clientList[clientPostion];
+}
+
 string Client:: get_name(){
     return name;
 }

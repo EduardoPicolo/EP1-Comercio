@@ -3,7 +3,7 @@
 void stock(){
     int option;
     cout<< "STOCK"<< endl;
-    cout<< "1:Add product"<< "\t"<< "2:Replenish stock"<< endl;cout<< ">> ";
+    cout<<"\t" "1:Add product"<< "\t"<< "2:Replenish stock"<< endl;cout<< ">> ";
     cin >> option;
     switch (option){
         case 1: // Add product
@@ -30,7 +30,7 @@ void add_product(){
     fill_string_spaces(product_name);
     while(Stock::verify_product(product_name)){
         cout<< "Product already registered"<<endl;
-        cout<< "1:Add new product"<<"\t"<<"2:Cancel"<<endl;cout<< ">> ";
+        cout<<"\t" "1:Add new product"<<"\t"<<"2:Cancel"<<endl;cout<< ">> ";
         cin>> option;
         while(option!=1&&option!=2){
             if (cin.fail()){

@@ -19,10 +19,7 @@ class Client : public BaseClass{
 
         static bool registerClient(string name, string cpf);
         static bool verifyClient(string cpf);
-
-        // static vector<Client> read_file(string file_name);
-        // static void write_file(string file_name, Client newClient);
-        // static void overwrite_file(string file_name, vector<Client> list);
+        static Client login_client(string cpf);
         
         string get_name();
         void set_name(string name);

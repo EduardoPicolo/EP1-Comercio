@@ -14,7 +14,7 @@ Product:: Product(string product_name, string category, double price, int amount
 }
 
 void  Product:: displayProduct(){
-    cout<< product_name <<"\t"<< category <<"\t"<< price <<"\t"<< amount<<endl;
+    cout<< product_name <<"\t"<<"$"<<price <<"\t"<< amount<<endl;
 }
 
 string Product:: get_product_name(){

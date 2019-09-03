@@ -1,11 +1,13 @@
 #include "shopMode.hpp"
 
+Client * client = new Client();
+
 void shop(void){
     Cart cart;
-    int product, amount, option = 0;
+    unsigned int product, amount, option = 0;
     vector<Product> productList = Stock::get_productList();
     
-    cout<< "1:Login"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
+    cout<<"\t" "1:Login"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
     cin>> option;
     while(option!=1&&option!=2&&option!=3){
         if (cin.fail()){
@@ -37,17 +39,24 @@ void shop(void){
     }
 
     do{
-        cout<<"CATALOGUE"<<endl;
-        cout<<"Index"<<"\t"<<"Product"<<"\t"<<"     Category"<<"\t"<<"Price"<<"\t"<<"Amount"<<endl;
+        // cout<< "TESTE: "<< client->get_name()<<endl;
+        cout<<"\t\t\t" "*CATALOGUE*"<<endl;
+        cout<<"\t" "Index"<<"\t"<< "Product"<<"\t\t"<< "Price"<<"\t"<< "Amount"<<endl;
         for(size_t i=0; i<productList.size(); i++){
-            cout<<i<<"\t";productList[i].displayProduct();
+            cout<<"\t"<<i<<"\t";productList[i].displayProduct();
         }
-        cout<< "Product: ";
+
+        cout<< "Product Index: ";
         cin>> product;
+        while(product>productList.size()){
+            cout<< "Invalid product index"<<endl;
+            cout<< "Product Index: ";
+            cin>> product;
+        }
         cout<< "Amount: ";
         cin>> amount;
         cart.add_product(productList[product], amount);
-        cout<< "1:Continue shoppping"<<"\t"<<"2:Confirm purchase"<<"\t"<<"3:Cancel"<<endl;cout<<">> ";
+        cout<<"\t" "1:Continue shoppping"<<"\t"<< "2:Confirm purchase"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
         cin>> option;
         while(option!=1&&option!=2&&option!=3){
             if (cin.fail()){
@@ -55,22 +64,31 @@ void shop(void){
                 cin.clear();
                 cin.ignore(1000, '\n');
             }
-            cout << "Invalid. Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel: ";
+            cout<< "Invalid. Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel: ";
             cin>>  option;
         }
-        if(option==3){
-            cart.cancel_purchase();
-            start();
+        switch(option){
+            case 1:
+            break;
+            case 2:
+                cout<<"Total: "<<cart.get_total()<<endl;
+                cart.confirm_purchase();
+                start();
+            break;
+            case 3:
+                cart.cancel_purchase();
+                start();
+            break;
+
+            default:
+            break;
         }
         if(Stock:: verify_amount(productList[product], amount)){
             productList[product].set_amount(productList[product].get_amount()-amount);
         }
     } while(option==1);
-
-    cout<<"Total: "<<cart.get_total()<<endl;
-    cart.confirm_purchase();
-    start();
 }
+
 
 void login(){
     int option = 0;
@@ -78,12 +96,35 @@ void login(){
 
     cout<<"Client CPF: ";
     getline(cin>>ws, cpf);
-    if(Client:: verifyClient(cpf)){
-        cout<< "OKOKOKOKOKOKOKOK!"<<endl;
+    if(Client::verifyClient(cpf)){
+        *client = Client::login_client(cpf);
+        cout<<"\t" "1:Confirm"<<"\t"<<"2:Enter new CPF"<<"\t"<<"3:Cancel"<<endl;cout<< ">> ";
+        cin>> option;
+        while(option!=1&&option!=2&&option!=3){
+            if (cin.fail()){
+                // get rid of failure state
+                cin.clear();
+                cin.ignore(1000, '\n');
+            }
+            cout<< "Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel: ";
+            cin>>  option;
+        }
+        switch(option){
+            case 1:
+            break;
+
+            case 2:
+                login();
+            break;
+
+            case 3:
+                start();
+            break;
+        }
     }
     else{
         cout<< "Client not found"<<endl;
-        cout<< "1:Enter new CPF"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<<">> ";
+        cout<<"\t" "1:Enter new CPF"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<<">> ";
         cin>> option;
         while(option!=1 && option!=2 && option!=3){
             if (cin.fail()){
@@ -125,7 +166,7 @@ void register_client(){
     switch(Client::verifyClient(cpf)){
         case true:
             cout<< "Client already registered"<<endl;
-            cout<< "1:Try again"<<"\t"<< "2:Login"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
+            cout<<"\t" "1:Try again"<<"\t"<< "2:Login"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
             cin>> option;
             while(option!=1 && option!=2 && option!=3){
                 if (cin.fail()){
@@ -156,6 +197,7 @@ void register_client(){
 
         case false:
             Client::registerClient(name, cpf);
+            *client = Client::login_client(cpf);
         break;
     }
 }
