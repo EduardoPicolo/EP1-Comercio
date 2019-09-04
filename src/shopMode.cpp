@@ -49,6 +49,11 @@ void shop(void){
         cout<< "Product Index: ";
         cin>> product;
         while(product>productList.size()){
+            if (cin.fail()){
+                // get rid of failure state
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
             cout<< "Invalid product index"<<endl;
             cout<< "Product Index: ";
             cin>> product;

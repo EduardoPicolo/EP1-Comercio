@@ -1,4 +1,5 @@
 #include "Product.hpp"
+#include "Functions.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>

@@ -1,8 +1,5 @@
 #include "Client.hpp"
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
+#include "Functions.hpp"
 
 vector<Client> Client::clientList;
 int clientPostion;
