@@ -77,6 +77,15 @@ void restock(){
 
     cout<< "Quantity increase "<<"⇪ ";
     cin>> amount;
+    while(amount<0){
+        if (cin.fail()){
+            // get rid of failure state
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        cout<< "Invalid amount"<<endl;
+        cin>> amount;
+    }
     Stock::restock(product_name, amount);
     start();
 }

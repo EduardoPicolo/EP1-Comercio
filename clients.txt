@@ -1,4 +1,1 @@
-teste	123
-new-new	000
-qwerty	999
-xxxx-xxxx	1
+teste-teste	1

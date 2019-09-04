@@ -1,13 +1,14 @@
 #ifndef STOCK_HPP
 #define STOCK_HPP
 
-#include "BaseClass.hpp"
 #include "Product.hpp"
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 using namespace std;
 
-class Stock : public BaseClass{
+class Stock{
     private:
         static vector<Product> productList;
 

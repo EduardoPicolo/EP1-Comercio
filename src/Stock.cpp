@@ -1,9 +1,5 @@
 #include "Stock.hpp"
-// #include "BaseClass.hpp"
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
+#include "Functions.hpp"
 
 vector<Product> Stock::productList;
 int pos;

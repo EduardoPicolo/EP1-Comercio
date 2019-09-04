@@ -2,10 +2,13 @@
 #define CART_HPP
 
 #include "Product.hpp"
+#include "Stock.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
+
+using namespace std;
 
 class Cart{
     private:

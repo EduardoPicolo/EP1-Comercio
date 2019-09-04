@@ -1,12 +1,11 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include "BaseClass.hpp"
 #include <string>
 #include <vector>
 using namespace std;
 
-class Client : public BaseClass{
+class Client{
     private:
         string name;
         string cpf;
