@@ -27,17 +27,13 @@ void add_product(){
 
     cout<< "Product name: ";
     getline(cin>>ws, product_name);
-    fill_string_spaces(product_name);
+        fill_string_spaces(product_name);
     while(Stock::verify_product(product_name)){
         cout<< "Product already registered"<<endl;
         cout<<"\t" "1:Add new product"<<"\t"<<"2:Cancel"<<endl;cout<< ">> ";
         cin>> option;
         while(option!=1&&option!=2){
-            if (cin.fail()){
-                // get rid of failure state
-                cin.clear();
-                cin.ignore(1000, '\n');
-        }
+            clear_fail_state();
             cout<< "Invalid. Enter 1 to add a new product or 2 to cancel: ";
             cin>>  option;
         }
@@ -53,9 +49,21 @@ void add_product(){
         fill_string_spaces(category);
     cout<< "Price: ";
     cin>> price;
+    while(price<=0){
+        clear_fail_state();
+        cout<< "Invalid"<<endl;
+        cout<< "Price: ";
+        cin>> price;
+    }
     price = price*100;
-    cout<< "Quantity: ";
+    cout<< "Amount: ";
     cin>> amount;
+    while(amount<=0){
+        clear_fail_state();
+        cout<< "Invalid"<<endl;
+        cout<< "Amount: ";
+        cin>> amount;
+    }
     Stock::register_product(product_name, category, price, amount);
     start();
 }
@@ -67,7 +75,6 @@ void restock(){
     cout<<"Product: ";
     getline(cin>>ws, product_name);
         fill_string_spaces(product_name);
-
     while(!(Stock::verify_product(product_name))){
         cout<< "Product not found"<<endl;
         cout<< "Product: ";
@@ -77,12 +84,8 @@ void restock(){
 
     cout<< "Quantity increase "<<"⇪ ";
     cin>> amount;
-    while(amount<0){
-        if (cin.fail()){
-            // get rid of failure state
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
+    while(amount<=0){
+        clear_fail_state();
         cout<< "Invalid amount"<<endl;
         cin>> amount;
     }

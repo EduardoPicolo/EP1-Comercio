@@ -13,19 +13,19 @@ Cart:: Cart():total(0){
 void Cart:: add_product(Product product, int amount){
     if(Stock:: verify_amount(product, amount)){
         if(verifyCart(product)){ // Product already in cart, increase its amount
-            cout<<"Increasing amount..."<<endl;
+            cout<< "Increasing amount..."<<endl;
             cart[productIndex].set_amount(cart[productIndex].get_amount()+amount);
             update_total();
         }
         else{
-            cout<<"Adding product to cart..."<<endl;
+            cout<< "Adding product to cart..."<<endl;
             product.set_amount(amount);
             cart.push_back(product);
             update_total();
         }
     }
     else{
-        cout<<"Low stock"<<endl;
+        cout<< "Invalid amount"<<endl;
     }
 }
 

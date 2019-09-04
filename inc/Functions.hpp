@@ -14,8 +14,9 @@
 #include <limits>
 using namespace std;
 
-int start(void);
+void start();
 void fill_string_spaces(string & str);
+void clear_fail_state();
 
 template<class myClass>
 void over_write(string file_name, vector<myClass> list);

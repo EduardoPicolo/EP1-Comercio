@@ -1,15 +1,11 @@
 #include "Functions.hpp"
 
-int start(void){
+void start(){
     int option = 0;
     cout<<"\t" "1:Shop"<<"\t"<< "2:Stock"<<endl;cout<< ">> ";
     cin>>  option;
     while(option!=1&&option!=2){
-        if (cin.fail()){
-            // get rid of failure state
-            cin.clear();
-            cin.ignore(1000, '\n');
-        }
+        clear_fail_state();
         cout << "Invalid. Enter 1 for shop or 2 for stock: ";
         cin>>  option;
     }
@@ -26,8 +22,6 @@ int start(void){
         default:
         break;
     }
-
-    return 0;
 }
 
 
@@ -35,5 +29,12 @@ void fill_string_spaces(string & str){
     for(size_t i=0; i<str.length(); i++){
         if(str[i] == ' ')
             str[i] = '-';
+    }
+}
+
+void clear_fail_state(){
+    if (cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 }

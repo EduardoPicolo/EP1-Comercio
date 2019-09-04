@@ -1,6 +1,6 @@
 #include "shopMode.hpp"
 
-Client * client = new Client();
+Client *client = new Client();
 
 void shop(void){
     Cart cart;
@@ -10,11 +10,7 @@ void shop(void){
     cout<<"\t" "1:Login"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
     cin>> option;
     while(option!=1&&option!=2&&option!=3){
-        if (cin.fail()){
-            // get rid of failure state
-            cin.clear();
-            cin.ignore(1000, '\n');
-        }
+        clear_fail_state();
         cout << "Invalid. Enter 1 to login, 2 to register client or 3 to cancel: ";
         cin>> option;
     }
@@ -49,26 +45,19 @@ void shop(void){
         cout<< "Product Index: ";
         cin>> product;
         while(product>productList.size()){
-            if (cin.fail()){
-                // get rid of failure state
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
+            clear_fail_state();
             cout<< "Invalid product index"<<endl;
             cout<< "Product Index: ";
             cin>> product;
         }
         cout<< "Amount: ";
         cin>> amount;
+            clear_fail_state();
         cart.add_product(productList[product], amount);
         cout<<"\t" "1:Continue shoppping"<<"\t"<< "2:Confirm purchase"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
         cin>> option;
         while(option!=1&&option!=2&&option!=3){
-            if (cin.fail()){
-                // get rid of failure state
-                cin.clear();
-                cin.ignore(1000, '\n');
-            }
+            clear_fail_state();
             cout<< "Invalid. Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel: ";
             cin>>  option;
         }
@@ -76,7 +65,7 @@ void shop(void){
             case 1:
             break;
             case 2:
-                cout<<"Total: "<<cart.get_total()<<endl;
+                cout<< "Total: "<<cart.get_total()<<endl;
                 cart.confirm_purchase();
                 start();
             break;
@@ -106,22 +95,16 @@ void login(){
         cout<<"\t" "1:Confirm"<<"\t"<<"2:Enter new CPF"<<"\t"<<"3:Cancel"<<endl;cout<< ">> ";
         cin>> option;
         while(option!=1&&option!=2&&option!=3){
-            if (cin.fail()){
-                // get rid of failure state
-                cin.clear();
-                cin.ignore(1000, '\n');
-            }
+            clear_fail_state();
             cout<< "Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel: ";
             cin>>  option;
         }
         switch(option){
             case 1:
             break;
-
             case 2:
                 login();
             break;
-
             case 3:
                 start();
             break;
@@ -132,11 +115,7 @@ void login(){
         cout<<"\t" "1:Enter new CPF"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<<">> ";
         cin>> option;
         while(option!=1 && option!=2 && option!=3){
-            if (cin.fail()){
-                // get rid of failure state
-                cin.clear();
-                cin.ignore(1000, '\n');
-            }
+            clear_fail_state();
             cout<< "Invalid. Enter 1 to try again, 2 to register client or 3 to cancel: ";
             cin>>  option;
         }
@@ -144,15 +123,12 @@ void login(){
             case 1:
                 login();
             break;
-
             case 2:
                 register_client();
             break;
-
             case 3:
                 start();
             break;
-
             default:
             break;
         }
@@ -165,20 +141,17 @@ void register_client(){
 
     cout<< "Name: ";
     getline(cin>>ws, name);
-    fill_string_spaces(name);
+        fill_string_spaces(name);
     cout<< "CPF: ";
-    getline(cin>>ws, cpf);
+        getline(cin>>ws, cpf);
+        fill_string_spaces(cpf);
     switch(Client::verifyClient(cpf)){
         case true:
             cout<< "Client already registered"<<endl;
             cout<<"\t" "1:Try again"<<"\t"<< "2:Login"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
             cin>> option;
             while(option!=1 && option!=2 && option!=3){
-                if (cin.fail()){
-                    // get rid of failure state
-                    cin.clear();
-                    cin.ignore(1000, '\n');
-                }
+                clear_fail_state();
                 cout<< "Invalid. Enter 1 to try again, 2 to login or 3 to cancel: ";
                 cin>>  option;
             }
@@ -186,15 +159,12 @@ void register_client(){
                 case 1:
                     register_client();
                 break;
-
                 case 2:
                     login();
                 break;
-
                 case 3:
                     start();
                 break;
-                
                 default:
                 break;
             }

@@ -2,7 +2,7 @@
 #include "Functions.hpp"
 
 vector<Product> Stock::productList;
-int pos;
+int index;
 
 void Stock:: register_product(string product_name, string category, double price, int amount){
     if(!verify_product(product_name)){
@@ -16,15 +16,13 @@ void Stock:: register_product(string product_name, string category, double price
     }
 }
 
-bool Stock:: restock(string product_name,int amount){
+void Stock:: restock(string product_name,int amount){
     if(verify_product(product_name)){
-        productList[pos].set_amount(productList[pos].get_amount()+amount);
+        productList[index].set_amount(productList[index].get_amount()+amount);
         over_write<Product>("stock.txt", productList);
-        return true;
     }
     else{
         cout<<"Product not found."<<endl;
-        return false;
     }
 }
 
@@ -32,7 +30,7 @@ bool Stock:: verify_product(string product_name){
     productList = read_file<Product>("stock.txt");
     for(size_t i =0; i<productList.size();i++){
         if(product_name == productList[i].get_product_name()){ // Product already registered
-            pos = i;
+            index = i;
             return true;
         }
     }
