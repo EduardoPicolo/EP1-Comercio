@@ -65,7 +65,7 @@ void shop(void){
             case 1:
             break;
             case 2:
-                cout<< "Total: "<<cart.get_total()<<endl;
+                // cout<< "Total: "<<cart.get_total()<<endl;
                 cart.confirm_purchase();
                 start();
             break;

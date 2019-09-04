@@ -47,7 +47,7 @@ void Cart::confirm_purchase(){
                 productList[j].set_amount(productList[j].get_amount()-cart[i].get_amount());
         }
     }
-    // Stock::overwrite_file("stock.txt" , productList);
+    display_cart();
     over_write<Product>("stock.txt", productList);
     cart.clear();
 }
@@ -70,6 +70,10 @@ double Cart:: get_total(){
     return total;
 }
 
-// vector<Product> Cart:: display_cart(){
-//     return cart;
-// }
+void Cart:: display_cart(){
+    cout<<"\t" "*CART*"<<endl;
+    for(size_t i=0; i<cart.size();i++){
+        cout<<" ";cart[i].displayProduct();
+    }
+    cout<<"\t" "TOTAL: $"<< total <<endl;
+}

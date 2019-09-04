@@ -26,7 +26,7 @@ class Cart{
         void confirm_purchase();
         void cancel_purchase();
 
-        vector<Product> display_cart();
+        void display_cart();
         
         void abstract(){};
 };
