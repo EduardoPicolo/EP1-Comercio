@@ -8,24 +8,25 @@
 int productIndex;
 
 Cart:: Cart():total(0){
+    cart.clear();
 }
 
 void Cart:: add_product(Product product, int amount){
     if(Stock:: verify_amount(product, amount)){
         if(verifyCart(product)){ // Product already in cart, increase its amount
-            cout<< "Increasing amount..."<<endl;
+            cout<<"\t" "Product amount increased"<<endl;
             cart[productIndex].set_amount(cart[productIndex].get_amount()+amount);
             update_total();
         }
         else{
-            cout<< "Adding product to cart..."<<endl;
+            cout<<"\t" "Product added to cart"<<endl;
             product.set_amount(amount);
             cart.push_back(product);
             update_total();
         }
     }
     else{
-        cout<< "Invalid amount"<<endl;
+        cout<<"\t" "Invalid amount"<<endl;
     }
 }
 
@@ -55,7 +56,7 @@ void Cart::confirm_purchase(){
 void Cart:: cancel_purchase(){
     cart.clear();
     total = 0.0;
-    cout<<"Purchase canceled"<<endl;
+    cout<<"\t" "Purchase canceled"<<endl;
 }
 
 void Cart:: update_total(){
@@ -65,10 +66,6 @@ void Cart:: update_total(){
     }
 }
 
-double Cart:: get_total(){
-    update_total();
-    return total;
-}
 
 void Cart:: display_cart(){
     cout<<"\t" "*CART*"<<endl;
@@ -76,4 +73,9 @@ void Cart:: display_cart(){
         cout<<" ";cart[i].displayProduct();
     }
     cout<<"\t" "TOTAL: $"<< total <<endl;
+}
+
+double Cart:: get_total(){
+    update_total();
+    return total;
 }

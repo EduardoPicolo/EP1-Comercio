@@ -6,7 +6,6 @@ int index;
 
 void Stock:: register_product(string product_name, string category, double price, int amount){
     if(!verify_product(product_name)){
-        price = price/100;
         Product product(product_name, category, price, amount);
         productList.push_back(product);
         write_file<Product>("stock.txt", product);

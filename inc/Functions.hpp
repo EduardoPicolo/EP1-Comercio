@@ -21,10 +21,10 @@ void clear_fail_state();
 template<class myClass>
 void over_write(string file_name, vector<myClass> list);
 
-template<typename myClass>
+template<class myClass>
 vector<myClass> read_file(string file_name);
 
-template<typename myClass>
+template<class myClass>
 void write_file(string file_name, myClass obj);
 
 #include "Functions.tpp"

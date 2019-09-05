@@ -46,7 +46,7 @@ void shop(void){
         cin>> product;
         while(product>productList.size()){
             clear_fail_state();
-            cout<< "Invalid product index"<<endl;
+            cout<<"\t" "Invalid product index"<<endl;
             cout<< "Product Index: ";
             cin>> product;
         }
@@ -65,7 +65,6 @@ void shop(void){
             case 1:
             break;
             case 2:
-                // cout<< "Total: "<<cart.get_total()<<endl;
                 cart.confirm_purchase();
                 start();
             break;
