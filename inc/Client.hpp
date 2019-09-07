@@ -1,15 +1,16 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
+#include <map>
 #include <string>
 #include <vector>
 using namespace std;
 
 class Client{
     private:
-        string name;
-        string cpf;
+        string name, cpf, email;
         bool vip = false;
+
         static vector<Client> clientList;
 
     public:
@@ -32,17 +33,16 @@ class Client{
         bool get_vipStatus();
         void set_vipStatus(bool vip);
 
+
+        void set_rec(); //ToDo
         static vector<Client> get_clientList();
 
-        bool operator == (Client & obj);
 
+        bool operator == (Client & obj);
         // Overload operator <<
         friend ostream & operator << (ostream &out, const Client & obj);
         // Overload operator >>
         friend istream & operator >> (istream &in,  Client &obj);
-
-        void abstract(){}
-
 };
 
 #endif

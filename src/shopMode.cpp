@@ -1,6 +1,7 @@
 #include "shopMode.hpp"
 
 Client *client = new Client();
+// Client client;
 
 void shop(void){
     Cart cart;
@@ -65,6 +66,7 @@ void shop(void){
             case 1:
             break;
             case 2:
+                client->set_rec();
                 cart.confirm_purchase();
                 start();
             break;

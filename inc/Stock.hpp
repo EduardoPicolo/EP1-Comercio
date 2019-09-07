@@ -6,12 +6,12 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <map>
 using namespace std;
 
 class Stock{
     private:
         // ToDo Categories
-        // static vector<vector<Product>> cat;
         static vector<Product> productList;
 
     public:

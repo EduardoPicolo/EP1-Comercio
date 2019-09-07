@@ -9,7 +9,9 @@
 #include "shopMode.hpp"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <vector>
+#include <iterator>
 #include <string>
 #include <limits>
 using namespace std;
@@ -26,6 +28,9 @@ vector<myClass> read_file(string file_name);
 
 template<class myClass>
 void write_file(string file_name, myClass obj);
+
+
+vector<string> split (const string &s, char delim);
 
 #include "Functions.tpp"
 #endif

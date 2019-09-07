@@ -1,4 +1,5 @@
 #include "Functions.hpp"
+#include <map>
 
 void start(){
     int option = 0;
@@ -36,4 +37,16 @@ void clear_fail_state(){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
+}
+
+vector<string> split (const string &s, char delim) {
+    vector<string> result;
+    stringstream ss (s);
+    string item;
+
+    while (getline (ss, item, delim)) {
+        result.push_back (item);
+    }
+
+    return result;
 }

@@ -80,7 +80,7 @@ bool Client:: operator == (Client & obj){
 
 // Overload operator <<
 ostream & operator << (ostream &out, const Client & obj){
-	out << obj.name << "\t" << obj.cpf <<endl;
+	out << obj.name << " " << obj.cpf <<endl;
 	return out;
 }
 // Overload operator >>
@@ -90,42 +90,67 @@ istream & operator >> (istream &in,  Client &obj){
 	return in;
 }
 
-// *BUGGADO* //
-// vector<Client> Client:: read_file(string file_name){
-//     fstream file;
-//     file.open(file_name, ios::in);
-//     vector<Client> list;
-//     Client temp;
-//     string name, cpf;
-//     // file.seekg(0);
-//     while(getline(file, name)&&getline(file, cpf)){
-//         temp.set_name(name);
-//         temp.set_cpf(cpf);
-//         temp.set_vipStatus(temp.get_vipStatus());
-//         list.push_back(temp);
-//     }
-//     file.close();
+void Client::set_rec(){
+    map<string, int> rec;
+    vector<string> temp;
+    vector<string> line;
+    string x;
 
-//     return list;
-// }
+    fstream infile;
+    fstream file;
+    infile.open("test.txt", ios::in);
+    file.open("temp.txt", ios::app);
 
-// void Client:: write_file(string file_name, Client newClient){
-//     fstream file;
-//     file.open(file_name, ios::out | ios::app);
-//     file<<newClient.get_name()<< endl;
-//     file<<newClient.get_cpf()<< endl;
-//     file<<newClient.get_vipStatus()<<endl;
-//     file.close();
-// }
+    while(getline(infile, x)){
+        // cout<<"\t" "TEEST: "<<x<<endl;
+        temp.push_back(x);
+        line = split(x, '-');
+        if(line[0] == this->cpf){
+            temp.pop_back();
+            int len = line.size();
+            cout<<"\t" "LEN/2: "<< len/2 <<endl;
+            if(len == 3){
+                for(int i=1; i<=line.size()-2; i++){ //PROBLEMAS NO COMPaRAdOR i<=ARRAY OU I=ARRAY!!! gambiarra pd dar segfault
+                    rec[line[2*i-1]] = atoi(line[2*i].c_str());
+                }
+            }
+            else{
+                for(int i=1; i<=len/2; i++){ //PROBLEMAS NO COMPaRAdOR i<=ARRAY OU I=ARRAY!!!
+                    rec[line[2*i-1]] = atoi(line[2*i].c_str());
+                }
+            }
+            if(getline(infile, x)){                
+                temp.push_back(x);
+            }
+        }
+    }
+    // for (const auto &e : temp) cout << e<<endl;
+    ostream_iterator<string> output_iterator(file, "\n");
+    copy(temp.begin(), temp.end(), output_iterator);
 
+    file.close();
+    infile.close();
+    remove("test.txt");
+    rename("temp.txt", "test.txt");
 
-// void Client:: overwrite_file(string file_name, vector<Client> list){
-//     fstream file;
-//     file.open(file_name, ios::out);
-//     for(size_t i=0; i<list.size(); i++){
-//         file<<list[i].get_name()<< endl;
-//         file<<list[i].get_cpf()<< endl;
-//         file<<list[i].get_vipStatus()<<endl;
-//     }
-//     file.close();
-// }
+    int cont = 0;
+    vector<Product> productList = Cart::get_cart();
+    map<string, vector<Product>> categoriesDict;
+    for(size_t i=0; i<productList.size(); i++){
+        categoriesDict[productList[i].get_category()].push_back(productList[i]);
+    }
+    for(auto mapIterator = begin(categoriesDict); mapIterator != end(categoriesDict); ++mapIterator){
+        cont = 0;
+        for(auto c : mapIterator->second){
+            cont++;
+        }
+        rec[mapIterator->first] += cont;
+    }
+
+    fstream outfile("test.txt", ios::app);
+    outfile<<this->cpf;
+    for(auto& kv : rec){
+        outfile<<"-"<<kv.first<<"-"<<kv.second;
+    }
+    outfile.close();
+}

@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 
+vector<Product> Cart::cart;
 int productIndex;
 
 Cart:: Cart():total(0){
@@ -66,7 +67,6 @@ void Cart:: update_total(){
     }
 }
 
-
 void Cart:: display_cart(){
     cout<<"\t" "*CART*"<<endl;
     for(size_t i=0; i<cart.size();i++){
@@ -78,4 +78,8 @@ void Cart:: display_cart(){
 double Cart:: get_total(){
     update_total();
     return total;
+}
+
+vector<Product> Cart::get_cart(){
+    return cart;
 }
