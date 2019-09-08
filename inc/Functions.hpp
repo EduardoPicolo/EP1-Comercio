@@ -21,13 +21,15 @@ void fill_string_spaces(string & str);
 void clear_fail_state();
 
 template<class myClass>
-void over_write(string file_name, vector<myClass> list);
-
-template<class myClass>
 vector<myClass> read_file(string file_name);
 
 template<class myClass>
 void write_file(string file_name, myClass obj);
+
+template<class myClass>
+void over_write(string file_name, vector<myClass> list);
+
+
 
 
 vector<string> split (const string &s, char delim);

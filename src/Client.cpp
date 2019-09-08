@@ -102,29 +102,20 @@ void Client::set_rec(){
     file.open("temp.txt", ios::app);
 
     while(getline(infile, x)){
-        // cout<<"\t" "TEEST: "<<x<<endl;
         temp.push_back(x);
         line = split(x, '-');
         if(line[0] == this->cpf){
             temp.pop_back();
             int len = line.size();
-            cout<<"\t" "LEN/2: "<< len/2 <<endl;
-            if(len == 3){
-                for(int i=1; i<=line.size()-2; i++){ //PROBLEMAS NO COMPaRAdOR i<=ARRAY OU I=ARRAY!!! gambiarra pd dar segfault
-                    rec[line[2*i-1]] = atoi(line[2*i].c_str());
-                }
-            }
-            else{
-                for(int i=1; i<=len/2; i++){ //PROBLEMAS NO COMPaRAdOR i<=ARRAY OU I=ARRAY!!!
-                    rec[line[2*i-1]] = atoi(line[2*i].c_str());
-                }
+            for(int i=1; i<=len/2; i++){
+                rec[line[2*i-1]] = atoi(line[2*i].c_str());
             }
             if(getline(infile, x)){                
                 temp.push_back(x);
             }
         }
     }
-    // for (const auto &e : temp) cout << e<<endl;
+    
     ostream_iterator<string> output_iterator(file, "\n");
     copy(temp.begin(), temp.end(), output_iterator);
 
