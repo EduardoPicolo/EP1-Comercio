@@ -66,7 +66,8 @@ void shop(void){
             case 1:
             break;
             case 2:
-                client->set_rec();
+                // client->set_rec();
+                client->update_shop_record();
                 cart.confirm_purchase();
                 start();
             break;

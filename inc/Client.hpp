@@ -11,6 +11,8 @@ class Client{
         string name, cpf, email;
         bool vip = false;
 
+        map<string, int> shop_record;
+
         static vector<Client> clientList;
 
     public:
@@ -20,7 +22,10 @@ class Client{
         static bool registerClient(string name, string cpf);
         static bool verifyClient(string cpf);
         static Client login_client(string cpf);
-        
+        void recover_shop_record();
+        void update_shop_record();
+        void display_shop_record();
+
         string get_name();
         void set_name(string name);
 
@@ -33,8 +38,6 @@ class Client{
         bool get_vipStatus();
         void set_vipStatus(bool vip);
 
-
-        void set_rec(); //ToDo
         static vector<Client> get_clientList();
 
 

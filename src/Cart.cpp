@@ -43,6 +43,7 @@ bool Cart:: verifyCart(Product product){
 
 void Cart::confirm_purchase(){
     vector<Product> productList = Stock::get_productList(); //vector with original product amount
+    
     for(size_t i=0; i<cart.size(); i++){
         for(size_t j=0; j<productList.size(); j++){
             if(cart[i]==productList[j])
