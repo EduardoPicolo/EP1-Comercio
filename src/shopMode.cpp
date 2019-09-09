@@ -1,6 +1,6 @@
 #include "shopMode.hpp"
 
-Client *client = new Client();
+// Client* client = new Client();
 // Client client;
 
 void shop(void){
@@ -36,7 +36,9 @@ void shop(void){
     }
 
     do{
-        // cout<< "TESTE: "<< client->get_name()<<endl;
+        // cout<<"\t" "TESTE: "<<endl;
+        // rec(*client);
+
         cout<<"\t\t\t" "*CATALOGUE*"<<endl;
         cout<<"\t" "Index"<<"\t"<< "Product"<<"\t\t"<< "Price"<<"\t"<< "Amount"<<endl;
         for(size_t i=0; i<productList.size(); i++){
@@ -66,8 +68,7 @@ void shop(void){
             case 1:
             break;
             case 2:
-                // client->set_rec();
-                client->update_shop_record();
+                client->update_shop_history();
                 cart.confirm_purchase();
                 start();
             break;
@@ -144,6 +145,7 @@ void register_client(){
     cout<< "Name: ";
     getline(cin>>ws, name);
         fill_string_spaces(name);
+        lowercase(name);
     cout<< "CPF: ";
         getline(cin>>ws, cpf);
         fill_string_spaces(cpf);

@@ -33,6 +33,7 @@ void add_product(){
     cout<< "Product name: ";
     getline(cin>>ws, product_name);
         fill_string_spaces(product_name);
+        lowercase(product_name);
     while(Stock::verify_product(product_name)){
         cout<< "Product already registered"<<endl;
         cout<<"\t" "1:Add new product"<<"\t"<<"2:Cancel"<<endl;cout<< ">> ";
@@ -56,6 +57,7 @@ void add_product(){
     cout<< "Product category: ";
     getline(cin>>ws, category);
         fill_string_spaces(category);
+        lowercase(category);
     cout<< "Price: ";
     cin>> price;
     while(price<=0){
@@ -83,6 +85,7 @@ void restock(){
     cout<<"Product: ";
     getline(cin>>ws, product_name);
         fill_string_spaces(product_name);
+        lowercase(product_name);
     while(!(Stock::verify_product(product_name))){
         cout<<"\t" "Product not found"<<endl;
         cout<< "Product: ";

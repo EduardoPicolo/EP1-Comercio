@@ -73,17 +73,18 @@ vector<Client> Client:: get_clientList(){
     return clientList;
 }
 
+map<string, int> Client::get_shop_history(){
+    update_shop_history();
+    return shop_history;
+}
 
 
-void Client::recover_shop_record(){
+void Client::recover_shop_history(){
     vector<string> line, temp;
-    // vector<string> line;
     string x;
 
     fstream infile;
     infile.open("record.txt", ios::in);
-    // fstream file;
-    // file.open("temp.txt", ios::app);
 
     while(getline(infile, x)){
         temp.push_back(x);
@@ -92,7 +93,7 @@ void Client::recover_shop_record(){
             temp.pop_back();
             int len = line.size();
             for(int i=1; i<=len/2; i++){
-                shop_record[line[2*i-1]] = atoi(line[2*i].c_str());
+                shop_history[line[2*i-1]] = atoi(line[2*i].c_str());
             }
             if(getline(infile, x)){                
                 temp.push_back(x);
@@ -101,7 +102,7 @@ void Client::recover_shop_record(){
     }
 
     fstream file;
-    file.open("temp.txt", ios::app);
+    file.open("temp.txt", ios::out);
     ostream_iterator<string> output_iterator(file, "\n");
     copy(temp.begin(), temp.end(), output_iterator);
 
@@ -111,8 +112,8 @@ void Client::recover_shop_record(){
     rename("temp.txt", "record.txt");
 }
 
-void Client:: update_shop_record(){
-    recover_shop_record();
+void Client:: update_shop_history(){
+    recover_shop_history();
     int cont = 0;
     vector<Product> productList = Cart::get_cart();
     map<string, vector<Product>> categoriesDict;
@@ -125,22 +126,24 @@ void Client:: update_shop_record(){
         for(auto c : mapIterator->second){
             cont++;
         }
-        shop_record[mapIterator->first] += cont;
+        shop_history[mapIterator->first] += cont;
     }
 
     fstream outfile("record.txt", ios::app);
     outfile<<this->cpf;
-    for(auto& key_value : shop_record){
+    for(auto& key_value : shop_history){
         outfile<<"-"<<key_value.first<<"-"<<key_value.second;
     }
     outfile.close();
 }
 
-void Client:: display_shop_record(){
-    cout<<"\t" "Product category" <<"\t" "Bought 'x' times" <<endl; 
-    for(auto& key_value : shop_record){
-        cout<<"\t"<< key_value.first <<"\t" "x"<< key_value.second <<endl;
-    }
+void Client:: display_shop_history(){
+    update_shop_history();
+    vector<pair<string, int>> sorted_vector = order(shop_history);
+    cout<<"\t" "Product category" <<"\t" "Bought" <<endl;
+    for (auto it = sorted_vector.crbegin(); it != sorted_vector.crend(); it++){
+		cout<< it->first <<"\t\t\t"<< it->second <<endl;
+	}
 }
 
 
@@ -159,60 +162,3 @@ istream & operator >> (istream &in,  Client &obj){
 	in >> obj.cpf;
 	return in;
 }
-
-// *recordE* //
-// void Client::set_rec(){
-//     map<string, int> rec;
-//     vector<string> temp;
-//     vector<string> line;
-//     string x;
-
-//     fstream infile;
-//     fstream file;
-//     infile.open("record.txt", ios::in);
-//     file.open("temp.txt", ios::app);
-
-//     while(getline(infile, x)){
-//         temp.push_back(x);
-//         line = split(x, '-');
-//         if(line[0] == this->cpf){
-//             temp.pop_back();
-//             int len = line.size();
-//             for(int i=1; i<=len/2; i++){
-//                 rec[line[2*i-1]] = atoi(line[2*i].c_str());
-//             }
-//             if(getline(infile, x)){                
-//                 temp.push_back(x);
-//             }
-//         }
-//     }
-
-//     ostream_iterator<string> output_iterator(file, "\n");
-//     copy(temp.begin(), temp.end(), output_iterator);
-
-//     file.close();
-//     infile.close();
-//     remove("record.txt");
-//     rename("temp.txt", "record.txt");
-
-//     int cont = 0;
-//     vector<Product> productList = Cart::get_cart();
-//     map<string, vector<Product>> categoriesDict;
-//     for(size_t i=0; i<productList.size(); i++){
-//         categoriesDict[productList[i].get_category()].push_back(productList[i]);
-//     }
-//     for(auto mapIterator = begin(categoriesDict); mapIterator != end(categoriesDict); ++mapIterator){
-//         cont = 0;
-//         for(auto c : mapIterator->second){
-//             cont++;
-//         }
-//         rec[mapIterator->first] += cont;
-//     }
-
-//     fstream outfile("record.txt", ios::app);
-//     outfile<<this->cpf;
-//     for(auto& kv : rec){
-//         outfile<<"-"<<kv.first<<"-"<<kv.second;
-//     }
-//     outfile.close();
-// }
