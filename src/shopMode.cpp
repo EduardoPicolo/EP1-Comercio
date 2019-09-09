@@ -1,8 +1,5 @@
 #include "shopMode.hpp"
 
-// Client* client = new Client();
-// Client client;
-
 void shop(void){
     Cart cart;
     unsigned int product, amount, option = 0;
@@ -36,9 +33,6 @@ void shop(void){
     }
 
     do{
-        // cout<<"\t" "TESTE: "<<endl;
-        // rec(*client);
-
         cout<<"\t\t\t" "*CATALOGUE*"<<endl;
         cout<<"\t" "Index"<<"\t"<< "Product"<<"\t\t"<< "Price"<<"\t"<< "Amount"<<endl;
         for(size_t i=0; i<productList.size(); i++){

@@ -114,19 +114,20 @@ void Client::recover_shop_history(){
 
 void Client:: update_shop_history(){
     recover_shop_history();
-    int cont = 0;
+    // int cont = 0;
     vector<Product> productList = Cart::get_cart();
-    map<string, vector<Product>> categoriesDict;
+    map<string, int> categoriesDict;
 
     for(size_t i=0; i<productList.size(); i++){
-        categoriesDict[productList[i].get_category()].push_back(productList[i]);
+        categoriesDict[productList[i].get_category()] += (productList[i].get_amount());
     }
     for(auto mapIterator = begin(categoriesDict); mapIterator != end(categoriesDict); ++mapIterator){
-        cont = 0;
-        for(auto c : mapIterator->second){
-            cont++;
-        }
-        shop_history[mapIterator->first] += cont;
+        // cont = 0;
+        // for(auto c : mapIterator->second){
+        //     cont++;
+        //     cont = cont+mapIterator->second;
+        // }
+        shop_history[mapIterator->first] += mapIterator->second;
     }
 
     fstream outfile("record.txt", ios::app);

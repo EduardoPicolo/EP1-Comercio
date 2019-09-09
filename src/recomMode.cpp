@@ -33,6 +33,11 @@ void recommendation_list(Client& client){
     map<string, int> shop_history = client.get_shop_history();
     vector<pair<string, int>> sorted_vector = order(shop_history);
 
+    if(shop_history.empty()){
+        cout<<"\t"<< "Customer doesn't have a purchase history!"<<endl;
+        start();
+    }
+
     cout<<"\t" "*RECOMMENDED PRODUCTS*"<<endl;
     for (auto it = sorted_vector.crbegin(); it != sorted_vector.crend(); it++){
         for(size_t i=0; i<productList.size() ; i++){
