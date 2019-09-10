@@ -7,8 +7,8 @@ int clientPostion;
 Client:: Client(){
 }
 
-Client:: Client(string name, string cpf, bool vip=false)
-:name(name), cpf(cpf), vip(vip){
+Client:: Client(string name, string cpf)
+:name(name), cpf(cpf){
     cout<< "New client successfully registered!"<<endl;
 }
 
@@ -17,7 +17,7 @@ bool Client:: registerClient(string name, string cpf){
         cout<< "Registering new client... ";
         Client client(name, cpf);
         clientList.push_back(client);
-        write_file<Client>("clients.txt", client);
+        write_file("clients.txt", client);
         return true;
     }
     else{
@@ -27,7 +27,7 @@ bool Client:: registerClient(string name, string cpf){
 }
 
 bool Client:: verifyClient(string cpf){
-    clientList = read_file<Client>("clients.txt");
+    clientList = read_file("clients.txt");
     // Search client
     for(size_t i=0; i<clientList.size(); i++){
         if(cpf == clientList[i].get_cpf()){ // Client already registered
@@ -40,8 +40,12 @@ bool Client:: verifyClient(string cpf){
 
 Client Client:: login_client(string cpf){
     verifyClient(cpf);
-    cout<<"\t" "Client: "<< clientList[clientPostion];
+    cout<<"\t" "Client: "; clientList[clientPostion].display_client();
     return clientList[clientPostion];
+}
+
+void Client::display_client(){
+    cout<<" "<<this->name<<' '<<this->cpf<<endl;
 }
 
 string Client:: get_name(){
@@ -60,21 +64,13 @@ void Client:: set_cpf(string cpf){
     this->cpf = cpf;
 }
 
-bool Client:: get_vipStatus(){
-    return vip;
-}
-
-void Client:: set_vipStatus(bool vip){
-    this-> vip = vip;
-}
-
 vector<Client> Client:: get_clientList(){
-    clientList = read_file<Client>("clients.txt");
+    clientList = read_file("clients.txt");
     return clientList;
 }
 
 map<string, int> Client::get_shop_history(){
-    update_shop_history();
+    recover_shop_history();
     return shop_history;
 }
 
@@ -84,37 +80,91 @@ void Client::recover_shop_history(){
     string x;
 
     fstream infile;
-    infile.open("record.txt", ios::in);
+    infile.open("clients.txt", ios::in);
 
-    while(getline(infile, x)){
-        temp.push_back(x);
-        line = split(x, '-');
-        if(line[0] == this->cpf){
-            temp.pop_back();
+    while(getline(infile, x, ' ')){
+        if(x == this->cpf){
+            getline(infile, x, '#');
+            getline(infile, x);
+            line = split(x, '-');
             int len = line.size();
             for(int i=1; i<=len/2; i++){
                 shop_history[line[2*i-1]] = atoi(line[2*i].c_str());
             }
-            if(getline(infile, x)){                
-                temp.push_back(x);
-            }
+            break;
         }
+        else{
+            getline(infile, x);
+        }
+        // else{
+        //     aux = x;
+        //     getline(infile, x);
+        //     aux = aux+' '+x;
+        //     temp.push_back(aux);
+        // }
     }
 
-    fstream file;
-    file.open("temp.txt", ios::out);
-    ostream_iterator<string> output_iterator(file, "\n");
-    copy(temp.begin(), temp.end(), output_iterator);
+    // fstream file;
+    // file.open("temp.txt", ios::out);
+    // ostream_iterator<string> output_iterator(file, "\n");
+    // copy(temp.begin(), temp.end(), output_iterator);
 
-    file.close();
-    infile.close();
-    remove("record.txt");
-    rename("temp.txt", "record.txt");
+    // file.close();
+    // infile.close();
+    // remove("record.txt");
+    // rename("temp.txt", "record.txt");
+
+//         temp.push_back(x);
+//         line = split(x, '-');
+//         if(line[0] == this->cpf){
+//             temp.pop_back();
+//             int len = line.size();
+            // for(int i=1; i<=len/2; i++){
+            //     shop_history[line[2*i-1]] = atoi(line[2*i].c_str());
+            // }
+//             if(getline(infile, x)){                
+//                 temp.push_back(x);
+//             }
+//         }
+//     }
+
+    // fstream file;
+    // file.open("temp.txt", ios::out);
+    // ostream_iterator<string> output_iterator(file, "\n");
+    // copy(temp.begin(), temp.end(), output_iterator);
+
+    // file.close();
+    // infile.close();
+    // remove("record.txt");
+    // rename("temp.txt", "record.txt");
+
 }
 
 void Client:: update_shop_history(){
     recover_shop_history();
-    // int cont = 0;
+    vector<string> line, temp;
+    string x, aux;
+    fstream infile, file;
+    infile.open("clients.txt", ios::in);
+    file.open("temp.txt", ios::out);
+    while(getline(infile, x, ' ')){
+        if(x == this->cpf){
+            aux = x+' ';
+            getline(infile, x, '#');
+            aux = aux+x;
+            getline(infile, x);
+        }
+        else{
+            file<<x+' ';
+            getline(infile, x);
+            file<<x<<endl;
+        }
+    }
+    infile.close();
+    file.close();
+    remove("clients.txt");
+    rename("temp.txt", "clients.txt");
+
     vector<Product> productList = Cart::get_cart();
     map<string, int> categoriesDict;
 
@@ -122,19 +172,15 @@ void Client:: update_shop_history(){
         categoriesDict[productList[i].get_category()] += (productList[i].get_amount());
     }
     for(auto mapIterator = begin(categoriesDict); mapIterator != end(categoriesDict); ++mapIterator){
-        // cont = 0;
-        // for(auto c : mapIterator->second){
-        //     cont++;
-        //     cont = cont+mapIterator->second;
-        // }
         shop_history[mapIterator->first] += mapIterator->second;
     }
-
-    fstream outfile("record.txt", ios::app);
-    outfile<<this->cpf;
+    // write_file("clients.txt", *this);
+    fstream outfile("clients.txt", ios::app);
+    outfile<<aux<<'#'<<"SHOP_HISTORY";
     for(auto& key_value : shop_history){
         outfile<<"-"<<key_value.first<<"-"<<key_value.second;
     }
+    outfile<<endl;
     outfile.close();
 }
 
@@ -147,19 +193,32 @@ void Client:: display_shop_history(){
 	}
 }
 
-
-bool Client:: operator == (Client & obj){
-    return (name == obj.name) && (cpf == obj.cpf);
+vector<Client> Client::read_file(string file_name){
+    fstream file;
+    file.open(file_name, ios::in);
+    vector<Client> list;
+    Client temp;
+    string name, cpf, aux;
+    while(getline(file, cpf, ' ')&&getline(file, name, '#')){
+        temp.set_cpf(cpf);
+        temp.set_name(name);
+        list.push_back(temp);
+        getline(file, aux);
+    }
+    file.close();
+    return list;
 }
 
-// Overload operator <<
-ostream & operator << (ostream &out, const Client & obj){
-	out << obj.name << " " << obj.cpf <<endl;
-	return out;
-}
-// Overload operator >>
-istream & operator >> (istream &in,  Client &obj){
-	in >> obj.name;
-	in >> obj.cpf;
-	return in;
+void Client::write_file(string file_name, Client client){
+    fstream file;
+    file.open(file_name, ios::app);
+    file<<client.get_cpf()<<' ';
+    file<<client.get_name()<<"#";
+    file<<"SHOP_HISTORY";
+    if(!client.shop_history.empty()){
+        for(auto& key_value : client.shop_history){
+            file<<"-"<<key_value.first<<"-"<<key_value.second;
+        }
+    }
+    file<<endl;
 }

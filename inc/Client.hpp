@@ -8,8 +8,7 @@ using namespace std;
 
 class Client{
     private:
-        string name, cpf, email;
-        bool vip = false;
+        string name, cpf;
 
         map<string, int> shop_history;
 
@@ -17,7 +16,7 @@ class Client{
 
     public:
         Client();
-        Client(string name, string cpf, bool vip);
+        Client(string name, string cpf);
 
         static bool registerClient(string name, string cpf);
         static bool verifyClient(string cpf);
@@ -38,17 +37,13 @@ class Client{
         bool get_vipStatus();
         void set_vipStatus(bool vip);
 
+        void display_client();
+
         map<string, int> get_shop_history();
-
-
         static vector<Client> get_clientList();
 
-
-        bool operator == (Client & obj);
-        // Overload operator <<
-        friend ostream & operator << (ostream &out, const Client & obj);
-        // Overload operator >>
-        friend istream & operator >> (istream &in,  Client &obj);
+        static vector<Client> read_file(string file_name);
+        static void write_file(string file_name, Client client);
 };
 
 #endif

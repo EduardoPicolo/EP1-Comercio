@@ -138,7 +138,7 @@ void register_client(){
 
     cout<< "Name: ";
     getline(cin>>ws, name);
-        fill_string_spaces(name);
+        // fill_string_spaces(name);
         lowercase(name);
     cout<< "CPF: ";
         getline(cin>>ws, cpf);

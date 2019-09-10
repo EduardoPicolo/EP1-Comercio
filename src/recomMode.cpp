@@ -1,5 +1,4 @@
 #include "recomMode.hpp"
-#include "Functions.hpp"
 
 void recommendation(){
     int option = 0;
