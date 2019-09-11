@@ -12,18 +12,46 @@ Client:: Client(string name, string cpf)
     cout<< "New client successfully registered!"<<endl;
 }
 
-bool Client:: registerClient(string name, string cpf){
-    if(!verifyClient(cpf)){
-        cout<< "Registering new client... ";
-        Client client(name, cpf);
-        clientList.push_back(client);
-        write_file("clients.txt", client);
-        return true;
+void Client::register_client(){
+    int option = 0;
+    string name, cpf;
+
+    cout<< "Name: ";
+    getline(cin>>ws, name);
+        lowercase(name);
+    cout<< "CPF: ";
+    getline(cin>>ws, cpf);
+        fill_string_spaces(cpf);
+    switch(verifyClient(cpf)){
+        case true:
+            cout<< "Client already registered"<<endl;
+            cout<<"\t" "1:Try again"<<"\t"<< "2:Login"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
+            cin>> option;
+            validate_option(option, "Invalid. Enter 1 to try again, 2 to login or 3 to cancel.");
+            switch(option){
+                case 1:
+                    register_client();
+                break;
+                case 2:
+                    login();
+                break;
+                case 3:
+                    Store::main_menu();
+                break;
+                default:
+                break;
+            }
+        break;
+
+        case false:
+            cout<< "Registering new client... ";
+            Client c(name, cpf);
+            clientList.push_back(c);
+            write_file("clients.txt", c);
+            *client = c;
+        break;
     }
-    else{
-        cout<< "Client already registered."<< endl;
-        return false;
-    }
+
 }
 
 bool Client:: verifyClient(string cpf){
@@ -38,17 +66,58 @@ bool Client:: verifyClient(string cpf){
     return false; // Client NOT registered
 }
 
-Client Client:: login_client(string cpf){
-    verifyClient(cpf);
-    cout<<"\t" "Client: "; clientList[clientPostion].display_client();
-    return clientList[clientPostion];
+void Client::login(){
+    int option = 0;
+    string cpf;
+
+    cout<<"Client CPF: ";
+    getline(cin>>ws, cpf);
+    if(verifyClient(cpf)){
+        // *client = clientList[clientPostion];
+        cout<< "Client: "; clientList[clientPostion].display_client();
+        cout<<"\t" "1:Confirm"<<"\t"<<"2:Enter new CPF"<<"\t"<<"3:Cancel"<<endl;cout<< ">> ";
+        cin>> option;
+        validate_option(option, "Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel.");
+        switch(option){
+            case 1:
+                *client = clientList[clientPostion];
+            break;
+            case 2:
+                login();
+            break;
+            case 3:
+                Store::main_menu();
+            break;
+            default:
+            break;
+        }
+    }
+    else{
+        cout<< "Client not found"<<endl;
+        cout<<"\t" "1:Enter new CPF"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<<">> ";
+        cin>> option;
+        validate_option(option,  "Invalid. Enter 1 to try again, 2 to register client or 3 to cancel.");
+        switch(option){
+            case 1:
+                login();
+            break;
+            case 2:
+                register_client();
+            break;
+            case 3:
+                Store::main_menu();
+            break;
+            default:
+            break;
+        }
+    }
 }
 
 void Client::display_client(){
     cout<<" "<<this->name<<' '<<this->cpf<<endl;
 }
 
-string Client:: get_name(){
+const string Client:: get_name(){
     return name;
 }
 
@@ -56,7 +125,7 @@ void Client:: set_name(string name){
     this-> name = name;
 }
 
-string Client:: get_cpf(){
+const string Client:: get_cpf(){
     return cpf;
 }
 
@@ -96,48 +165,7 @@ void Client::recover_shop_history(){
         else{
             getline(infile, x);
         }
-        // else{
-        //     aux = x;
-        //     getline(infile, x);
-        //     aux = aux+' '+x;
-        //     temp.push_back(aux);
-        // }
     }
-
-    // fstream file;
-    // file.open("temp.txt", ios::out);
-    // ostream_iterator<string> output_iterator(file, "\n");
-    // copy(temp.begin(), temp.end(), output_iterator);
-
-    // file.close();
-    // infile.close();
-    // remove("record.txt");
-    // rename("temp.txt", "record.txt");
-
-//         temp.push_back(x);
-//         line = split(x, '-');
-//         if(line[0] == this->cpf){
-//             temp.pop_back();
-//             int len = line.size();
-            // for(int i=1; i<=len/2; i++){
-            //     shop_history[line[2*i-1]] = atoi(line[2*i].c_str());
-            // }
-//             if(getline(infile, x)){                
-//                 temp.push_back(x);
-//             }
-//         }
-//     }
-
-    // fstream file;
-    // file.open("temp.txt", ios::out);
-    // ostream_iterator<string> output_iterator(file, "\n");
-    // copy(temp.begin(), temp.end(), output_iterator);
-
-    // file.close();
-    // infile.close();
-    // remove("record.txt");
-    // rename("temp.txt", "record.txt");
-
 }
 
 void Client:: update_shop_history(){

@@ -1,6 +1,7 @@
 #include "Functions.hpp"
 
 int main(void) {
-    start();
+    // start();
+    Store::main_menu();
     return 0;
 }

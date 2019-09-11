@@ -2,38 +2,10 @@
 
 Client* client = new Client();
 
-void start(){
-    int option = 0;
-    cout<<"\t" "1:Shop"<<"\t"<< "2:Stock"<<"\t"<< "3:Recommendation"<<endl;cout<< ">> ";
-    cin>>  option;
-    while(option!=1&&option!=2&&option!=3){
-        clear_fail_state();
-        cout << "Invalid. Enter 1 for shop, 2 for stock or 3 for recommendation mode: ";
-        cin>>  option;
-    }
-
-    switch(option){
-        case 1:
-            shop();
-        break;
-
-        case 2:
-            stock();
-        break;
-
-        case 3:
-            recommendation();
-        break;
-
-        default:
-        break;
-    }
-}
-
 void fill_string_spaces(string & str){
     for(size_t i=0; i<str.length(); i++){
         if(str[i] == ' ')
-            str[i] = '-';
+            str[i] = '_';
     }
 }
 
@@ -51,13 +23,21 @@ void clear_fail_state(){
     }
 }
 
+void validate_option(int& option, const string message){
+    while(option!=1&&option!=2&&option!=3){
+        clear_fail_state();
+        cout<<"\t"<< message << ">> ";
+        cin>> option;
+    }
+}
+
 vector<string> split (const string &s, char delim) {
     vector<string> result;
     stringstream ss (s);
-    string item;
+    string word;
 
-    while (getline (ss, item, delim)) {
-        result.push_back (item);
+    while (getline (ss, word, delim)) {
+        result.push_back (word);
     }
     return result;
 }
