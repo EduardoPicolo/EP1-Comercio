@@ -28,14 +28,4 @@ void validate_option(int& option,const string message);
 vector<string> split(const string &s, char delim);
 vector<pair<string, int>> order(map<string, int> records);
 
-template<class myClass>
-vector<myClass> read_file(string file_name);
-
-template<class myClass>
-void write_file(string file_name, myClass obj);
-
-template<class myClass>
-void over_write(string file_name, vector<myClass> list);
-
-#include "Functions.tpp"
 #endif

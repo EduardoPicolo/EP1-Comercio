@@ -8,7 +8,7 @@ void Stock::register_product(string product_name, string category, double price,
     if(!verify_product(product_name)){
         Product product(product_name, category, price, amount);
         productList.push_back(product);
-        write_file<Product>("stock.txt", product);
+        write_file("stock.txt", product);
     }
     else{
         cout<<"Product already registered."<<endl;
@@ -46,29 +46,6 @@ void Stock::add_product(){
             break;
         }
     }
-    // while(verify_product(product_name)){
-    //     cout<< "Product already registered"<<endl;
-    //     cout<<"\t" "1:Add new product"<<"\t"<< "2:Stock"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
-    //     cin>> option;
-    //     validate_option(option, "Invalid. Enter 1 to add a new product, 2 to go back to stock or 3 to cancel.");
-    //     break;
-    // }
-    // switch(option){
-    //     case 1:
-    //         add_product();
-    //     break;
-
-    //     case 2:
-    //         Store::stock_mode();
-    //     break;
-
-    //     case 3:
-    //         Store::main_menu();
-    //     break;
-
-    //     default:
-    //     break;
-    // }
 
     cout<< "Product category: ";
     getline(cin>>ws, category);
@@ -101,7 +78,7 @@ void Stock::restock(){
         fill_string_spaces(product_name);
         lowercase(product_name);
     while(!(Stock::verify_product(product_name))){
-        cout<<"\t" "Product not found"<<endl;       //Todo opção pra sair do loop!
+        cout<<"\t" "Product not found"<<endl;       //ToDo opção pra sair do loop!
         cout<< "Product: ";
         getline(cin>>ws, product_name);
             fill_string_spaces(product_name);
@@ -116,17 +93,12 @@ void Stock::restock(){
         cin>> amount;
     }
 
-    if(verify_product(product_name)){
-        productList[index].set_amount(productList[index].get_amount()+amount);
-        over_write<Product>("stock.txt", productList);
-    }
-    else{
-        cout<<"Product not found."<<endl;
-    }
+    productList[index].set_amount(productList[index].get_amount()+amount);
+    over_write("stock.txt", productList);
 }
 
 bool Stock::verify_product(string product_name){
-    productList = read_file<Product>("stock.txt");
+    productList = read_file("stock.txt");
     for(size_t i =0; i<productList.size();i++){
         if(product_name == productList[i].get_product_name()){ // Product already registered
             index = i;
@@ -146,6 +118,34 @@ bool Stock::verify_amount(Product product, int amount){
 }
 
 vector<Product> Stock:: get_productList(){
-    productList = read_file<Product>("stock.txt");
+    productList = read_file("stock.txt");
     return productList;
+}
+
+
+vector<Product> Stock::read_file(string file_name){
+    vector<Product> objList;
+    fstream file;
+    file.open(file_name, ios::in);
+    Product temp;
+    while(file>>temp){
+        objList.emplace_back(temp);
+    }
+    file.close();
+    return objList;
+}
+
+void Stock::write_file(string file_name, Product product){
+    fstream file;
+    file.open(file_name, ios::app);
+    file<< product;
+    file.close();
+}
+
+void Stock::over_write(string file_name, vector<Product> list){
+    fstream file(file_name, ios::out);
+    for(size_t i=0; i<list.size(); i++){
+        file<<list[i];
+    }
+    file.close();  
 }

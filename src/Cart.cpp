@@ -13,7 +13,7 @@ Cart:: Cart():total(0){
 }
 
 void Cart:: add_product(Product product, int amount){
-    if(Stock:: verify_amount(product, amount)){
+    if(Stock::verify_amount(product, amount)){
         if(verifyCart(product)){ // Product already in cart, increase its amount
             cout<<"\t" "Product amount increased"<<endl;
             cart[productIndex].set_amount(cart[productIndex].get_amount()+amount);
@@ -42,7 +42,7 @@ bool Cart:: verifyCart(Product product){
 }
 
 void Cart::confirm_purchase(){
-    vector<Product> productList = Stock::get_productList(); //vector with original product amount
+    vector<Product> productList = Stock::get_productList(); //vector with original product amount in stock
     for(size_t i=0; i<cart.size(); i++){
         for(size_t j=0; j<productList.size(); j++){
             if(cart[i]==productList[j])
@@ -50,7 +50,7 @@ void Cart::confirm_purchase(){
         }
     }
     display_cart();
-    over_write<Product>("stock.txt", productList);
+    Stock::over_write("stock.txt", productList);
     client->update_shop_history();
     cart.clear();
 }

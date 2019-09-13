@@ -47,13 +47,8 @@ vector<pair<string, int>> order (map<string, int> records){
     copy(records.begin(), records.end(), back_inserter<vector<pair<string, int>>>(sorted_vector));
     sort(sorted_vector.begin(), sorted_vector.end(),[](const pair<string, int>& l, const pair<string, int>& r) {
         if (l.second != r.second)
-            return l.second < r.second;
+            return l.second > r.second;
         return l.first < r.first;
     });
-    // for (auto it = v.crbegin(); it != v.crend(); it++)
-	// {
-	// 	cout<< it->first <<" "<< it->second <<endl;
-	// }
-    
     return sorted_vector;
 }

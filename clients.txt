@@ -1,6 +1,6 @@
 666 Jorge pedro#SHOP_HISTORY-Buzz-5-Fuzz-1
-123 Teste#SHOP_HISTORY-Fizz-2-Foo-1-Food-3-Fuzz-1-Teste_teste-6
 777 Jorge#SHOP_HISTORY-Bar-2-Fizz-5
 555 Edu#SHOP_HISTORY-Food-2-Fuzz-1
-000 Admin#SHOP_HISTORY-Bar-1-Foo-3-Food-6
 890 Qweerty#SHOP_HISTORY-Lixo-1
+000 Admin#SHOP_HISTORY-Bar-1-Foo-3-Food-6-Teste-5
+123 Teste#SHOP_HISTORY-Fizz-2-Foo-1-Food-3-Fuzz-1-Teste-1-Teste_teste-6

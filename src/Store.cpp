@@ -134,7 +134,7 @@ void Store::recommendation_mode(){
     }
     else{
         cout<<"\t" "*RECOMMENDED PRODUCTS*"<<endl;
-        for (auto it = sorted_vector.crbegin(); it != sorted_vector.crend(); it++){
+        for (auto it = sorted_vector.cbegin(); it != sorted_vector.cend(); it++){
             for(size_t i=0; i<productList.size() ; i++){
                 if(it->first == productList[i].get_category()){
                     cout<<"\t"<<cont<<". ";productList[i].displayProduct();
