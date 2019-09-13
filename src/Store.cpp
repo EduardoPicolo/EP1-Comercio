@@ -126,14 +126,13 @@ void Store::recommendation_mode(){
     int cont = 1;
     vector<Product> productList = Stock::get_productList();
     map<string, int> shop_history = client->get_shop_history();
-    vector<pair<string, int>> sorted_vector = order(shop_history);
-
     if(shop_history.empty()){
         cout<<"\t"<< "Customer doesn't have a purchase history!"<<endl;
         main_menu();
     }
     else{
-        cout<<"\t" "*RECOMMENDED PRODUCTS*"<<endl;
+        vector<pair<string, int>> sorted_vector = order(shop_history);
+        cout<<"\t\t" "*RECOMMENDED PRODUCTS*"<<endl;
         for (auto it = sorted_vector.cbegin(); it != sorted_vector.cend(); it++){
             for(size_t i=0; i<productList.size() ; i++){
                 if(it->first == productList[i].get_category()){

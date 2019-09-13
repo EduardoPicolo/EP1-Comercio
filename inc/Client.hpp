@@ -20,9 +20,9 @@ class Client{
         static void register_client();
         static bool verifyClient(string cpf);
         static void login();
-        void recover_shop_history();
         void update_shop_history();
         void display_shop_history();
+        map<string, int> get_shop_history();
 
         const string get_name();
         void set_name(string name);
@@ -32,7 +32,6 @@ class Client{
 
         void display_client();
 
-        map<string, int> get_shop_history();
         static vector<Client> get_clientList();
 
         static vector<Client> read_file(string file_name);
