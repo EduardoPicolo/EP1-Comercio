@@ -1,2 +1,2 @@
-Obelixo	Food	3.5	3
+Obelixo	Food	3.5	30
 Teste_teste	Teste	10	2

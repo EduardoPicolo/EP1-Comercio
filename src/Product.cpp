@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <iomanip>
 
 int productPosition;
 
@@ -15,7 +16,7 @@ Product:: Product(string product_name, string category, double price, int amount
 }
 
 void  Product:: displayProduct(){
-    cout<< product_name << cout.fill('\t') <<"\t"<<"$"<<price <<"\t"<< amount<<endl;
+    cout<<left<<setw(18)<<product_name<<setfill(' ')<<"$"<<setw(10)<<price<<setfill(' ')<<setw(12)<<category<<setfill(' ')<<amount<<endl;
 }
 
 string Product:: get_product_name(){

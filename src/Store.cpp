@@ -1,4 +1,5 @@
 #include "Store.hpp"
+#include <iomanip>
 
 int option = 0;
 
@@ -78,7 +79,7 @@ void Store::shop_mode(){
 
     do{
         cout<<"\t\t\t" "*CATALOGUE*"<<endl;
-        cout<<"\t" "Index"<<"\t"<< "Product"<<"\t\t"<< "Price"<<"\t"<< "Amount"<<endl;
+        cout<<'\t'<<"Index"<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<setw(12)<<"Category"<<setfill(' ')<<"Amount"<<endl;
         for(size_t i=0; i<productList.size(); i++){
             cout<<"\t"<<i<<"\t";productList[i].displayProduct();
         }
