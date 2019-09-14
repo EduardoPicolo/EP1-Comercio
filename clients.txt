@@ -1,7 +1,4 @@
-555 Edu#SHOP_HISTORY-Food-2-Fuzz-1
-890 Qweerty#SHOP_HISTORY-Lixo-1
-000 Admin#SHOP_HISTORY-Bar-1-Foo-3-Food-6-Teste-5
-123 Teste#SHOP_HISTORY-Fizz-2-Foo-1-Food-3-Fuzz-1-Teste-1-Teste_teste-6
-444 Sem nada#SHOP_HISTORY-Bar-1-Foo-2
-666 Jorge pedro#SHOP_HISTORY-Buzz-6-Fuzz-2-Lixo-1
-777 Jorge#SHOP_HISTORY-Bar-3-Fizz-5
+01230123 Bigode#SHOP_HISTORY-Food-1-Teste-1
+000 Admin admin#SHOP_HISTORY-Food-1-Teste-3
+999 Teste teste#SHOP_HISTORY-Food-2-Teste-1
+123 Edu#SHOP_HISTORY-Food-5-Teste-3

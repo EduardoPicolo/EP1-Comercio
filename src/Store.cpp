@@ -57,11 +57,11 @@ void Store::shop_mode(){
     validate_option(option, "Invalid. Enter 1 to login, 2 to register client or 3 to cancel.");
     switch(option){
         case 1:
-            Client::login();
+            Management::login();
         break;
 
         case 2:
-            Client::register_client();
+            Management::register_client();
         break;
 
         case 3:
@@ -121,7 +121,7 @@ void Store::shop_mode(){
 }
 
 void Store::recommendation_mode(){
-    Client::login();
+    Management::login();
 
     int cont = 1;
     vector<Product> productList = Stock::get_productList();

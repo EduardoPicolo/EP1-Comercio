@@ -11,31 +11,21 @@ class Client{
         string name, cpf;
         map<string, int> shop_history;
 
-        static vector<Client> clientList;
-
     public:
         Client();
         Client(string name, string cpf);
-
-        static void register_client();
-        static bool verifyClient(string cpf);
-        static void login();
-        void update_shop_history();
-        void display_shop_history();
-        map<string, int> get_shop_history();
-
-        const string get_name();
-        void set_name(string name);
-
-        const string get_cpf();
-        void set_cpf(string cpf);
-
+        
         void display_client();
+        void display_shop_history();
 
-        static vector<Client> get_clientList();
+        const map<string, int> get_shop_history();
+        void set_shop_history(string category, int num);
+        void clear_shop_history();
 
-        static vector<Client> read_file(string file_name);
-        static void write_file(string file_name, Client client);
+        void set_name(string name);
+        const string get_name();
+        void set_cpf(string cpf);
+        const string get_cpf();
 };
 
 #endif

@@ -90,6 +90,7 @@ void Stock::restock(){
     while(amount<=0){
         clear_fail_state();
         cout<< "Invalid amount"<<endl;
+        cout<< "Quantity increase "<<"⇪ ";
         cin>> amount;
     }
 

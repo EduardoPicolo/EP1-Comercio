@@ -19,7 +19,7 @@ void Cart:: add_product(Product product, int amount){
             cart[productIndex].set_amount(cart[productIndex].get_amount()+amount);
             update_total();
         }
-        else{
+        else{ //Product not in cart, add
             cout<<"\t" "Product added to cart"<<endl;
             product.set_amount(amount);
             cart.push_back(product);
@@ -45,13 +45,14 @@ void Cart::confirm_purchase(){
     vector<Product> productList = Stock::get_productList(); //vector with original product amount in stock
     for(size_t i=0; i<cart.size(); i++){
         for(size_t j=0; j<productList.size(); j++){
-            if(cart[i]==productList[j])
+            if(cart[i]==productList[j]) //
                 productList[j].set_amount(productList[j].get_amount()-cart[i].get_amount());
         }
     }
     display_cart();
     Stock::over_write("stock.txt", productList);
-    client->update_shop_history();
+    // client->update_shop_history();
+    Management::update_shop_history();
     cart.clear();
 }
 

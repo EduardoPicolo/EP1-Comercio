@@ -5,6 +5,7 @@
 #include "Client.hpp"
 #include "Product.hpp"
 #include "Stock.hpp"
+#include "Management.hpp"
 #include "Cart.hpp"
 #include <iostream>
 #include <fstream>
