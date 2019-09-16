@@ -15,6 +15,7 @@ class Product{
     public:
         Product();
         Product(string product_name, string category, double price, int amount);
+        ~Product();
         void displayProduct();
 
         string get_product_name();

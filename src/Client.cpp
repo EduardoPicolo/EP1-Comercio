@@ -1,13 +1,14 @@
 #include "Client.hpp"
 #include "Functions.hpp"
 
-Client:: Client(){
+Client::Client():name(""), cpf(""){
 }
-
-Client:: Client(string name, string cpf)
-:name(name), cpf(cpf){
+Client::Client(string name, string cpf):name(name), cpf(cpf){
     cout<< "New client successfully registered!"<<endl;
 }
+Client::~Client(){
+}
+
 void Client::display_client(){
     cout<< "Client: "<<this->name<<' '<<this->cpf<<endl;
 }
@@ -28,15 +29,15 @@ void Client::clear_shop_history(){
     this->shop_history.clear();
 }
 
-const string Client:: get_name(){
+const string Client::get_name(){
     return name;
 }
-void Client:: set_name(string name){
+void Client::set_name(string name){
     this-> name = name;
 }
-const string Client:: get_cpf(){
+const string Client::get_cpf(){
     return cpf;
 }
-void Client:: set_cpf(string cpf){
+void Client::set_cpf(string cpf){
     this->cpf = cpf;
 }

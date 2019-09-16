@@ -4,9 +4,7 @@
 #include "Functions.hpp"
 
 class Store{
-    private:
-        virtual void abstract() = 0;
-
+    virtual void abstract() = 0;
     public:
         static void main_menu();
         static void shop_mode();

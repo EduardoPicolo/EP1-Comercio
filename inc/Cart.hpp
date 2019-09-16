@@ -20,15 +20,15 @@ class Cart{
 
     public:
         Cart();
+        ~Cart();
         double get_total();
 
         void add_product(Product product, int amount);
         void confirm_purchase();
         void cancel_purchase();
-
+        
         void display_cart();
         static vector<Product> get_cart();
-        void abstract(){};
 };
 
 #endif

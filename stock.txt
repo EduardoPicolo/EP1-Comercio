@@ -1,2 +1,5 @@
-Obelixo	Food	3.5	30
-Teste_teste	Teste	10	2
+Obelixo	Food	3.5	28
+Teste_teste	Teste	10	1
+Acucar	Coco	12	5
+Feijao	Grao	45	50
+Agua	Bebida	5	13
