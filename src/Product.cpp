@@ -19,7 +19,7 @@ Product::~Product(){
 }
 
 void  Product::displayProduct(){
-    cout<<left<<setw(18)<<product_name<<setfill(' ')<<"$"<<setw(10)<<price<<setfill(' ')<<setw(12)<<category<<setfill(' ')<<amount<<endl;
+    cout<<left<<setw(18)<<product_name<<setfill(' ')<<"$"<<setw(10)<<price<<setfill(' ')<<amount<<endl;
 }
 
 string Product::get_product_name(){

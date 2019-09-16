@@ -26,7 +26,7 @@ void Stock::add_product(){
         lowercase(product_name);
     if(verify_product(product_name)){
         cout<< "Product already registered"<<endl;
-        cout<<"\t" "1:Add new product"<<"\t"<< "2:Stock"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
+        cout<<'\t'<<left<<setw(21)<< "1:Add new product"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
         cin>> option;
         validate_option(option, "Invalid. Enter 1 to add a new product, 2 to go back to stock or 3 to cancel.");
         switch(option){
@@ -55,7 +55,7 @@ void Stock::add_product(){
     cin>> price;
     while(price<=0){
         clear_fail_state();
-        cout<<"\t" "Invalid"<<endl;
+        cout<<'\t'<< "Invalid"<<endl;
         cout<< "Price: ";
         cin>> price;
     }
@@ -63,7 +63,7 @@ void Stock::add_product(){
     cin>> amount;
     while(amount<=0){
         clear_fail_state();
-        cout<<"\t" "Invalid"<<endl;
+        cout<<'\t'<< "Invalid"<<endl;
         cout<< "Amount: ";
         cin>> amount;
     }
@@ -78,7 +78,7 @@ void Stock::restock(){
         fill_string_spaces(product_name);
         lowercase(product_name);
     while(!(Stock::verify_product(product_name))){
-        cout<<"\t" "Product not found"<<endl;       //ToDo opção pra sair do loop!
+        cout<<'\t'<< "Product not found"<<endl;       //ToDo opção pra sair do loop!
         cout<< "Product: ";
         getline(cin>>ws, product_name);
             fill_string_spaces(product_name);
@@ -89,7 +89,7 @@ void Stock::restock(){
     cin>> amount;
     while(amount<=0){
         clear_fail_state();
-        cout<< "Invalid amount"<<endl;
+        cout<<'\t'<< "Invalid amount"<<endl;
         cout<< "Quantity increase "<<"⇪ ";
         cin>> amount;
     }

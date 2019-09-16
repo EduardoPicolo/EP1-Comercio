@@ -1,7 +1,7 @@
 #include "Cart.hpp"
 #include "Functions.hpp"
 #include <iostream>
-#include <fstream>
+#include <iomanip>
 #include <vector>
 #include <string>
 
@@ -53,7 +53,6 @@ void Cart::confirm_purchase(){
     }
     display_cart();
     Stock::over_write("stock.txt", productList);
-    // client->update_shop_history();
     Management::update_shop_history();
     cart.clear();
 }
@@ -72,9 +71,10 @@ void Cart::update_total(){
 }
 
 void Cart::display_cart(){
-    cout<<"\t" "*CART*"<<endl;
+    cout<<"\t\t" "*CART*"<<endl;
+    cout<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
     for(size_t i=0; i<cart.size();i++){
-        cout<<" ";cart[i].displayProduct();
+        cout<<'\t'; cart[i].displayProduct();
     }
     cout<<"\t" "TOTAL: $"<< total <<endl;
 }

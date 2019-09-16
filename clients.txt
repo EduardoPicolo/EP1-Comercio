@@ -1,6 +1,6 @@
 01230123 qwerty#SHOP_HISTORY-Food-1-Teste-1
-000 Admin admin#SHOP_HISTORY-Food-1-Teste-3
 123 Edu#SHOP_HISTORY-Food-5-Teste-3
 12312312300 Mariana#SHOP_HISTORY-Coco-1-Food-2
-999 Teste teste#SHOP_HISTORY-Food-2-Teste-2
-022683 Eduardo#SHOP_HISTORY-Bebida-2-Coco-1
+999 Teste teste#SHOP_HISTORY-Bebida-3-Food-6-Teste-2
+022683 Eduardo#SHOP_HISTORY-Bebida-2-Coco-2
+000 Admin admin#SHOP_HISTORY-Food-1-Grao-5-Teste-3

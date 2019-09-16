@@ -18,8 +18,8 @@ void Management::register_client(){
         fill_string_spaces(cpf);
     switch(verify_client(cpf)){
         case true:
-            cout<< "Client already registered"<<endl;
-            cout<<"\t" "1:Try again"<<"\t"<< "2:Login"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
+            cout<<'\t'<< "Client already registered"<<endl;
+            cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<<setw(11)<< "2:Login"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
             cin>> option;
             validate_option(option, "Invalid. Enter 1 to try again, 2 to login or 3 to cancel.");
             switch(option){
@@ -63,8 +63,8 @@ void Management::login(){
     cout<<"Client CPF: ";
     getline(cin>>ws, cpf);
     if(verify_client(cpf)){
-        client_list[clientIndex].display_client();
-        cout<<"\t" "1:Confirm"<<"\t"<<"2:Enter new CPF"<<"\t"<<"3:Cancel"<<endl;cout<< ">> ";
+        cout<<'\t'; client_list[clientIndex].display_client();
+        cout<<'\t'<<left<<setw(13)<< "1:Confirm"<<setfill(' ')<<setw(19)<< "2:Enter new CPF"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
         cin>> option;
         validate_option(option, "Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel.");
         switch(option){
@@ -82,8 +82,8 @@ void Management::login(){
         }
     }
     else{
-        cout<< "Client not found"<<endl;
-        cout<<"\t" "1:Enter new CPF"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<<">> ";
+        cout<<'\t'<< "Client not found"<<endl;
+        cout<<'\t'<<left<<setw(19)<< "1:Enter new CPF"<<setfill(' ')<<setw(21)<< "2:Register client"<<setfill(' ')<< "3:Cancel"<<endl;cout<<">> ";
         cin>> option;
         validate_option(option,  "Invalid. Enter 1 to try again, 2 to register client or 3 to cancel.");
         switch(option){

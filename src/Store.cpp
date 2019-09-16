@@ -4,8 +4,9 @@
 int option = 0;
 
 void Store::main_menu(){
-    cout<<"\t" "1:Shop"<<" \t "<< "2:Stock"<<" \t "<< "3:Recommendation"<<endl;cout<< ">> ";
-    cin>>  option;
+    cout<< "================================ Main Menu ================================" <<endl;
+    cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<< "3:Recommendation"<<endl;cout<< ">> ";
+    cin>> option;
     validate_option(option, "Invalid. Enter 1 for shop, 2 for stock or 3 for recommendation mode.");
 
     switch(option){
@@ -27,8 +28,8 @@ void Store::main_menu(){
 }
 
 void Store::stock_mode(){
-    cout<<"\t" "*STOCK*"<< endl;
-    cout<<"\t" "1:Add product"<< "\t"<< "2:Replenish stock"<<"\t"<< "3: Cancel"<<endl;cout<< ">> ";
+    cout<< "================================ *STOCK* ================================" <<endl;
+    cout<<'\t'<<left<<setw(17)<< "1:Add product"<<setfill(' ')<<setw(21)<< "2:Replenish stock"<<setfill(' ')<< "3: Cancel"<<endl;cout<< ">> ";
     cin >> option;
     validate_option(option, "Invalid. Enter 1 to add product, 2 to replenish stock or 3 to cancel.");
 
@@ -53,7 +54,8 @@ void Store::stock_mode(){
 }
 
 void Store::shop_mode(){
-    cout<<"\t" "1:Login"<<"\t"<< "2:Register client"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
+    cout<< "================================ *SHOP* ================================" <<endl;
+    cout<<'\t'<<left<<setw(11)<< "1:Login"<<setfill(' ')<<setw(21)<< "2:Register client"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
     cin>> option;
     validate_option(option, "Invalid. Enter 1 to login, 2 to register client or 3 to cancel.");
     switch(option){
@@ -79,7 +81,7 @@ void Store::shop_mode(){
 
     do{
         cout<<"\t\t\t" "*CATALOGUE*"<<endl;
-        cout<<'\t'<<"Index"<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<setw(12)<<"Category"<<setfill(' ')<<"Amount"<<endl;
+        cout<<'\t'<<"Index"<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
         for(size_t i=0; i<productList.size(); i++){
             cout<<"\t"<<i<<"\t";productList[i].displayProduct();
         }
@@ -96,7 +98,7 @@ void Store::shop_mode(){
         cin>> amount;
             clear_fail_state();
         cart.add_product(productList[product], amount);
-        cout<<"\t" "1:Continue shoppping"<<"\t"<< "2:Confirm purchase"<<"\t"<< "3:Cancel"<<endl;cout<< ">> ";
+        cout<<'\t'<<left<<setw(23)<< "1:Continue shopping"<<setfill(' ')<<setw(22)<< "2:Confirm purchase"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
         cin>> option;
         validate_option(option,  "Invalid. Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel");
         switch(option){
