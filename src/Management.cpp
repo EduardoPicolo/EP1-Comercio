@@ -60,7 +60,7 @@ void Management::login(){
     int option = 0;
     string cpf;
 
-    cout<<"Client CPF: ";
+    cout<<"Client's CPF: ";
     getline(cin>>ws, cpf);
     if(verify_client(cpf)){
         cout<<'\t'; client_list[clientIndex].display_client();

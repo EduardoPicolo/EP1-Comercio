@@ -124,6 +124,7 @@ void Store::shop_mode(){
 }
 
 void Store::recommendation_mode(){
+    cout<< "================================ *RECOMMEND* ================================" <<endl;
     Management::login();
 
     int cont = 1;
@@ -139,7 +140,7 @@ void Store::recommendation_mode(){
         for (auto it = sorted_vector.cbegin(); it != sorted_vector.cend(); it++){
             for(size_t i=0; i<productList.size() ; i++){
                 if(it->first == productList[i].get_category()){
-                    cout<<"\t"<<cont<<". ";productList[i].displayProduct();
+                    cout<<'\t'<<cont<<". ";productList[i].displayProduct();
                     cont++;
                     break;
                 }
