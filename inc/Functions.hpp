@@ -1,7 +1,6 @@
 #ifndef FUNCTIONS_HPP
 #define FUNCTIONS_HPP
 
-#include "Store.hpp"
 #include "Client.hpp"
 #include "Product.hpp"
 #include "Stock.hpp"
@@ -10,11 +9,11 @@
 #include "Exception.hpp"
 #include <iostream>
 #include <iomanip>
+#include <string>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <iterator>
-#include <string>
 #include <cctype>
 #include <map>
 #include <algorithm>

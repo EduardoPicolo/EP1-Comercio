@@ -1,10 +1,8 @@
 #include "Product.hpp"
 #include "Functions.hpp"
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
 #include <iomanip>
+#include <string>
 
 int productPosition;
 

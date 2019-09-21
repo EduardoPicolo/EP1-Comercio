@@ -1,5 +1,5 @@
 #include "Stock.hpp"
-#include "Functions.hpp"
+#include "Store.hpp"
 
 vector<Product> Stock::productList;
 int index;

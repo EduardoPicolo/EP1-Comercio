@@ -1,6 +1,4 @@
 #include "Store.hpp"
-#include <iomanip>
-#include <string>
 
 const Exception invalid_option("Invalid option.");
 
@@ -109,7 +107,7 @@ void Store::shop_mode(){
 
         cout<< "Product Index: ";
         cin>> product;
-        while(product>productList.size()){
+        while(product>productList.size()-1){
             clear_fail_state();
             cout<<'\t'<< "Invalid product index"<<endl;
             cout<< "Product Index: ";
@@ -174,7 +172,7 @@ void Store::recommendation_mode(){
     main_menu();
 }
 
-void Store::input_option(char* message){
+void Store::input_option(const string& message){
     cin>> option;
     while(option!=1&&option!=2&&option!=3){
         clear_fail_state();

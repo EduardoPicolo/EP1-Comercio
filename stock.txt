@@ -10,4 +10,4 @@ Coxinha	Salgado	3	21
 Salgadinho	Salgado	5	20
 Qwerty	Qwerty	1	0
 Pizza	Salgado	10	20
-Refrigerante	Bebida	9.99	4
+Refrigerante	Bebida	9.99	10

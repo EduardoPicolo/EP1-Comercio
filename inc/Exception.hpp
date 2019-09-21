@@ -1,8 +1,8 @@
 #ifndef EXCEPTION_HPP
 #define EXCEPTION_HPP
 
-#include <exception>
 #include <Functions.hpp>
+#include <exception>
 
 class Exception: public exception {
     private:

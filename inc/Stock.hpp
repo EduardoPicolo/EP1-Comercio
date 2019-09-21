@@ -1,12 +1,7 @@
 #ifndef STOCK_HPP
 #define STOCK_HPP
 
-#include "Product.hpp"
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-using namespace std;
+#include "Functions.hpp"
 
 class Stock{
     virtual void abstract() = 0;

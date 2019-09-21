@@ -1,4 +1,5 @@
 #include "Management.hpp"
+#include "Store.hpp"
 
 vector<Client> Management::client_list;
 int clientIndex;
