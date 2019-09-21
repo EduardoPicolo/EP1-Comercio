@@ -4,19 +4,7 @@
 vector<Product> Stock::productList;
 int index;
 
-void Stock::register_product(string product_name, string category, double price, int amount){
-    if(!verify_product(product_name)){
-        Product product(product_name, category, price, amount);
-        productList.push_back(product);
-        write_file("stock.txt", product);
-    }
-    else{
-        cout<<"Product already registered."<<endl;
-    }
-}
-
 void Stock::add_product(){
-    int option = 0;
     string product_name, category;
     double price; int amount;
 
@@ -24,50 +12,53 @@ void Stock::add_product(){
     getline(cin>>ws, product_name);
         fill_string_spaces(product_name);
         lowercase(product_name);
-    if(verify_product(product_name)){
-        cout<< "Product already registered"<<endl;
-        cout<<'\t'<<left<<setw(21)<< "1:Add new product"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-        cin>> option;
-        validate_option(option, "Invalid. Enter 1 to add a new product, 2 to go back to stock or 3 to cancel.");
-        switch(option){
-            case 1:
-                add_product();
-            break;
+    switch(verify_product(product_name)){
+        case true:
+            cout<< "Product already registered"<<endl;
+            cout<<'\t'<<left<<setw(21)<< "1:Add new product"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
+            Store::input_option("Invalid. Enter 1 to add a new product, 2 to go back to stock or 3 to cancel.");
+            switch(option){
+                case 1:
+                    Stock::add_product();
+                break;
+                case 2:
+                    Store::stock_mode();
+                break;
+                case 3:
+                    Store::main_menu();
+                break;
+                default:
+                    throw e_option;
+                break;
+            }
+        break;
 
-            case 2:
-                Store::stock_mode();
-            break;
-
-            case 3:
-                Store::main_menu();
-            break;
-
-            default:
-            break;
-        }
+        case false:
+            cout<< "Product category: ";
+            getline(cin>>ws, category);
+                fill_string_spaces(category);
+                lowercase(category);
+            cout<< "Price: ";
+            cin>> price;
+            while(price<=0){
+                clear_fail_state();
+                cout<<'\t'<< "Invalid"<<endl;
+                cout<< "Price: ";
+                cin>> price;
+            }
+            cout<< "Amount: ";
+            cin>> amount;
+            while(amount<=0){
+                clear_fail_state();
+                cout<<'\t'<< "Invalid"<<endl;
+                cout<< "Amount: ";
+                cin>> amount;
+            }
+            Product product(product_name, category, price, amount);
+            productList.push_back(product);
+            write_file("stock.txt", product);
+        break;
     }
-
-    cout<< "Product category: ";
-    getline(cin>>ws, category);
-        fill_string_spaces(category);
-        lowercase(category);
-    cout<< "Price: ";
-    cin>> price;
-    while(price<=0){
-        clear_fail_state();
-        cout<<'\t'<< "Invalid"<<endl;
-        cout<< "Price: ";
-        cin>> price;
-    }
-    cout<< "Amount: ";
-    cin>> amount;
-    while(amount<=0){
-        clear_fail_state();
-        cout<<'\t'<< "Invalid"<<endl;
-        cout<< "Amount: ";
-        cin>> amount;
-    }
-    register_product(product_name, category, price, amount);
 }
 
 void Stock::restock(){
@@ -77,25 +68,38 @@ void Stock::restock(){
     getline(cin>>ws, product_name);
         fill_string_spaces(product_name);
         lowercase(product_name);
-    while(!(Stock::verify_product(product_name))){
-        cout<<'\t'<< "Product not found"<<endl;       //ToDo opção pra sair do loop!
-        cout<< "Product: ";
-        getline(cin>>ws, product_name);
-            fill_string_spaces(product_name);
-            lowercase(product_name);
-    }
 
-    cout<< "Quantity increase "<<"⇪ ";
-    cin>> amount;
-    while(amount<=0){
-        clear_fail_state();
-        cout<<'\t'<< "Invalid amount"<<endl;
+    if(Stock::verify_product(product_name)){
         cout<< "Quantity increase "<<"⇪ ";
         cin>> amount;
+        while(amount<=0){
+            clear_fail_state();
+            cout<<'\t'<< "Invalid amount"<<endl;
+            cout<< "Quantity increase "<<"⇪ ";
+            cin>> amount;
+        }
+        productList[index].set_amount(productList[index].get_amount()+amount);
+        over_write("stock.txt", productList);
     }
-
-    productList[index].set_amount(productList[index].get_amount()+amount);
-    over_write("stock.txt", productList);
+    else{
+        cout<<'\t'<< "Product not found"<<endl;
+        cout<<'\t'<<left<<setw(16)<< "1:Try again"<<setfill(' ')<<setw(21)<< "2:Add new product"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
+        Store::input_option("Invalid option. Enter 1 to try again, 2 to add new product or 3 to cancel");
+        switch(option){
+            case 1:
+                Stock::restock();
+            break;
+            case 2:
+                Stock::add_product();
+            break;
+            case 3:
+                Store::main_menu();
+            break;
+            default:
+                throw e_option;
+            break;
+        }
+    }
 }
 
 bool Stock::verify_product(string product_name){

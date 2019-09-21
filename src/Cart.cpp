@@ -29,7 +29,7 @@ void Cart::add_product(Product product, int amount){
         }
     }
     else{
-        cout<<"\t" "Invalid amount"<<endl;
+        cout<<'\t'<< "Invalid amount"<<endl;
     }
 }
 

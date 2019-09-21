@@ -4,6 +4,8 @@
 Client::Client():name(""), cpf(""){
 }
 Client::Client(string name, string cpf):name(name), cpf(cpf){
+    if(name.length()==0)
+        throw new Exception("Client's name must not be empty.");
     cout<< "New client successfully registered!"<<endl;
 }
 Client::~Client(){
@@ -33,7 +35,10 @@ const string Client::get_name(){
     return name;
 }
 void Client::set_name(string name){
-    this-> name = name;
+    if(name.length()==0)
+        throw new Exception("Client's name must not be empty.");
+    else
+        this-> name = name;
 }
 const string Client::get_cpf(){
     return cpf;

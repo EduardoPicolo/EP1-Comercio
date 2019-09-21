@@ -1,6 +1,7 @@
 #include "Functions.hpp"
 
 Client* client = new Client();
+int option = 0;
 
 void fill_string_spaces(string & str){
     for(size_t i=0; i<str.length(); i++){

@@ -13,6 +13,8 @@ Product::Product():product_name(""), category(""), price(0.0), amount(0){
 Product::Product(string product_name, string category, double price, int amount)
 :product_name(product_name), category(category), price(price), amount(amount) 
 {
+    if(product_name.length()==0||category.length()==0)
+        throw new Exception("Product's name/category cannot be empty.");
     cout<< "New product added!"<< endl;
 }
 Product::~Product(){
@@ -47,10 +49,15 @@ void Product::set_category(string category){
 }
 
 void Product::set_price(double price){
-    this-> price = price;
+    if(price<0)
+        throw new Exception("Invalid price.");
+    else
+        this-> price = price;
 }
 
 void Product::set_amount(int amount){
+    if(amount<0)
+        throw new Exception("Invalid amount.");
     this-> amount = amount;
 }
 

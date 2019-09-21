@@ -3,4 +3,6 @@
 12312312300 Mariana#SHOP_HISTORY-Coco-1-Food-2
 999 Teste teste#SHOP_HISTORY-Bebida-3-Food-6-Teste-2
 022683 Eduardo#SHOP_HISTORY-Bebida-2-Coco-2
-000 Admin admin#SHOP_HISTORY-Food-1-Grao-5-Teste-3
+000 Admin admin#SHOP_HISTORY-Coco-3-Food-3-Grao-5-Teste-4
+1 Zxcvbn#SHOP_HISTORY-Qwerty-1
+666 O grande#SHOP_HISTORY-Bebida-6

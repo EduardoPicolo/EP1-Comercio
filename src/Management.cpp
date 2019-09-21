@@ -7,7 +7,6 @@ vector<Client> Management::get_client_list(){
     return client_list;
 }
 void Management::register_client(){
-    int option = 0;
     string name, cpf;
 
     cout<< "Name: ";
@@ -20,8 +19,7 @@ void Management::register_client(){
         case true:
             cout<<'\t'<< "Client already registered"<<endl;
             cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<<setw(11)<< "2:Login"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-            cin>> option;
-            validate_option(option, "Invalid. Enter 1 to try again, 2 to login or 3 to cancel.");
+            Store::input_option("Invalid. Enter 1 to try again, 2 to login or 3 to cancel.");
             switch(option){
                 case 1:
                     Management::register_client();
@@ -33,6 +31,7 @@ void Management::register_client(){
                     Store::main_menu();
                 break;
                 default:
+                    throw e_option;
                 break;
             }
         break;
@@ -57,7 +56,6 @@ bool Management::verify_client(string cpf){
     return false; // Client NOT registered
 }
 void Management::login(){
-    int option = 0;
     string cpf;
 
     cout<<"Client's CPF: ";
@@ -65,8 +63,7 @@ void Management::login(){
     if(verify_client(cpf)){
         cout<<'\t'; client_list[clientIndex].display_client();
         cout<<'\t'<<left<<setw(13)<< "1:Confirm"<<setfill(' ')<<setw(19)<< "2:Enter new CPF"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-        cin>> option;
-        validate_option(option, "Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel.");
+        Store::input_option("Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel.");
         switch(option){
             case 1:
                 *client = client_list[clientIndex];
@@ -78,14 +75,14 @@ void Management::login(){
                 Store::main_menu();
             break;
             default:
+                throw e_option;
             break;
         }
     }
     else{
         cout<<'\t'<< "Client not found"<<endl;
         cout<<'\t'<<left<<setw(19)<< "1:Enter new CPF"<<setfill(' ')<<setw(21)<< "2:Register client"<<setfill(' ')<< "3:Cancel"<<endl;cout<<">> ";
-        cin>> option;
-        validate_option(option,  "Invalid. Enter 1 to try again, 2 to register client or 3 to cancel.");
+        Store::input_option("Invalid. Enter 1 to try again, 2 to register client or 3 to cancel.");
         switch(option){
             case 1:
                 Management::login();
@@ -97,11 +94,24 @@ void Management::login(){
                 Store::main_menu();
             break;
             default:
+                throw e_option;
             break;
         }
     }
 }
 void Management::update_shop_history(){
+    vector<Product> productList = Cart::get_cart();
+    map<string, int> categoriesDict;
+
+    /*Get each product category from products in cart and them adds to categoryDictionary*/
+    for(size_t i=0; i<productList.size(); i++){
+        categoriesDict[productList[i].get_category()] += (productList[i].get_amount());
+    }
+    /*Update signed in client's shop_history category/number */
+    for(auto mapIterator = begin(categoriesDict); mapIterator != end(categoriesDict); ++mapIterator){
+        client->set_shop_history(mapIterator->first, mapIterator->second);
+    }
+
     vector<string> line; string x;
     fstream infile, tempFile;
     infile.open("clients.txt", ios::in);
@@ -109,7 +119,7 @@ void Management::update_shop_history(){
     /*Get lines from clients.txt and write them in temp.txt, except current signed in client*/
     while(getline(infile, x, ' ')){
         if(x == client->get_cpf()){
-            getline(infile, x);
+            getline(infile, x); //If current signed in client, skip this line.
         }
         else{
             tempFile<<x+' ';
@@ -121,18 +131,6 @@ void Management::update_shop_history(){
     tempFile.close();
     remove("clients.txt");
     rename("temp.txt", "clients.txt");
-
-    vector<Product> productList = Cart::get_cart();
-    map<string, int> categoriesDict;
-
-    /*Get each product category from products in cart and them adds to categoryDictionary*/
-    for(size_t i=0; i<productList.size(); i++){
-        categoriesDict[productList[i].get_category()] += (productList[i].get_amount());
-    }
-    /*Update signed in client shop_history category/number */
-    for(auto mapIterator = begin(categoriesDict); mapIterator != end(categoriesDict); ++mapIterator){
-        client->set_shop_history(mapIterator->first, mapIterator->second);
-    }
     /*Write current client to file.txt*/
     Management::write_file("clients.txt", *client); 
 }
@@ -140,9 +138,11 @@ void Management::update_shop_history(){
 vector<Client> Management::read_file(string file_name){
     fstream file;
     file.open(file_name, ios::in);
+    if(!file.is_open())
+        throw e_file;
     vector<Client> list; vector<string> split_aux;
-    Client temp;
-    string name, cpf, aux;
+    Client temp; string name, cpf, aux;
+
     while(getline(file, cpf, ' ')&&getline(file, name, '#')&&getline(file, aux)){
         temp.set_cpf(cpf);
         temp.set_name(name);
@@ -160,6 +160,8 @@ vector<Client> Management::read_file(string file_name){
 void Management::write_file(string file_name, Client client){
     fstream file;
     file.open(file_name, ios::app);
+    if(!file.is_open())
+        throw e_file;
     file<<client.get_cpf()<<' ';
     file<<client.get_name()<<"#";
     file<<"SHOP_HISTORY";

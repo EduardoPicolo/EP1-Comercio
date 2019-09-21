@@ -7,6 +7,7 @@
 #include "Stock.hpp"
 #include "Management.hpp"
 #include "Cart.hpp"
+#include "Exception.hpp"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -20,7 +21,8 @@
 #include <limits>
 using namespace std;
 
-extern Client* client;
+extern Client* client; //Global 'client'
+extern int option;
 
 void fill_string_spaces(string & str);
 void lowercase(string& str);

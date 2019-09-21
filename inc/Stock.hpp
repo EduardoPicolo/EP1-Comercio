@@ -15,7 +15,6 @@ class Stock{
 
     public:
         static void add_product();
-        static void register_product(string product_name, string category, double price, int amount);
         static bool verify_product(string product_name);
         static bool verify_amount(Product product, int amount);
         static void restock();

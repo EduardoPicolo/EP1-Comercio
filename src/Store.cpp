@@ -1,28 +1,47 @@
 #include "Store.hpp"
 #include <iomanip>
+#include <string>
 
-int option = 0;
+const Exception invalid_option("Invalid option.");
 
 void Store::main_menu(){
     cout<< "================================ Main Menu ================================" <<endl;
     cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<< "3:Recommendation"<<endl;cout<< ">> ";
-    cin>> option;
-    validate_option(option, "Invalid. Enter 1 for shop, 2 for stock or 3 for recommendation mode.");
+    Store::input_option("Invalid. Enter 1 for shop, 2 for stock or 3 for recommendation mode.");
 
     switch(option){
         case 1:
-            shop_mode();
+            try{
+                Store::shop_mode();
+            }catch(Exception& e){
+                cout<<'\t'<< e.what() <<endl;
+                cout<< "Returning to main menu..." <<endl;
+                Store::main_menu();
+            }
         break;
 
         case 2:
-            stock_mode();
+            try{
+                Store::stock_mode();
+            }catch(Exception& e){
+                cout<<'\t'<< e.what() <<endl;
+                cout<< "Returning to main menu..." <<endl;
+                Store::main_menu();
+            }
         break;
 
         case 3:
-            recommendation_mode();
+        try{
+            Store::recommendation_mode();
+        }catch(Exception& e){
+            cout<<'\t'<< e.what() <<endl;
+            cout<< "Returning to main menu..." <<endl;
+            Store::main_menu();
+        }
         break;
 
         default:
+         throw e_option;
         break;
     }
 }
@@ -30,25 +49,27 @@ void Store::main_menu(){
 void Store::stock_mode(){
     cout<< "================================ *STOCK* ================================" <<endl;
     cout<<'\t'<<left<<setw(17)<< "1:Add product"<<setfill(' ')<<setw(21)<< "2:Replenish stock"<<setfill(' ')<< "3: Cancel"<<endl;cout<< ">> ";
-    cin >> option;
-    validate_option(option, "Invalid. Enter 1 to add product, 2 to replenish stock or 3 to cancel.");
-
+    Store::input_option("Invalid. Enter 1 to add product, 2 to replenish stock or 3 to cancel.");
     switch (option){
-        case 1: // Add product
+        case 1:
             Stock::add_product();
-            main_menu();
+            cout<< "Returning to main menu..."<<endl;
+            Store::main_menu();
         break;
 
-        case 2: //Increase product amount
+        case 2:
             Stock::restock();
-            main_menu();
+            cout<< "Returning to main menu..."<<endl;
+            Store::main_menu();
         break;
         
         case 3:
-            main_menu();
+            cout<< "Returning to main menu..."<<endl;
+            Store::main_menu();
         break;
 
         default:
+            throw e_option;
         break;
     }
 }
@@ -56,8 +77,7 @@ void Store::stock_mode(){
 void Store::shop_mode(){
     cout<< "================================ *SHOP* ================================" <<endl;
     cout<<'\t'<<left<<setw(11)<< "1:Login"<<setfill(' ')<<setw(21)<< "2:Register client"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-    cin>> option;
-    validate_option(option, "Invalid. Enter 1 to login, 2 to register client or 3 to cancel.");
+    Store::input_option("Invalid. Enter 1 to login, 2 to register client or 3 to cancel.");
     switch(option){
         case 1:
             Management::login();
@@ -68,10 +88,11 @@ void Store::shop_mode(){
         break;
 
         case 3:
-            main_menu();
+            Store::main_menu();
         break;
 
         default:
+            throw e_option;
         break;
     }
 
@@ -90,7 +111,7 @@ void Store::shop_mode(){
         cin>> product;
         while(product>productList.size()){
             clear_fail_state();
-            cout<<"\t" "Invalid product index"<<endl;
+            cout<<'\t'<< "Invalid product index"<<endl;
             cout<< "Product Index: ";
             cin>> product;
         }
@@ -99,22 +120,21 @@ void Store::shop_mode(){
             clear_fail_state();
         cart.add_product(productList[product], amount);
         cout<<'\t'<<left<<setw(23)<< "1:Continue shopping"<<setfill(' ')<<setw(22)<< "2:Confirm purchase"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-        cin>> option;
-        validate_option(option,  "Invalid. Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel");
+        Store::input_option("Invalid. Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel");
         switch(option){
             case 1:
             break;
             case 2:
-                // client->update_shop_history();
                 cart.confirm_purchase();
-                main_menu();
+                Store::main_menu();
             break;
             case 3:
                 cart.cancel_purchase();
-                main_menu();
+                Store::main_menu();
             break;
 
             default:
+                throw e_option;
             break;
         }
         if(Stock::verify_amount(productList[product], amount)){
@@ -132,6 +152,7 @@ void Store::recommendation_mode(){
     map<string, int> shop_history = client->get_shop_history();
     if(shop_history.empty()){
         cout<<"\t"<< "Customer doesn't have a purchase history!"<<endl;
+        cout<< "Returning to main menu..." <<endl;
         main_menu();
     }
     else{
@@ -151,4 +172,13 @@ void Store::recommendation_mode(){
     }
     cout<<endl;
     main_menu();
+}
+
+void Store::input_option(char* message){
+    cin>> option;
+    while(option!=1&&option!=2&&option!=3){
+        clear_fail_state();
+        cout<<'\t'<< message <<'\n'<< ">> ";
+        cin>> option;
+    }
 }
