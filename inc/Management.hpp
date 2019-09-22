@@ -9,10 +9,11 @@ class Management {
         static vector<Client> client_list;
 
     public:
-        static void register_client();
         static void login();
+        static void register_client();
         static bool verify_client(string cpf);
-        vector<Client> get_client_list();
+        static bool validate_cpf(const string& cpf);
+        static vector<Client> get_client_list();
         static void update_shop_history();
         static vector<Client> read_file(string file_name);
         static void write_file(string file_name, Client client);

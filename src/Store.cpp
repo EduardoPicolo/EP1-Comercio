@@ -19,7 +19,14 @@ void Store::start_session(){
             throw e_option;
         break;
     }
-    Store::main_menu();
+    // Store::main_menu();
+    try{
+        Store::main_menu();
+    }catch(Exception& e){
+        cout<<'\t'<< e.what() <<endl;
+        cout<< "Returning to main menu..." <<endl;
+        Store::main_menu();
+    }
 }
 
 void Store::main_menu(){
@@ -29,41 +36,23 @@ void Store::main_menu(){
         Store::input_option(4 ,"Enter 1 to shop, 2 for recommendations, 3 to logout or 4 for stock.");
     }
     else{
-        cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(20)<< "2:Recommendation"<<setfill(' ')<< "3:Logout"<<endl;
+        cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(20)<< "2:Recommendations"<<setfill(' ')<< "3:Logout"<<endl;
         Store::input_option(3 ,"Enter 1 to shop, 2 for recommendations or 3 to logout.");
     }
 
     switch(option){
         case 1:
-            try{
-                Store::shop_mode();
-            }catch(Exception& e){
-                cout<<'\t'<< e.what() <<endl;
-                cout<< "Returning to main menu..." <<endl;
-                Store::main_menu();
-            }
+            Store::shop_mode();
         break;
         case 2:
-            try{
-                Store::recommendation_mode();
-            }catch(Exception& e){
-                cout<<'\t'<< e.what() <<endl;
-                cout<< "Returning to main menu..." <<endl;
-                Store::main_menu();
-            }
+            Store::recommendation_mode();
         break;
         case 3:
             *client = Client();
             Store::start_session();
         break;
         case 4:
-            try{
-                Store::stock_mode();
-            }catch(Exception& e){
-                cout<<'\t'<< e.what() <<endl;
-                cout<< "Returning to main menu..." <<endl;
-                Store::main_menu();
-            }
+            Store::stock_mode();
         break;
         default:
          throw e_option;
@@ -144,7 +133,7 @@ void Store::shop_mode(){
 }
 
 void Store::recommendation_mode(){
-    cout<< "================================ *RECOMMEND* ================================" <<endl;
+    cout<< "===========================================================================" <<endl;
 
     int cont = 1;
     vector<Product> productList = Stock::get_productList();
@@ -152,7 +141,7 @@ void Store::recommendation_mode(){
     if(shop_history.empty()){
         cout<<"\t"<< "Customer doesn't have a purchase history!"<<endl;
         cout<< "Returning to main menu..." <<endl;
-        main_menu();
+        Store::main_menu();
     }
     else{
         vector<pair<string, int>> sorted_vector = order(shop_history);

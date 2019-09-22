@@ -1,2 +1,3 @@
-2 Exemplo exemplo;2;exemplo@mail;222;SHOP_HISTORY-Bebida-1-Exemplo-6-Guloseima-1
-1 Edu;1;qwerty;999;SHOP_HISTORY-Exemplo-1-Food-2-Salgado-1-Teste-2
+22222222222 Exemplo exemplo;2;exemplo@mail;222;SHOP_HISTORY-Bebida-1-Exemplo-6-Guloseima-1
+11122233300 Teste teste;teste;teste@mail;999;SHOP_HISTORY-Bebida-2-Guloseima-6-Salgado-1
+11111111111 Edu;1;qwerty;999;SHOP_HISTORY-Exemplo-4-Food-2-Salgado-1-Teste-2

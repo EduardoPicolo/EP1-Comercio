@@ -2,16 +2,15 @@
 #include "Store.hpp"
 
 int main(void) {
-    // try{
-    // Store::main_menu();
-    // }catch(Exception& e){
-    //     cerr<<'\t'<< e.what() <<endl;
-    //     return EXIT_FAILURE;
-    // }
     try{
-    Store::start_session();
+        Store::start_session();
     }catch(Exception& e){
         cerr<<'\t'<< e.what() <<endl;
+        cout<<"Returning to start session..."<<endl;
+        Store::start_session();
+    }
+    catch(...){
+        cerr<< "An unknown error has ocurred, closing program..."<<endl;
         return EXIT_FAILURE;
     }
     return 0;
