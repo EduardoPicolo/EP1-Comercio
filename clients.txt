@@ -1,10 +1,2 @@
-01230123 qwerty#SHOP_HISTORY-Food-1-Teste-1
-123 Edu#SHOP_HISTORY-Food-5-Teste-3
-12312312300 Mariana#SHOP_HISTORY-Coco-1-Food-2
-999 Teste teste#SHOP_HISTORY-Bebida-3-Food-6-Teste-2
-022683 Eduardo#SHOP_HISTORY-Bebida-2-Coco-2
-000 Admin admin#SHOP_HISTORY-Coco-3-Food-3-Grao-5-Teste-4
-1 Zxcvbn#SHOP_HISTORY-Qwerty-1
-666 O grande#SHOP_HISTORY-Bebida-6
-444 Ps4#SHOP_HISTORY
-2 Mnbvcxz#SHOP_HISTORY-Bebida-1
+2 Exemplo exemplo;2;exemplo@mail;222;SHOP_HISTORY-Bebida-1-Exemplo-6-Guloseima-1
+1 Edu;1;qwerty;999;SHOP_HISTORY-Exemplo-1-Food-2-Salgado-1-Teste-2

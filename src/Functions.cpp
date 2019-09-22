@@ -24,14 +24,6 @@ void clear_fail_state(){
     }
 }
 
-void validate_option(int& option, const string message){
-    while(option!=1&&option!=2&&option!=3){
-        clear_fail_state();
-        cout<<"\t"<< message <<'\n'<< ">> ";
-        cin>> option;
-    }
-}
-
 vector<string> split (const string &s, char delim) {
     vector<string> result;
     stringstream ss (s);

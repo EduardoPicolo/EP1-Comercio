@@ -2,8 +2,14 @@
 #include "Store.hpp"
 
 int main(void) {
+    // try{
+    // Store::main_menu();
+    // }catch(Exception& e){
+    //     cerr<<'\t'<< e.what() <<endl;
+    //     return EXIT_FAILURE;
+    // }
     try{
-    Store::main_menu();
+    Store::start_session();
     }catch(Exception& e){
         cerr<<'\t'<< e.what() <<endl;
         return EXIT_FAILURE;

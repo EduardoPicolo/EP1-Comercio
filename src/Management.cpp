@@ -8,19 +8,16 @@ vector<Client> Management::get_client_list(){
     return client_list;
 }
 void Management::register_client(){
-    string name, cpf;
+    string name, cpf, password, email, phone_number;
 
-    cout<< "Name: ";
-    getline(cin>>ws, name);
-        lowercase(name);
     cout<< "CPF: ";
     getline(cin>>ws, cpf);
         fill_string_spaces(cpf);
     switch(verify_client(cpf)){
         case true:
             cout<<'\t'<< "Client already registered"<<endl;
-            cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<<setw(11)<< "2:Login"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-            Store::input_option(3, "Invalid. Enter 1 to try again, 2 to login or 3 to cancel.");
+            cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<<setw(11)<< "2:Login"<<setfill(' ')<< "3:Cancel"<<endl;
+            Store::input_option(3, "Enter 1 to try again, 2 to login or 3 to cancel.");
             switch(option){
                 case 1:
                     Management::register_client();
@@ -36,10 +33,19 @@ void Management::register_client(){
                 break;
             }
         break;
-
         case false:
+            cout<< "Name: ";
+            getline(cin>>ws, name);
+                lowercase(name);
+            cout<< "Password: ";
+            getline(cin>>ws, password);
+            cout<< "Email: ";
+            getline(cin>>ws, email);
+            cout<< "Phone: ";
+            getline(cin>>ws, phone_number);
             cout<< "Registering new client... ";
-            client = new Client(name, cpf); //Global variable 'client' = newly registered client
+            // *client = Client(name, cpf); //Global variable 'client' = newly registered client
+            client = new Client(name, cpf, password, email, phone_number); //Global variable 'client' = newly registered client
             client_list.push_back(*client);
             Management::write_file("clients.txt", *client);
         break;
@@ -57,47 +63,51 @@ bool Management::verify_client(string cpf){
     return false; // Client NOT registered
 }
 void Management::login(){
-    string cpf;
+    string cpf, password;
 
     cout<<"Client's CPF: ";
     getline(cin>>ws, cpf);
-    if(verify_client(cpf)){
-        cout<<'\t'; client_list[clientIndex].display_client();
-        cout<<'\t'<<left<<setw(13)<< "1:Confirm"<<setfill(' ')<<setw(19)<< "2:Enter new CPF"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-        Store::input_option(3, "Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel.");
-        switch(option){
-            case 1:
+    switch(verify_client(cpf)){
+        case true:
+            cout<< "Password: ";
+            getline(cin>>ws, password);
+            if(password == client_list[clientIndex].get_password()){
+                cout<<'\t'<< "Logging in as "<< client_list[clientIndex].get_name()<<"..."<<endl;
                 *client = client_list[clientIndex];
-            break;
-            case 2:
-                Management::login();
-            break;
-            case 3:
-                Store::main_menu();
-            break;
-            default:
-                throw e_option;
-            break;
-        }
-    }
-    else{
-        cout<<'\t'<< "Client not found"<<endl;
-        cout<<'\t'<<left<<setw(19)<< "1:Enter new CPF"<<setfill(' ')<<setw(21)<< "2:Register client"<<setfill(' ')<< "3:Cancel"<<endl;cout<<">> ";
-        Store::input_option(3, "Invalid. Enter 1 to try again, 2 to register client or 3 to cancel.");
-        switch(option){
-            case 1:
-                Management::login();
-            break;
-            case 2:
-                Management::register_client();
-            break;
-            case 3:
-                Store::main_menu();
-            break;
-            default:
-                throw e_option;
-            break;
-        }
+            }
+            else{
+                cout<< "Wrong password" <<endl;
+                cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<< "2:Cancel" <<endl;
+                Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
+                switch(option){
+                    case 1:
+                        Management::login();
+                    break;
+                    case 2:
+                        Store::start_session();
+                    break;
+                    default:
+                        throw e_option;
+                    break;
+                }
+            }
+        break;
+        case false:
+            cout<< "CPF not found" <<endl;
+            cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<< "2:Register" <<endl;
+            Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
+                switch(option){
+                    case 1:
+                        Management::login();
+                    break;
+                    case 2:
+                        Management::register_client();
+                    break;
+                    default:
+                        throw e_option;
+                    break;
+                }
+        break;
     }
 }
 void Management::update_shop_history(){
@@ -113,19 +123,19 @@ void Management::update_shop_history(){
         client->set_shop_history(mapIterator->first, mapIterator->second);
     }
 
-    vector<string> line; string x;
+    vector<string> line; string data;
     fstream infile, tempFile;
     infile.open("clients.txt", ios::in);
     tempFile.open("temp.txt", ios::out);
     /*Get lines from clients.txt and write them in temp.txt, except current signed in client*/
-    while(getline(infile, x, ' ')){
-        if(x == client->get_cpf()){
-            getline(infile, x); //If current signed in client, skip this line.
+    while(getline(infile, data, ' ')){
+        if(data == client->get_cpf()){
+            getline(infile, data); //If current signed in client, skip this line.
         }
         else{
-            tempFile<<x+' ';
-            getline(infile, x);
-            tempFile<<x<<endl;
+            tempFile<<data+' ';
+            getline(infile, data);
+            tempFile<<data<<endl;
         }
     }
     infile.close();
@@ -141,15 +151,18 @@ vector<Client> Management::read_file(string file_name){
     file.open(file_name, ios::in|ios::app);
     if(!file.is_open())
         throw e_file;
-    vector<Client> list; vector<string> split_aux;
-    Client temp; string name, cpf, aux;
+    Client temp; string name, cpf, password, email, phone, shop_history;
+    vector<Client> list; vector<string> parsed_shop_history;
 
-    while(getline(file, cpf, ' ')&&getline(file, name, '#')&&getline(file, aux)){
+    while(getline(file, cpf, ' ')&&getline(file, name, ';')&&getline(file, password, ';')&&getline(file, email, ';')&&getline(file, phone, ';')&&getline(file, shop_history)){
         temp.set_cpf(cpf);
         temp.set_name(name);
-        split_aux = split(aux, '-');
-        for(size_t i=1; i<=split_aux.size()/2; i++){
-            temp.set_shop_history(split_aux[2*i-1], atoi(split_aux[2*i].c_str()));
+        temp.set_password(password);
+        temp.set_email(email);
+        temp.set_phone_number(phone);
+        parsed_shop_history = split(shop_history, '-');
+        for(size_t i=1; i<=parsed_shop_history.size()/2; i++){
+            temp.set_shop_history(parsed_shop_history[2*i-1], atoi(parsed_shop_history[2*i].c_str()));
         }
         list.push_back(temp);
         temp.clear_shop_history();
@@ -164,7 +177,10 @@ void Management::write_file(string file_name, Client client){
     if(!file.is_open())
         throw e_file;
     file<<client.get_cpf()<<' ';
-    file<<client.get_name()<<"#";
+    file<<client.get_name()<<';';
+    file<<client.get_password()<<';';
+    file<<client.get_email()<<';';
+    file<<client.get_phone_number()<<';';
     file<<"SHOP_HISTORY";
     if(!client.get_shop_history().empty()){
         for(auto& key_value : client.get_shop_history()){

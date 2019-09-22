@@ -6,6 +6,7 @@
 class Store{
     virtual void abstract() = 0;
     public:
+        static void start_session();
         static void main_menu();
         static void shop_mode();
         static void stock_mode();
