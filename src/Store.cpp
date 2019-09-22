@@ -1,11 +1,10 @@
 #include "Store.hpp"
-
-const Exception invalid_option("Invalid option.");
+#include <numeric>
 
 void Store::main_menu(){
     cout<< "================================ Main Menu ================================" <<endl;
-    cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<< "3:Recommendation"<<endl;cout<< ">> ";
-    Store::input_option("Invalid. Enter 1 for shop, 2 for stock or 3 for recommendation mode.");
+    cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<<setw(20)<< "3:Recommendation"<<setfill(' ')<< "4:Exit"<<endl;cout<< ">> ";
+    Store::input_option(4 ,"Invalid. Enter 1 for shop, 2 for stock or 3 for recommendation mode.");
 
     switch(option){
         case 1:
@@ -17,7 +16,6 @@ void Store::main_menu(){
                 Store::main_menu();
             }
         break;
-
         case 2:
             try{
                 Store::stock_mode();
@@ -27,17 +25,18 @@ void Store::main_menu(){
                 Store::main_menu();
             }
         break;
-
         case 3:
         try{
             Store::recommendation_mode();
         }catch(Exception& e){
-            cout<<'\t'<< e.what() <<endl;
+            cerr<<'\t'<< e.what() <<endl;
             cout<< "Returning to main menu..." <<endl;
             Store::main_menu();
         }
         break;
-
+        case 4:
+            exit(EXIT_SUCCESS);
+        break;
         default:
          throw e_option;
         break;
@@ -47,25 +46,22 @@ void Store::main_menu(){
 void Store::stock_mode(){
     cout<< "================================ *STOCK* ================================" <<endl;
     cout<<'\t'<<left<<setw(17)<< "1:Add product"<<setfill(' ')<<setw(21)<< "2:Replenish stock"<<setfill(' ')<< "3: Cancel"<<endl;cout<< ">> ";
-    Store::input_option("Invalid. Enter 1 to add product, 2 to replenish stock or 3 to cancel.");
+    Store::input_option(3, "Invalid. Enter 1 to add product, 2 to replenish stock or 3 to cancel.");
     switch (option){
         case 1:
             Stock::add_product();
-            cout<< "Returning to main menu..."<<endl;
-            Store::main_menu();
+            cout<< "Returning to stock..."<<endl;
+            Store::stock_mode();
         break;
-
         case 2:
             Stock::restock();
-            cout<< "Returning to main menu..."<<endl;
-            Store::main_menu();
+            cout<< "Returning to stock.."<<endl;
+            Store::stock_mode();
         break;
-        
         case 3:
             cout<< "Returning to main menu..."<<endl;
             Store::main_menu();
         break;
-
         default:
             throw e_option;
         break;
@@ -75,7 +71,7 @@ void Store::stock_mode(){
 void Store::shop_mode(){
     cout<< "================================ *SHOP* ================================" <<endl;
     cout<<'\t'<<left<<setw(11)<< "1:Login"<<setfill(' ')<<setw(21)<< "2:Register client"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-    Store::input_option("Invalid. Enter 1 to login, 2 to register client or 3 to cancel.");
+    Store::input_option(3, "Invalid. Enter 1 to login, 2 to register client or 3 to cancel.");
     switch(option){
         case 1:
             Management::login();
@@ -118,7 +114,7 @@ void Store::shop_mode(){
             clear_fail_state();
         cart.add_product(productList[product], amount);
         cout<<'\t'<<left<<setw(23)<< "1:Continue shopping"<<setfill(' ')<<setw(22)<< "2:Confirm purchase"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-        Store::input_option("Invalid. Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel");
+        Store::input_option(3, "Invalid. Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel purchase");
         switch(option){
             case 1:
             break;
@@ -130,7 +126,6 @@ void Store::shop_mode(){
                 cart.cancel_purchase();
                 Store::main_menu();
             break;
-
             default:
                 throw e_option;
             break;
@@ -172,11 +167,13 @@ void Store::recommendation_mode(){
     main_menu();
 }
 
-void Store::input_option(const string& message){
+void Store::input_option(const int& n_options, const string& e_message){
+    vector<int> options(n_options);
+    iota(options.begin(), options.end(), 1);
     cin>> option;
-    while(option!=1&&option!=2&&option!=3){
+    while(!(find(begin(options), end(options), option)!=end(options))){
         clear_fail_state();
-        cout<<'\t'<< message <<'\n'<< ">> ";
+        cout<<'\t'<< e_message <<'\n'<< ">> ";
         cin>> option;
     }
 }

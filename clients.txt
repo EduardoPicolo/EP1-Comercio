@@ -6,3 +6,5 @@
 000 Admin admin#SHOP_HISTORY-Coco-3-Food-3-Grao-5-Teste-4
 1 Zxcvbn#SHOP_HISTORY-Qwerty-1
 666 O grande#SHOP_HISTORY-Bebida-6
+444 Ps4#SHOP_HISTORY
+2 Mnbvcxz#SHOP_HISTORY-Bebida-1

@@ -16,7 +16,7 @@ void Stock::add_product(){
         case true:
             cout<< "Product already registered"<<endl;
             cout<<'\t'<<left<<setw(21)<< "1:Add new product"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-            Store::input_option("Invalid. Enter 1 to add a new product, 2 to go back to stock or 3 to cancel.");
+            Store::input_option(3, "Invalid. Enter 1 to add a new product, 2 to go back to stock or 3 to cancel.");
             switch(option){
                 case 1:
                     Stock::add_product();
@@ -32,7 +32,6 @@ void Stock::add_product(){
                 break;
             }
         break;
-
         case false:
             cout<< "Product category: ";
             getline(cin>>ws, category);
@@ -84,7 +83,7 @@ void Stock::restock(){
     else{
         cout<<'\t'<< "Product not found"<<endl;
         cout<<'\t'<<left<<setw(16)<< "1:Try again"<<setfill(' ')<<setw(21)<< "2:Add new product"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-        Store::input_option("Invalid option. Enter 1 to try again, 2 to add new product or 3 to cancel");
+        Store::input_option(3, "Invalid option. Enter 1 to try again, 2 to add new product or 3 to cancel");
         switch(option){
             case 1:
                 Stock::restock();
@@ -131,7 +130,9 @@ vector<Product> Stock:: get_productList(){
 vector<Product> Stock::read_file(string file_name){
     vector<Product> objList;
     fstream file;
-    file.open(file_name, ios::in);
+    file.open(file_name, ios::in|ios::app);
+    if(!file.is_open())
+        throw e_file;
     Product temp;
     while(file>>temp){
         objList.emplace_back(temp);
@@ -143,6 +144,8 @@ vector<Product> Stock::read_file(string file_name){
 void Stock::write_file(string file_name, Product product){
     fstream file;
     file.open(file_name, ios::app);
+    if(!file.is_open())
+        throw e_file;
     file<< product;
     file.close();
 }

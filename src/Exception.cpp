@@ -9,5 +9,6 @@ const char* Exception::what(){
     return message;
 }
 
-Exception* e_option =  new Exception("ERROR: Failed to process option.");
-Exception* e_file =  new Exception("ERROR: Failed to open file.");
+const Exception e_option("ERROR: Failed to process option.");
+// Exception e_file =  Exception("ERROR: Failed to open file.");
+const Exception e_file("ERROR: Failed to open file.");

@@ -20,7 +20,7 @@ void Management::register_client(){
         case true:
             cout<<'\t'<< "Client already registered"<<endl;
             cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<<setw(11)<< "2:Login"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-            Store::input_option("Invalid. Enter 1 to try again, 2 to login or 3 to cancel.");
+            Store::input_option(3, "Invalid. Enter 1 to try again, 2 to login or 3 to cancel.");
             switch(option){
                 case 1:
                     Management::register_client();
@@ -64,7 +64,7 @@ void Management::login(){
     if(verify_client(cpf)){
         cout<<'\t'; client_list[clientIndex].display_client();
         cout<<'\t'<<left<<setw(13)<< "1:Confirm"<<setfill(' ')<<setw(19)<< "2:Enter new CPF"<<setfill(' ')<< "3:Cancel"<<endl;cout<< ">> ";
-        Store::input_option("Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel.");
+        Store::input_option(3, "Invalid. Enter 1 to confirm, 2 to enter a new cpf or 3 to cancel.");
         switch(option){
             case 1:
                 *client = client_list[clientIndex];
@@ -83,7 +83,7 @@ void Management::login(){
     else{
         cout<<'\t'<< "Client not found"<<endl;
         cout<<'\t'<<left<<setw(19)<< "1:Enter new CPF"<<setfill(' ')<<setw(21)<< "2:Register client"<<setfill(' ')<< "3:Cancel"<<endl;cout<<">> ";
-        Store::input_option("Invalid. Enter 1 to try again, 2 to register client or 3 to cancel.");
+        Store::input_option(3, "Invalid. Enter 1 to try again, 2 to register client or 3 to cancel.");
         switch(option){
             case 1:
                 Management::login();
@@ -138,7 +138,7 @@ void Management::update_shop_history(){
 
 vector<Client> Management::read_file(string file_name){
     fstream file;
-    file.open(file_name, ios::in);
+    file.open(file_name, ios::in|ios::app);
     if(!file.is_open())
         throw e_file;
     vector<Client> list; vector<string> split_aux;

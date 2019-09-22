@@ -14,7 +14,7 @@ class Exception: public exception {
         const char* what();
 };
 
-extern Exception* e_option;
-extern Exception* e_file;
+extern const Exception e_option;
+extern const Exception e_file;
 
 #endif

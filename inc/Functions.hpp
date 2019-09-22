@@ -7,6 +7,7 @@
 #include "Management.hpp"
 #include "Cart.hpp"
 #include "Exception.hpp"
+#include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #include <string>
