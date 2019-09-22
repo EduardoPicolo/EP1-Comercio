@@ -19,7 +19,6 @@ void Store::start_session(){
             throw e_option;
         break;
     }
-    // Store::main_menu();
     try{
         Store::main_menu();
     }catch(Exception& e){
@@ -31,13 +30,14 @@ void Store::start_session(){
 
 void Store::main_menu(){
     cout<< "================================ Main Menu ================================" <<endl;
-    if(client->get_cpf()=="0000"){
-        cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(20)<< "2:Recommendation"<<setfill(' ')<<setw(12)<< "3:Logout"<<setfill(' ')<< "4:Stock"<<endl;
-        Store::input_option(4 ,"Enter 1 to shop, 2 for recommendations, 3 to logout or 4 for stock.");
+    if(client->get_cpf()=="00000000011"){
+        cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(20)<< "2:Recommendations"<<setfill(' ')
+        <<setw(14)<< "3:Settings"<<setfill(' ')<<setw(11)<< "4:Logout"<<setfill(' ')<< "5:Stock"<<endl;
+        Store::input_option(5 ,"Enter 1 to shop, 2 for recommendations, 3 to edit account, 4 to logout or 5 for stock.");
     }
     else{
-        cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(20)<< "2:Recommendations"<<setfill(' ')<< "3:Logout"<<endl;
-        Store::input_option(3 ,"Enter 1 to shop, 2 for recommendations or 3 to logout.");
+        cout<<'\t'<<left<<setw(10)<< "1:Shop"<<setfill(' ')<<setw(20)<< "2:Recommendations"<<setfill(' ')<<setw(14)<< "3:Settings"<<setfill(' ')<< "4:Logout"<<endl;
+        Store::input_option(4 ,"Enter 1 to shop, 2 for recommendations, 3 to edit account or 4 to logout.");
     }
 
     switch(option){
@@ -48,16 +48,21 @@ void Store::main_menu(){
             Store::recommendation_mode();
         break;
         case 3:
+            Management::client_settings();
+        break;
+        case 4:
             *client = Client();
             Store::start_session();
         break;
-        case 4:
+        case 5:
             Store::stock_mode();
         break;
         default:
          throw e_option;
         break;
     }
+    Store::main_menu();
+
 }
 
 void Store::stock_mode(){
@@ -116,11 +121,9 @@ void Store::shop_mode(){
             break;
             case 2:
                 cart.confirm_purchase();
-                Store::main_menu();
             break;
             case 3:
                 cart.cancel_purchase();
-                Store::main_menu();
             break;
             default:
                 throw e_option;
@@ -137,14 +140,14 @@ void Store::recommendation_mode(){
 
     int cont = 1;
     vector<Product> productList = Stock::get_productList();
-    map<string, int> shop_history = client->get_shop_history();
-    if(shop_history.empty()){
+    map<string, float> shop_history = client->get_shop_history();
+    if(shop_history.size()<=1){
         cout<<"\t"<< "Customer doesn't have a purchase history!"<<endl;
         cout<< "Returning to main menu..." <<endl;
         Store::main_menu();
     }
     else{
-        vector<pair<string, int>> sorted_vector = order(shop_history);
+        vector<pair<string, float>> sorted_vector = order(shop_history);
         cout<<"\t\t" "*RECOMMENDED PRODUCTS*"<<endl;
         for (auto it = sorted_vector.cbegin(); it != sorted_vector.cend(); it++){
             for(size_t i=0; i<productList.size() ; i++){
@@ -159,7 +162,6 @@ void Store::recommendation_mode(){
         }
     }
     cout<<endl;
-    Store::main_menu();
 }
 
 void Store::input_option(const int& n_options, const string& e_message){

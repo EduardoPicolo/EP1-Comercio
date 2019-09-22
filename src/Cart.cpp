@@ -53,6 +53,10 @@ void Cart::confirm_purchase(){
     }
     display_cart();
     Stock::over_write("stock.txt", productList);
+    if(client->get_vip()==true){
+        client->set_shop_history("TOTAL", total-(total*0.15));
+    }
+    else client->set_shop_history("TOTAL", total);
     Management::update_shop_history();
     cart.clear();
 }
@@ -71,15 +75,21 @@ void Cart::update_total(){
 }
 
 void Cart::display_cart(){
+    float discount=0;
     cout<<"\t\t" "*CART*"<<endl;
     cout<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
     for(size_t i=0; i<cart.size();i++){
         cout<<'\t'; cart[i].displayProduct();
     }
-    cout<<"\t" "TOTAL: $"<< total <<endl;
+    if(client->get_vip()==true){
+        discount = (0.15*total);
+    }
+    cout<<'\t'<< "TOTAL: $"<< total <<endl;
+    cout<<'\t'<< "DISCOUNT: $"<< discount <<endl;
+    cout<<'\t'<< "FINAL: $"<< total-discount <<endl;
 }
 
-double Cart::get_total(){
+float Cart::get_total(){
     update_total();
     return total;
 }

@@ -1,3 +1,6 @@
-22222222222 Exemplo exemplo;2;exemplo@mail;222;SHOP_HISTORY-Bebida-1-Exemplo-6-Guloseima-1
-11122233300 Teste teste;teste;teste@mail;999;SHOP_HISTORY-Bebida-2-Guloseima-6-Salgado-1
-11111111111 Edu;1;qwerty;999;SHOP_HISTORY-Exemplo-4-Food-2-Salgado-1-Teste-2
+11122233300 teste;teste;teste@mail;999;0;SHOP_HISTORY-Bebida-2-Guloseima-6-Salgado-2-TOTAL-10
+11111111111 Edu;1;qwery@email;999;0;SHOP_HISTORY-Exemplo-5-Food-2-Salgado-1-Teste-2
+22222222222 exemplo;2;exemplo@mail;222;1;SHOP_HISTORY-Bebida-3-Exemplo-9-Guloseima-1-TOTAL-297
+33333333333 Buzz;3;bz69@email;333;0;SHOP_HISTORY-Food-3-Guloseima-2-Salgado-1-TOTAL-21.5
+55555555555 bar;5;b@email;555;1;SHOP_HISTORY-Bebida-1-Exemplo-2-Food-2-Guloseima-5-TOTAL-212.15
+44444444444 Fizz;4;fizz@mail;444;0;SHOP_HISTORY-Bebida-1-Food-3-Guloseima-2-TOTAL-15.5

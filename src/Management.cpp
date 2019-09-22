@@ -41,8 +41,11 @@ void Management::register_client(){
             cout<< "Phone: ";
             getline(cin>>ws, phone_number);
             cout<< "Registering new client... ";
-            client = new Client(name, cpf, password, email, phone_number); //Global variable 'client' = newly registered client
-            client_list.push_back(*client);
+            // client = new Client(name, cpf, password, email, phone_number); //Global variable 'client' = newly registered client
+            // client_list.push_back(*client);
+            Client c(name, cpf, password, email, phone_number);
+            client_list.push_back(c);
+            client = &client_list.back();  //Global variable 'client' = newly registered client
             Management::write_file("clients.txt", *client);
         break;
         }
@@ -99,7 +102,7 @@ void Management::login(){
             getline(cin>>ws, password);
             if(password == client_list[clientIndex].get_password()){
                 cout<<'\t'<< "Logging in as "<< client_list[clientIndex].get_name()<<"..."<<endl;
-                *client = client_list[clientIndex];
+                client = &client_list[clientIndex];
             }
             else{
                 cout<< "Wrong password" <<endl;
@@ -185,26 +188,90 @@ void Management::update_shop_history(){
     remove("clients.txt");
     rename("temp.txt", "clients.txt");
     /*Write current client to file.txt*/
-    Management::write_file("clients.txt", *client); 
+    Management::overWrite_file("clients.txt", client_list);
+    // Management::write_file("clients.txt", *client);
 }
+void Management::client_settings(){
+    string name, password, email;map<string, float> shop_history;
+    cout<<'\t'<<left<<setw(15)<< "1:Edit name"<<setfill(' ')<<setw(21)<< "2:Change password"<<setfill(' ')<<setw(16)<<"3:Edit email"<<setfill(' ')<< "4:Become VIP"<<endl;
+    Store::input_option(4, "Enter 1 to edit name, 2 to change password, 3 to edit email or 4 to become VIP.");
+    switch(option){
+        case 1:
+            cout<< "New name: ";
+            cin>> name;
+            if(cin.fail()){
+                clear_fail_state();
+                cout<< "Failed to edit name"<<endl;
+            }
+            else{
+                client->set_name(name);
+                Management::overWrite_file("clients.txt", client_list);
+                cout<< "Name successfuly edited."<<endl;
+            }
+        break;
+        case 2:
+            cout<< "Enter current password";
+            cin>> password;
+            if(client->get_password()==password){
+                cout<< "New password: ";
+                cin>> password;
+                client->set_password(password);
+                Management::overWrite_file("clients.txt", client_list);
+                cout<< "Password successfuly changed."<<endl;
+            }
+            else
+                cout<< "Wrong password."<<endl;
+        break;
+        case 3:
+            cout<< "New email: ";
+            cin>> email;
+            if(cin.fail()){
+                clear_fail_state();
+                cout<< "Failed to edit email"<<endl;
+            }
+            else{
+                client->set_email(email);
+                Management::overWrite_file("clients.txt", client_list);
+                cout<< "Email successfuly edited."<<endl;
+            }
+        break;
+        case 4:
+            shop_history = client->get_shop_history();
+            cout<< "A VIP client has a special discount of 15%% in every purchase."<<endl;
+            if(shop_history["TOTAL"]<200.0){
+                cout<< "To become a VIP client, one must have bought at least $200 in products"<<endl;
+            }
+            else{
+                client->set_vip(true);
+                cout<< "You are now a VIP client!"<<endl;
+                Management::overWrite_file("clients.txt", client_list);
+            }
+        break;
+        default:
+            throw e_option;
+        break;
+    }
+}
+
 
 vector<Client> Management::read_file(string file_name){
     fstream file;
     file.open(file_name, ios::in|ios::app);
     if(!file.is_open())
         throw e_file;
-    Client temp; string name, cpf, password, email, phone, shop_history;
+    Client temp; string name, cpf, password, email, phone, shop_history, vip;
     vector<Client> list; vector<string> parsed_shop_history;
 
-    while(getline(file, cpf, ' ')&&getline(file, name, ';')&&getline(file, password, ';')&&getline(file, email, ';')&&getline(file, phone, ';')&&getline(file, shop_history)){
+    while(getline(file, cpf, ' ')&&getline(file, name, ';')&&getline(file, password, ';')&&getline(file, email, ';')&&getline(file, phone, ';')&&getline(file, vip, ';')&&getline(file, shop_history)){
         temp.set_cpf(cpf);
         temp.set_name(name);
         temp.set_password(password);
         temp.set_email(email);
         temp.set_phone_number(phone);
+        temp.set_vip(atoi(vip.c_str()));
         parsed_shop_history = split(shop_history, '-');
         for(size_t i=1; i<=parsed_shop_history.size()/2; i++){
-            temp.set_shop_history(parsed_shop_history[2*i-1], atoi(parsed_shop_history[2*i].c_str()));
+            temp.set_shop_history(parsed_shop_history[2*i-1], atof(parsed_shop_history[2*i].c_str()));
         }
         list.push_back(temp);
         temp.clear_shop_history();
@@ -223,6 +290,7 @@ void Management::write_file(string file_name, Client client){
     file<<client.get_password()<<';';
     file<<client.get_email()<<';';
     file<<client.get_phone_number()<<';';
+    file<<client.get_vip()<<';';
     file<<"SHOP_HISTORY";
     if(!client.get_shop_history().empty()){
         for(auto& key_value : client.get_shop_history()){
@@ -232,6 +300,29 @@ void Management::write_file(string file_name, Client client){
     file<<endl;
     file.close();
 }
+void Management::overWrite_file(string file_name, vector<Client> list){
+    fstream file;
+    file.open(file_name, ios::out);
+    if(!file.is_open())
+        throw e_file;
+    for(size_t i=0; i<list.size(); i++){
+        file<<list[i].get_cpf()<<' ';
+        file<<list[i].get_name()<<';';
+        file<<list[i].get_password()<<';';
+        file<<list[i].get_email()<<';';
+        file<<list[i].get_phone_number()<<';';
+        file<<list[i].get_vip()<<';';
+        file<<"SHOP_HISTORY";
+        if(!list[i].get_shop_history().empty()){
+            for(auto& key_value : list[i].get_shop_history()){
+                file<<"-"<<key_value.first<<"-"<<key_value.second;
+            }
+        }
+        file<<endl;
+    }
+    file.close();
+}
+
 vector<Client> Management::get_client_list(){
     return client_list;
 }

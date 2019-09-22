@@ -13,10 +13,12 @@ class Management {
         static void register_client();
         static bool verify_client(string cpf);
         static bool validate_cpf(const string& cpf);
+        static void client_settings();
         static vector<Client> get_client_list();
         static void update_shop_history();
         static vector<Client> read_file(string file_name);
         static void write_file(string file_name, Client client);
+        static void overWrite_file(string file_name, vector<Client> list);
 };
 
 #endif

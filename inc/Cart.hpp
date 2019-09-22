@@ -12,7 +12,7 @@ using namespace std;
 
 class Cart{
     private:
-        double total;
+        float total;
         static vector<Product> cart;
 
         bool verifyCart(Product product);
@@ -21,7 +21,7 @@ class Cart{
     public:
         Cart();
         ~Cart();
-        double get_total();
+        float get_total();
 
         void add_product(Product product, int amount);
         void confirm_purchase();

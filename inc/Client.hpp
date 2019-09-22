@@ -9,7 +9,8 @@ using namespace std;
 class Client{
     private:
         string name, cpf, password, email, phone_number;
-        map<string, int> shop_history;
+        map<string, float> shop_history;
+        bool vip;
 
     public:
         Client();
@@ -17,8 +18,8 @@ class Client{
         ~Client();
         void display_client();
         void display_shop_history();
-        const map<string, int> get_shop_history();
-        void set_shop_history(string category, int num);
+        const map<string, float> get_shop_history();
+        void set_shop_history(string category, float num);
         void clear_shop_history();
 
         void set_name(string name);
@@ -31,6 +32,8 @@ class Client{
         const string get_email();
         void set_phone_number(string number);
         const string get_phone_number();
+        void set_vip(bool status);
+        bool get_vip();
 
 
 };
