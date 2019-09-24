@@ -47,17 +47,13 @@ void Cart::confirm_purchase(){
     vector<Product> productList = Stock::get_productList(); //vector with original product amount in stock
     for(size_t i=0; i<cart.size(); i++){
         for(size_t j=0; j<productList.size(); j++){
-            if(cart[i]==productList[j]) //
+            if(cart[i]==productList[j])
                 productList[j].set_amount(productList[j].get_amount()-cart[i].get_amount());
         }
     }
     display_cart();
     Stock::over_write("stock.txt", productList);
-    if(client->get_vip()==true){
-        client->set_shop_history("TOTAL", total-(total*0.15));
-    }
-    else client->set_shop_history("TOTAL", total);
-    Management::update_shop_history();
+    client->update_shop_history(total);
     cart.clear();
 }
 

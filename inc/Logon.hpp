@@ -1,21 +1,20 @@
-#ifndef MANAGEMENT_HPP
-#define MANAGEMENT_HPP
+#ifndef Logon_HPP
+#define Logon_HPP
 
 #include "Functions.hpp"
 
-class Management {
+class Logon {
     virtual void abstract() = 0;
     private:
         static vector<Client> client_list;
 
     public:
-        static void login();
-        static void register_client();
+        static void sign_in();
+        static void sign_up();
         static bool verify_client(string cpf);
         static bool validate_cpf(const string& cpf);
-        static void client_settings();
         static vector<Client> get_client_list();
-        static void update_shop_history();
+        
         static vector<Client> read_file(string file_name);
         static void write_file(string file_name, Client client);
         static void overWrite_file(string file_name, vector<Client> list);

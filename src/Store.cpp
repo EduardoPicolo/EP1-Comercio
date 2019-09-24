@@ -3,14 +3,14 @@
 
 void Store::start_session(){
     cout<< "================================ Start Session ================================" <<endl;
-    cout<<'\t'<<left<<setw(11)<< "1:Login"<<setfill(' ')<<setw(14)<< "2:Register"<<setfill(' ')<< "3:Exit"<< endl;
-    Store::input_option(3, "Enter 1 to login, 2 to register or 3 to exit.");
+    cout<<'\t'<<left<<setw(13)<< "1:Sign in"<<setfill(' ')<<setw(14)<< "2:Register"<<setfill(' ')<< "3:Exit"<< endl;
+    Store::input_option(3, "Enter 1 to Logon, 2 to register or 3 to exit.");
     switch (option){
         case 1:
-            Management::login();
+            Logon::sign_in();
         break;
         case 2:
-            Management::register_client();
+            Logon::sign_up();
         break;
         case 3:
             exit(EXIT_SUCCESS);
@@ -48,7 +48,7 @@ void Store::main_menu(){
             Store::recommendation_mode();
         break;
         case 3:
-            Management::client_settings();
+            client->edit_data();
         break;
         case 4:
             *client = Client();

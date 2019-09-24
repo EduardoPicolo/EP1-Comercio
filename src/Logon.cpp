@@ -1,26 +1,26 @@
-#include "Management.hpp"
+#include "Logon.hpp"
 #include "Store.hpp"
 
-vector<Client> Management::client_list;
+vector<Client> Logon::client_list;
 int clientIndex;
 
-void Management::register_client(){
+void Logon::sign_up(){
     string name, cpf, password, email, phone_number;
 
     cout<< "CPF: ";
     getline(cin>>ws, cpf);
-    if(Management::validate_cpf(cpf)){
+    if(Logon::validate_cpf(cpf)){
         switch(verify_client(cpf)){
         case true:
             cout<<'\t'<< "Client already registered"<<endl;
-            cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<<setw(11)<< "2:Login"<<setfill(' ')<< "3:Cancel"<<endl;
-            Store::input_option(3, "Enter 1 to try again, 2 to login or 3 to cancel.");
+            cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<<setw(13)<< "2:Sign in"<<setfill(' ')<< "3:Cancel"<<endl;
+            Store::input_option(3, "Enter 1 to try again, 2 to sign in or 3 to cancel.");
             switch(option){
                 case 1:
-                    Management::register_client();
+                    Logon::sign_up();
                 break;
                 case 2:
-                    Management::login();
+                    Logon::sign_in();
                 break;
                 case 3:
                     Store::start_session();
@@ -46,7 +46,7 @@ void Management::register_client(){
             Client c(name, cpf, password, email, phone_number);
             client_list.push_back(c);
             client = &client_list.back();  //Global variable 'client' = newly registered client
-            Management::write_file("clients.txt", *client);
+            Logon::write_file("clients.txt", *client);
         break;
         }
     }
@@ -55,7 +55,7 @@ void Management::register_client(){
         Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
         switch(option){
             case 1:
-                Management::register_client();
+                Logon::sign_up();
             break;
             case 2:
                 Store::start_session();
@@ -67,7 +67,7 @@ void Management::register_client(){
     }
 }
 
-bool Management::verify_client(string cpf){
+bool Logon::verify_client(string cpf){
     client_list = read_file("clients.txt");
     // Search client
     for(size_t i=0; i<client_list.size(); i++){
@@ -78,7 +78,7 @@ bool Management::verify_client(string cpf){
     }
     return false; // Client NOT registered
 }
-bool Management::validate_cpf(const string& cpf){
+bool Logon::validate_cpf(const string& cpf){
     if(cpf.size()<11)
         return false;
     for(size_t i=0; i<cpf.size(); i++){
@@ -90,7 +90,7 @@ bool Management::validate_cpf(const string& cpf){
     return true;
 }
 
-void Management::login(){
+void Logon::sign_in(){
     string cpf, password;
 
     cout<<"Client's CPF: ";
@@ -110,7 +110,7 @@ void Management::login(){
                 Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
                 switch(option){
                     case 1:
-                        Management::login();
+                        Logon::sign_in();
                     break;
                     case 2:
                         Store::start_session();
@@ -127,10 +127,10 @@ void Management::login(){
             Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
                 switch(option){
                     case 1:
-                        Management::login();
+                        Logon::sign_in();
                     break;
                     case 2:
-                        Management::register_client();
+                        Logon::sign_up();
                     break;
                     default:
                         throw e_option;
@@ -144,7 +144,7 @@ void Management::login(){
         Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
         switch(option){
             case 1:
-                Management::login();
+                Logon::sign_in();
             break;
             case 2:
                 Store::start_session();
@@ -155,106 +155,7 @@ void Management::login(){
         }
     }
 }
-void Management::update_shop_history(){
-    vector<Product> productList = Cart::get_cart();
-    map<string, int> categoriesDict;
-
-    /*Get each product category from products in cart and them adds to categoryDictionary*/
-    for(size_t i=0; i<productList.size(); i++){
-        categoriesDict[productList[i].get_category()] += (productList[i].get_amount());
-    }
-    /*Update signed in client's shop_history category/number */
-    for(auto mapIterator = begin(categoriesDict); mapIterator != end(categoriesDict); ++mapIterator){
-        client->set_shop_history(mapIterator->first, mapIterator->second);
-    }
-
-    vector<string> line; string data;
-    fstream infile, tempFile;
-    infile.open("clients.txt", ios::in);
-    tempFile.open("temp.txt", ios::out);
-    /*Get lines from clients.txt and write them in temp.txt, except current signed in client*/
-    while(getline(infile, data, ' ')){
-        if(data == client->get_cpf()){
-            getline(infile, data); //If current signed in client, skip this line.
-        }
-        else{
-            tempFile<<data+' ';
-            getline(infile, data);
-            tempFile<<data<<endl;
-        }
-    }
-    infile.close();
-    tempFile.close();
-    remove("clients.txt");
-    rename("temp.txt", "clients.txt");
-    /*Write current client to file.txt*/
-    Management::overWrite_file("clients.txt", client_list);
-    // Management::write_file("clients.txt", *client);
-}
-void Management::client_settings(){
-    string name, password, email;map<string, float> shop_history;
-    cout<<'\t'<<left<<setw(15)<< "1:Edit name"<<setfill(' ')<<setw(21)<< "2:Change password"<<setfill(' ')<<setw(16)<<"3:Edit email"<<setfill(' ')<< "4:Become VIP"<<endl;
-    Store::input_option(4, "Enter 1 to edit name, 2 to change password, 3 to edit email or 4 to become VIP.");
-    switch(option){
-        case 1:
-            cout<< "New name: ";
-            cin>> name;
-            if(cin.fail()){
-                clear_fail_state();
-                cout<< "Failed to edit name"<<endl;
-            }
-            else{
-                client->set_name(name);
-                Management::overWrite_file("clients.txt", client_list);
-                cout<< "Name successfuly edited."<<endl;
-            }
-        break;
-        case 2:
-            cout<< "Enter current password";
-            cin>> password;
-            if(client->get_password()==password){
-                cout<< "New password: ";
-                cin>> password;
-                client->set_password(password);
-                Management::overWrite_file("clients.txt", client_list);
-                cout<< "Password successfuly changed."<<endl;
-            }
-            else
-                cout<< "Wrong password."<<endl;
-        break;
-        case 3:
-            cout<< "New email: ";
-            cin>> email;
-            if(cin.fail()){
-                clear_fail_state();
-                cout<< "Failed to edit email"<<endl;
-            }
-            else{
-                client->set_email(email);
-                Management::overWrite_file("clients.txt", client_list);
-                cout<< "Email successfuly edited."<<endl;
-            }
-        break;
-        case 4:
-            shop_history = client->get_shop_history();
-            cout<< "A VIP client has a special discount of 15%% in every purchase."<<endl;
-            if(shop_history["TOTAL"]<200.0){
-                cout<< "To become a VIP client, one must have bought at least $200 in products"<<endl;
-            }
-            else{
-                client->set_vip(true);
-                cout<< "You are now a VIP client!"<<endl;
-                Management::overWrite_file("clients.txt", client_list);
-            }
-        break;
-        default:
-            throw e_option;
-        break;
-    }
-}
-
-
-vector<Client> Management::read_file(string file_name){
+vector<Client> Logon::read_file(string file_name){
     fstream file;
     file.open(file_name, ios::in|ios::app);
     if(!file.is_open())
@@ -280,7 +181,7 @@ vector<Client> Management::read_file(string file_name){
     return list;
 }
 
-void Management::write_file(string file_name, Client client){
+void Logon::write_file(string file_name, Client client){
     fstream file;
     file.open(file_name, ios::app);
     if(!file.is_open())
@@ -300,7 +201,7 @@ void Management::write_file(string file_name, Client client){
     file<<endl;
     file.close();
 }
-void Management::overWrite_file(string file_name, vector<Client> list){
+void Logon::overWrite_file(string file_name, vector<Client> list){
     fstream file;
     file.open(file_name, ios::out);
     if(!file.is_open())
@@ -323,6 +224,6 @@ void Management::overWrite_file(string file_name, vector<Client> list){
     file.close();
 }
 
-vector<Client> Management::get_client_list(){
+vector<Client> Logon::get_client_list(){
     return client_list;
 }
