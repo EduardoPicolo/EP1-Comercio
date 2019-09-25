@@ -3,8 +3,6 @@
 
 #include "Product.hpp"
 #include "Stock.hpp"
-#include <iostream>
-#include <fstream>
 #include <vector>
 #include <string>
 

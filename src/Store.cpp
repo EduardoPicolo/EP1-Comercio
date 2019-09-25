@@ -1,10 +1,9 @@
 #include "Store.hpp"
-#include <numeric>
 
 void Store::start_session(){
     cout<< "================================ Start Session ================================" <<endl;
     cout<<'\t'<<left<<setw(13)<< "1:Sign in"<<setfill(' ')<<setw(14)<< "2:Register"<<setfill(' ')<< "3:Exit"<< endl;
-    Store::input_option(3, "Enter 1 to Logon, 2 to register or 3 to exit.");
+    Store::input_option(3, "Enter 1 to login, 2 to register or 3 to exit.");
     switch (option){
         case 1:
             Logon::sign_in();
@@ -92,19 +91,39 @@ void Store::shop_mode(){
     cout<< "================================ *SHOP* ================================" <<endl;
 
     Cart cart;
-    unsigned int product, amount;
-    vector<Product> productList = Stock::get_productList();
-
+    unsigned int product, amount; string category;
+    vector<Product> productList = Stock::get_stock();
+    map<string, vector<Product>> catalogue;
+    for(size_t i=0; i<productList.size(); i++){
+        catalogue[productList[i].get_category()].push_back(productList[i]);
+    }
+    
     do{
         cout<<"\t\t\t" "*CATALOGUE*"<<endl;
-        cout<<'\t'<<"Index"<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
-        for(size_t i=0; i<productList.size(); i++){
-            cout<<"\t"<<i<<"\t";productList[i].displayProduct();
+        cout<<"\t\t"<< "*CATEGORIES*"<<endl;
+        for(auto it = catalogue.begin(); it!=catalogue.end(); it++){
+            cout<<"\t|"<<left<<setw(15)<< it->first<<setfill(' ');
+            if((++it)!=catalogue.end()){
+                cout<<"|"<<left<<setw(15)<< it->first<<setfill(' ')<<"|"<<endl;
+            }
+            else{ cout<<endl; break;}
         }
-
+        cout<< "Category: ";
+        cin>>category;
+            lowercase(category);
+        while(!(catalogue.find(category)!=catalogue.end())){
+            cout<<'\t'<< "Invalid category"<<endl;
+            cout<< "Category: ";
+            cin>>category;
+            lowercase(category);
+        }
+        cout<<'\t'<<"Index"<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
+        for(size_t i=0; i<catalogue[category].size(); i++){
+            cout<<'\t'<<i<<'\t'; catalogue[category][i].displayProduct();
+        }
         cout<< "Product Index: ";
         cin>> product;
-        while(product>productList.size()-1){
+        while(product>catalogue[category].size()-1){
             clear_fail_state();
             cout<<'\t'<< "Invalid product index"<<endl;
             cout<< "Product Index: ";
@@ -112,12 +131,19 @@ void Store::shop_mode(){
         }
         cout<< "Amount: ";
         cin>> amount;
+        while(!Stock::verify_amount(catalogue[category][product], amount)){
             clear_fail_state();
-        cart.add_product(productList[product], amount);
+            cout<< "Invalid amount"<<endl;
+            cout<< "Amount: ";
+            cin>> amount;
+        }
+        cart.add_product(catalogue[category][product], amount);
+
         cout<<'\t'<<left<<setw(23)<< "1:Continue shopping"<<setfill(' ')<<setw(22)<< "2:Confirm purchase"<<setfill(' ')<< "3:Cancel"<<endl;
         Store::input_option(3, "Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel purchase");
         switch(option){
             case 1:
+                catalogue[category][product].set_amount(catalogue[category][product].get_amount()-amount); //Update catalogue
             break;
             case 2:
                 cart.confirm_purchase();
@@ -129,9 +155,6 @@ void Store::shop_mode(){
                 throw e_option;
             break;
         }
-        if(Stock::verify_amount(productList[product], amount)){
-            productList[product].set_amount(productList[product].get_amount()-amount);
-        }
     } while(option==1);
 }
 
@@ -139,7 +162,7 @@ void Store::recommendation_mode(){
     cout<< "===========================================================================" <<endl;
 
     int cont = 1;
-    vector<Product> productList = Stock::get_productList();
+    vector<Product> productList = Stock::get_stock();
     map<string, float> shop_history = client->get_shop_history();
     if(shop_history.size()<=1){
         cout<<"\t"<< "Customer doesn't have a purchase history!"<<endl;
@@ -149,6 +172,7 @@ void Store::recommendation_mode(){
     else{
         vector<pair<string, float>> sorted_vector = order(shop_history);
         cout<<"\t\t" "*RECOMMENDED PRODUCTS*"<<endl;
+        cout<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
         for (auto it = sorted_vector.cbegin(); it != sorted_vector.cend(); it++){
             for(size_t i=0; i<productList.size() ; i++){
                 if(it->first == productList[i].get_category()){

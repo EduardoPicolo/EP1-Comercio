@@ -1,9 +1,9 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
+#include <vector>
 #include <map>
 #include <string>
-#include <vector>
 using namespace std;
 
 class Client{

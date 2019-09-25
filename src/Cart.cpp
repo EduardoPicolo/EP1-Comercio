@@ -1,9 +1,5 @@
 #include "Cart.hpp"
 #include "Functions.hpp"
-#include <iostream>
-#include <iomanip>
-#include <vector>
-#include <string>
 
 vector<Product> Cart::cart;
 int productIndex;
@@ -17,7 +13,7 @@ Cart::~Cart(){
 void Cart::add_product(Product product, int amount){
     if(Stock::verify_amount(product, amount)){
         if(verifyCart(product)){ // Product already in cart, increase its amount
-            cout<<"\t" "Product amount increased"<<endl;
+            cout<<"\t" "Product amount in cart increased"<<endl;
             cart[productIndex].set_amount(cart[productIndex].get_amount()+amount);
             update_total();
         }
@@ -44,7 +40,7 @@ bool Cart::verifyCart(Product product){
 }
 
 void Cart::confirm_purchase(){
-    vector<Product> productList = Stock::get_productList(); //vector with original product amount in stock
+    vector<Product> productList = Stock::get_stock(); //vector with original product amount in stock
     for(size_t i=0; i<cart.size(); i++){
         for(size_t j=0; j<productList.size(); j++){
             if(cart[i]==productList[j])

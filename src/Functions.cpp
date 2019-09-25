@@ -41,7 +41,7 @@ vector<pair<string, float>> order (map<string, float> records){
     sort(sorted_vector.begin(), sorted_vector.end(),[](const pair<string, float>& l, const pair<string, float>& r) {
         if (l.second != r.second)
             return l.second > r.second;
-        return l.first > r.first;
+        return l.first < r.first;
     });
     return sorted_vector;
 }

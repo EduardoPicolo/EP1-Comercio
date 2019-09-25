@@ -16,6 +16,7 @@
 #include <vector>
 #include <iterator>
 #include <cctype>
+#include <numeric>
 #include <map>
 #include <algorithm>
 #include <limits>

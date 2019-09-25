@@ -41,8 +41,6 @@ void Logon::sign_up(){
             cout<< "Phone: ";
             getline(cin>>ws, phone_number);
             cout<< "Registering new client... ";
-            // client = new Client(name, cpf, password, email, phone_number); //Global variable 'client' = newly registered client
-            // client_list.push_back(*client);
             Client c(name, cpf, password, email, phone_number);
             client_list.push_back(c);
             client = &client_list.back();  //Global variable 'client' = newly registered client
