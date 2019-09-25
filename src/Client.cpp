@@ -92,6 +92,10 @@ void Client::edit_data(){
         break;
         case 5:
             cout<< "A VIP client has a special discount of 15%% in every purchase."<<endl;
+            if(this->vip == true){
+                cout<< "You already have the VIP status!" <<endl;
+                break;
+            }
             if(this->shop_history["TOTAL"]<200.0){
                 cout<< "To become a VIP client, one must have bought at least $200 in products"<<endl;
             }

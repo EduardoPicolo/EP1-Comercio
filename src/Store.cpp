@@ -1,7 +1,7 @@
 #include "Store.hpp"
 
 void Store::start_session(){
-    cout<< "================================ Start Session ================================" <<endl;
+    cout<< "============================== Start Session ==============================" <<endl;
     cout<<'\t'<<left<<setw(13)<< "1:Sign in"<<setfill(' ')<<setw(14)<< "2:Register"<<setfill(' ')<< "3:Exit"<< endl;
     Store::input_option(3, "Enter 1 to login, 2 to register or 3 to exit.");
     switch (option){
@@ -61,11 +61,10 @@ void Store::main_menu(){
         break;
     }
     Store::main_menu();
-
 }
 
 void Store::stock_mode(){
-    cout<< "================================ *STOCK* ================================" <<endl;
+    cout<< "================================= *STOCK* =================================" <<endl;
     cout<<'\t'<<left<<setw(17)<< "1:Add product"<<setfill(' ')<<setw(21)<< "2:Replenish stock"<<setfill(' ')<< "3:Main menu"<<endl;
     Store::input_option(3, "Enter 1 to add product, 2 to replenish stock or 3 to cancel.");
     switch (option){
@@ -88,7 +87,7 @@ void Store::stock_mode(){
 }
 
 void Store::shop_mode(){
-    cout<< "================================ *SHOP* ================================" <<endl;
+    cout<< "================================= *SHOP* =================================" <<endl;
 
     Cart cart;
     unsigned int product, amount; string category;
@@ -97,7 +96,7 @@ void Store::shop_mode(){
     for(size_t i=0; i<productList.size(); i++){
         catalogue[productList[i].get_category()].push_back(productList[i]);
     }
-    
+
     do{
         cout<<"\t\t\t" "*CATALOGUE*"<<endl;
         cout<<"\t\t"<< "*CATEGORIES*"<<endl;
@@ -123,7 +122,7 @@ void Store::shop_mode(){
         }
         cout<< "Product Index: ";
         cin>> product;
-        while(product>catalogue[category].size()-1){
+        while((product>catalogue[category].size()-1)||product<0){
             clear_fail_state();
             cout<<'\t'<< "Invalid product index"<<endl;
             cout<< "Product Index: ";
@@ -160,30 +159,39 @@ void Store::shop_mode(){
 
 void Store::recommendation_mode(){
     cout<< "===========================================================================" <<endl;
+    if(client->get_name().length()==0){
+        cout<< "A client must be logged in to see recommendations."<<endl;
+        return;
+    }
+    if(client->get_shop_history().size()<=1){
+        cout<<"\t"<< "Customer doesn't have a purchase history!"<<endl;
+        cout<< "Returning to main menu..." <<endl;
+        // Store::main_menu();
+        return;
+    }
 
     int cont = 1;
     vector<Product> productList = Stock::get_stock();
     map<string, float> shop_history = client->get_shop_history();
-    if(shop_history.size()<=1){
-        cout<<"\t"<< "Customer doesn't have a purchase history!"<<endl;
-        cout<< "Returning to main menu..." <<endl;
-        Store::main_menu();
+        vector<pair<string, float>> sorted_history = order(shop_history);
+
+
+    map<string, vector<Product>> catalogue;
+    for(size_t i=0; i<productList.size(); i++){
+        catalogue[productList[i].get_category()].push_back(productList[i]);
     }
-    else{
-        vector<pair<string, float>> sorted_vector = order(shop_history);
-        cout<<"\t\t" "*RECOMMENDED PRODUCTS*"<<endl;
-        cout<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
-        for (auto it = sorted_vector.cbegin(); it != sorted_vector.cend(); it++){
-            for(size_t i=0; i<productList.size() ; i++){
-                if(it->first == productList[i].get_category()){
-                    cout<<'\t'<<cont<<". ";productList[i].displayProduct();
-                    cont++;
-                    break;
-                }
-            }
-            if(cont==10)
-                break;
-        }
+
+    srand(time(NULL));
+    int randInt;
+    cout<<"\t\t\t"<< "*RECOMMENDED PRODUCTS*"<<endl;
+    cout<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
+    for(auto category=sorted_history.cbegin(); category!=sorted_history.cend(); category++){
+        if(category->first == "TOTAL")
+            continue;
+        // cout<< category->first<<endl;
+        randInt = rand() % catalogue[category->first].size();
+        cout<<'\t'<< cont <<". "; catalogue[category->first][randInt].displayProduct();
+        cont++;
     }
     cout<<endl;
 }

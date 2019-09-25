@@ -17,6 +17,7 @@
 #include <iterator>
 #include <cctype>
 #include <numeric>
+#include <time.h>
 #include <map>
 #include <algorithm>
 #include <limits>

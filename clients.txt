@@ -5,3 +5,4 @@
 55555555555 bar;5;b@email;555;1;SHOP_HISTORY-Bebida-2-Exemplo-2-Food-2-Guloseima-22-Salgado-1-TOTAL-222.775
 44444444444 Fizz;4;fizz@mail;444;0;SHOP_HISTORY-Bebida-1-Food-3-Guloseima-2-TOTAL-15.5
 00000000011 Admin;admin;admin@mail;000;0;SHOP_HISTORY-Bebida-1-Food-1-Guloseima-3-TOTAL-11.5
+66666666666 O grande;6;grande@email;6666;1;SHOP_HISTORY-Bebida-1-Food-2-TOTAL-212.75-Teste-20
