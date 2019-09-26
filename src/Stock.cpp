@@ -15,8 +15,8 @@ void Stock::add_product(){
     switch(Stock::verify_stock(product_name)){
         case true:
             cout<< "Product already registered"<<endl;
-            cout<<'\t'<<left<<setw(21)<< "1:Add new product"<<setfill(' ')<<setw(11)<< "2:Stock"<<setfill(' ')<< "3:Cancel"<<endl;
-            Store::input_option(3, "Enter 1 to add a new product, 2 to go back to stock or 3 to cancel.");
+            cout<<'\t'<<left<<setw(23)<< "[1]:Add new product"<<setfill(' ')<<setw(13)<< "[2]:Stock"<<setfill(' ')<< "[3]:Cancel"<<endl;
+            Store::input_option(3, "Enter [1] to add a new product, [2] to go back to stock or [3] to cancel.");
             switch(option){
                 case 1:
                     Stock::add_product();
@@ -81,8 +81,8 @@ void Stock::restock(){
     }
     else{
         cout<<'\t'<< "Product not found"<<endl;
-        cout<<'\t'<<left<<setw(16)<< "1:Try again"<<setfill(' ')<<setw(21)<< "2:Add new product"<<setfill(' ')<< "3:Cancel"<<endl;
-        Store::input_option(3, "Enter 1 to try again, 2 to add new product or 3 to cancel");
+        cout<<'\t'<<left<<setw(18)<< "[1]:Try again"<<setfill(' ')<<setw(23)<< "[2]:Add new product"<<setfill(' ')<< "[3]:Cancel"<<endl;
+        Store::input_option(3, "Enter [1] to try again, [2] to add new product or [3] to cancel");
         switch(option){
             case 1:
                 Stock::restock();

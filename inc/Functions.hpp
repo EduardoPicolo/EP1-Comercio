@@ -26,10 +26,13 @@ using namespace std;
 extern Client* client; //Global 'client'
 extern int option;
 
+template<typename type>
+type get_input(const string& msg);
 void fill_string_spaces(string & str);
 void lowercase(string& str);
 void clear_fail_state();
 vector<string> split(const string &s, char delim);
 vector<pair<string, float>> order(map<string, float> records);
 
+#include "Functions.tpp"
 #endif

@@ -22,7 +22,7 @@ void lowercase(string & str){
 }
 
 void clear_fail_state(){
-    if (cin.fail()){
+    if(cin.fail()){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }

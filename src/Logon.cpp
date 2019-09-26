@@ -13,8 +13,8 @@ void Logon::sign_up(){
         switch(verify_client(cpf)){
         case true:
             cout<<'\t'<< "Client already registered"<<endl;
-            cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<<setw(13)<< "2:Sign in"<<setfill(' ')<< "3:Cancel"<<endl;
-            Store::input_option(3, "Enter 1 to try again, 2 to sign in or 3 to cancel.");
+            cout<<'\t'<<left<<setw(17)<< "[1]:Try again"<<setfill(' ')<<setw(15)<< "[2]:Sign in"<<setfill(' ')<< "[3]:Cancel"<<endl;
+            Store::input_option(3, "Enter [1] to try again, [2] to sign in or [3] to cancel.");
             switch(option){
                 case 1:
                     Logon::sign_up();
@@ -49,8 +49,8 @@ void Logon::sign_up(){
         }
     }
     else{
-        cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<< "2:Cancel"<<endl;
-        Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
+        cout<<'\t'<<left<<setw(17)<< "[1]:Try again"<<setfill(' ')<< "[2]:Cancel"<<endl;
+        Store::input_option(2, "Enter [1] to try again or [2] to cancel.");
         switch(option){
             case 1:
                 Logon::sign_up();
@@ -104,8 +104,8 @@ void Logon::sign_in(){
             }
             else{
                 cout<< "Wrong password" <<endl;
-                cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<< "2:Cancel" <<endl;
-                Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
+                cout<<'\t'<<left<<setw(17)<< "[1]:Try again"<<setfill(' ')<< "[2]:Cancel" <<endl;
+                Store::input_option(2, "Enter [1] to try again or [2] to cancel.");
                 switch(option){
                     case 1:
                         Logon::sign_in();
@@ -121,8 +121,8 @@ void Logon::sign_in(){
         break;
         case false:
             cout<< "CPF not found" <<endl;
-            cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<< "2:Register" <<endl;
-            Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
+            cout<<'\t'<<left<<setw(17)<< "[1]:Try again"<<setfill(' ')<< "[2]:Register" <<endl;
+            Store::input_option(2, "Enter [1] to try again or [2] to cancel.");
                 switch(option){
                     case 1:
                         Logon::sign_in();
@@ -138,8 +138,8 @@ void Logon::sign_in(){
         }
     }
     else{
-        cout<<'\t'<<left<<setw(15)<< "1:Try again"<<setfill(' ')<< "2:Cancel"<<endl;
-        Store::input_option(2, "Enter 1 to try again or 2 to cancel.");
+        cout<<'\t'<<left<<setw(17)<< "[1]:Try again"<<setfill(' ')<< "[2]:Cancel"<<endl;
+        Store::input_option(2, "Enter [1] to try again or [2] to cancel.");
         switch(option){
             case 1:
                 Logon::sign_in();
