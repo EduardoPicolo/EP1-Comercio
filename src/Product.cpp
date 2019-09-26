@@ -4,8 +4,6 @@
 #include <iomanip>
 #include <string>
 
-int productPosition;
-
 Product::Product():product_name(""), category(""), price(0.0), amount(0){
 }
 Product::Product(string product_name, string category, double price, int amount)

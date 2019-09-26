@@ -1,6 +1,7 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
+#include "Product.hpp"
 #include <vector>
 #include <map>
 #include <string>
@@ -18,7 +19,7 @@ class Client{
         ~Client();
         void display_client();
         void display_shop_history();
-        void update_shop_history(float total);
+        void update_shop_history(float total, vector<Product> cart);
         const map<string, float> get_shop_history();
         void set_shop_history(string category, float num);
         void clear_shop_history();

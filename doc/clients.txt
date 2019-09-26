@@ -3,6 +3,7 @@
 22222222222 exemplo;2;exemplo@mail;222;1;SHOP_HISTORY-Bebida-3-Exemplo-9-Guloseima-1-TOTAL-297
 33333333333 buzz;3;bz69@email;333;0;SHOP_HISTORY-Exemplo-1-Food-5-Guloseima-2-Salgado-1-TOTAL-127.5
 55555555555 bar;5;b@email;555;1;SHOP_HISTORY-Bebida-2-Exemplo-2-Food-2-Guloseima-22-Salgado-1-TOTAL-222.775
-44444444444 Fizz;4;fizz@mail;444;0;SHOP_HISTORY-Bebida-1-Food-3-Guloseima-2-TOTAL-15.5
+44444444444 Fizz;4;fizz@mail;444;0;SHOP_HISTORY-Bebida-3-Food-3-Guloseima-2-TOTAL-22
 00000000011 Admin;admin;admin@mail;000;0;SHOP_HISTORY-Bebida-3-Food-1-Guloseima-5-TOTAL-13.5
 66666666666 O grande;6;grande@email;6666;1;SHOP_HISTORY-Bebida-1-Food-2-Salgado-1-TOTAL-216.15-Teste-20
+77777777777 Sete;7;sete@mail;777;0;SHOP_HISTORY-TOTAL-0

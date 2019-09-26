@@ -1,7 +1,6 @@
 #include "Cart.hpp"
 #include "Functions.hpp"
 
-vector<Product> Cart::cart;
 int productIndex;
 
 Cart::Cart():total(0){
@@ -49,7 +48,7 @@ void Cart::confirm_purchase(){
     }
     display_cart();
     Stock::over_write("stock.txt", productList);
-    client->update_shop_history(total);
+    client->update_shop_history(total, cart);
     cart.clear();
 }
 

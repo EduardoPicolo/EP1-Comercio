@@ -17,14 +17,13 @@ Client::Client(string name, string cpf, string password, string email, string ph
 }
 Client::~Client(){
 }
-void Client::update_shop_history(float total){
-    vector<Product> productList = Cart::get_cart();
+void Client::update_shop_history(float total, vector<Product> cart){
     vector<string> product_categories;
 
-    for(size_t i=0; i<productList.size(); i++){
-        product_categories = split(productList[i].get_category(), '/');
+    for(size_t i=0; i<cart.size(); i++){
+        product_categories = split(cart[i].get_category(), '/');
         for(auto& category : product_categories){
-            this->shop_history[category] += (productList[i].get_amount());
+            this->shop_history[category] += (cart[i].get_amount());
         }
     }
     if(this->vip==true){
