@@ -13,6 +13,10 @@ void fill_string_spaces(string & str){
 void lowercase(string & str){
     str[0]=toupper(str[0]);
     for(size_t i=1; i<str.length(); i++){
+        if(str[i]==' '||str[i]=='/'||str[i]=='_'){
+            i++; str[i]=toupper(str[i]);
+            continue;
+        }            
         str[i]=tolower(str[i]);
     }
 }

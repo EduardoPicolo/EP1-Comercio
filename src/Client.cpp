@@ -19,9 +19,13 @@ Client::~Client(){
 }
 void Client::update_shop_history(float total){
     vector<Product> productList = Cart::get_cart();
+    vector<string> product_categories;
 
     for(size_t i=0; i<productList.size(); i++){
-        this->shop_history[productList[i].get_category()] += (productList[i].get_amount());
+        product_categories = split(productList[i].get_category(), '/');
+        for(auto& category : product_categories){
+            this->shop_history[category] += (productList[i].get_amount());
+        }
     }
     if(this->vip==true){
         this->shop_history["TOTAL"] += total-(total*0.15);

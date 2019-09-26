@@ -155,7 +155,7 @@ void Logon::sign_in(){
 }
 vector<Client> Logon::read_file(string file_name){
     fstream file;
-    file.open(file_name, ios::in|ios::app);
+    file.open("./doc/"+file_name, ios::in|ios::app);
     if(!file.is_open())
         throw e_file;
     Client temp; string name, cpf, password, email, phone, shop_history, vip;
@@ -181,7 +181,7 @@ vector<Client> Logon::read_file(string file_name){
 
 void Logon::write_file(string file_name, Client client){
     fstream file;
-    file.open(file_name, ios::app);
+    file.open("./doc/"+file_name, ios::app);
     if(!file.is_open())
         throw e_file;
     file<<client.get_cpf()<<' ';
@@ -201,7 +201,7 @@ void Logon::write_file(string file_name, Client client){
 }
 void Logon::overWrite_file(string file_name, vector<Client> list){
     fstream file;
-    file.open(file_name, ios::out);
+    file.open("./doc/"+file_name, ios::out);
     if(!file.is_open())
         throw e_file;
     for(size_t i=0; i<list.size(); i++){

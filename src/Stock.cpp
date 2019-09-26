@@ -33,7 +33,7 @@ void Stock::add_product(){
             }
         break;
         case false:
-            cout<< "Product category: ";
+            cout<< "Product category (Separate multiple categories with '/'): ";
             getline(cin>>ws, category);
                 fill_string_spaces(category);
                 lowercase(category);
@@ -128,7 +128,7 @@ vector<Product> Stock:: get_stock(){
 vector<Product> Stock::read_file(string file_name){
     vector<Product> objList;
     fstream file;
-    file.open(file_name, ios::in|ios::app);
+    file.open("./doc/"+file_name, ios::in|ios::app);
     if(!file.is_open())
         throw e_file;
     Product temp;
@@ -141,7 +141,7 @@ vector<Product> Stock::read_file(string file_name){
 
 void Stock::write_file(string file_name, Product product){
     fstream file;
-    file.open(file_name, ios::app);
+    file.open("./doc/"+file_name, ios::app);
     if(!file.is_open())
         throw e_file;
     file<< product;
@@ -149,7 +149,7 @@ void Stock::write_file(string file_name, Product product){
 }
 
 void Stock::over_write(string file_name, vector<Product> list){
-    fstream file(file_name, ios::out);
+    fstream file("./doc/"+file_name, ios::out);
     for(size_t i=0; i<list.size(); i++){
         file<<list[i];
     }

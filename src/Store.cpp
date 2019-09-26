@@ -91,10 +91,14 @@ void Store::shop_mode(){
 
     Cart cart;
     unsigned int product, amount; string category;
-    vector<Product> productList = Stock::get_stock();
-    map<string, vector<Product>> catalogue;
+    vector<Product> productList = Stock::get_stock();  vector<string> product_categories;
+    map<string, vector<Product*>> catalogue;
     for(size_t i=0; i<productList.size(); i++){
-        catalogue[productList[i].get_category()].push_back(productList[i]);
+        product_categories = split(productList[i].get_category(), '/');
+        for(auto& category : product_categories){
+            catalogue[category].push_back(&productList[i]);
+        }
+        // catalogue[productList[i].get_category()].push_back(productList[i]);
     }
 
     do{
@@ -118,7 +122,7 @@ void Store::shop_mode(){
         }
         cout<<'\t'<<"Index"<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
         for(size_t i=0; i<catalogue[category].size(); i++){
-            cout<<'\t'<<i<<'\t'; catalogue[category][i].displayProduct();
+            cout<<'\t'<<i<<'\t'; catalogue[category][i]->displayProduct();
         }
         cout<< "Product Index: ";
         cin>> product;
@@ -130,19 +134,19 @@ void Store::shop_mode(){
         }
         cout<< "Amount: ";
         cin>> amount;
-        while(!Stock::verify_amount(catalogue[category][product], amount)){
+        while(!Stock::verify_amount(*catalogue[category][product], amount)){
             clear_fail_state();
             cout<< "Invalid amount"<<endl;
             cout<< "Amount: ";
             cin>> amount;
         }
-        cart.add_product(catalogue[category][product], amount);
+        cart.add_product(*catalogue[category][product], amount);
 
         cout<<'\t'<<left<<setw(23)<< "1:Continue shopping"<<setfill(' ')<<setw(22)<< "2:Confirm purchase"<<setfill(' ')<< "3:Cancel"<<endl;
         Store::input_option(3, "Enter 1 to continue shopping, 2 to confirm purchase or 3 to cancel purchase");
         switch(option){
             case 1:
-                catalogue[category][product].set_amount(catalogue[category][product].get_amount()-amount); //Update catalogue
+                catalogue[category][product]->set_amount(catalogue[category][product]->get_amount()-amount); //Update catalogue
             break;
             case 2:
                 cart.confirm_purchase();
