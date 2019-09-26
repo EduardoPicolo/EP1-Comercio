@@ -104,7 +104,7 @@ void Store::shop_mode(){
         cout<<"\t\t\t" "*CATALOGUE*"<<endl;
         cout<<"\t\t"<< "*CATEGORIES*"<<endl;
         for(auto it = catalogue.begin(); it!=catalogue.end(); it++){
-            cout<<"\t|"<<left<<setw(15)<< it->first<<setfill(' ');
+            cout<<"\t|"<<left<<setw(15)<< it->first<<setfill(' '); 
             if((++it)!=catalogue.end()){
                 cout<<"|"<<left<<setw(15)<< it->first<<setfill(' ')<<"|"<<endl;
             }
@@ -118,7 +118,7 @@ void Store::shop_mode(){
             cout<<'\t'<< "Invalid category"<<endl;
             cout<< "Category: ";
             cin>>category;
-            lowercase(category);
+                lowercase(category);
         }
         cout<<endl;
         cout<<"\t\t"<< "*PRODUCTS*"<<endl;
@@ -131,6 +131,11 @@ void Store::shop_mode(){
         while((product<0)||((unsigned int)product>catalogue[category].size()-1)){
             cout<<'\t'<< "Invalid product index"<<endl;
             product = get_input<int>("Product index: ");
+        }
+        if(catalogue[category][product]->get_amount()==0){
+            cout<<'\t'<< catalogue[category][product]->get_product_name() + " is currently out of stock" <<endl;
+            option = 1;
+            continue;
         }
         amount = get_input<int>("Amount: ");
         while(!Stock::verify_amount(*catalogue[category][product], amount)){

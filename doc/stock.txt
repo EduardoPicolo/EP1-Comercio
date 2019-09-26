@@ -7,5 +7,5 @@ Exemplo_exemplo	Exemplo	99	20
 Obelixo	Food	5	18
 Pizza	Salgado	4	20
 Teste	Teste	10	31
-Geladinho	Bebida/Guloseima	1	17
+Geladinho	Bebida/Guloseima	1	16
 Teste_exemplo	Teste/Exemplo/Food	1	17
