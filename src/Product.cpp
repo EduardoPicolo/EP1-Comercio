@@ -10,7 +10,7 @@ Product::Product(string product_name, string category, double price, int amount)
 :product_name(product_name), category(category), price(price), amount(amount) 
 {
     if(product_name.length()==0||category.length()==0)
-        throw new Exception("Product's name/category cannot be empty.");
+        throw Exception("Product's name/category cannot be empty.");
     cout<< "New product added!"<< endl;
 }
 Product::~Product(){

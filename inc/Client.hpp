@@ -20,25 +20,23 @@ class Client{
         void display_client();
         void display_shop_history();
         void update_shop_history(float total, vector<Product> cart);
-        const map<string, float> get_shop_history();
+        map<string, float> get_shop_history() const;
         void set_shop_history(string category, float num);
         void clear_shop_history();
         void edit_data();
 
-
         void set_name(string name);
-        const string get_name();
+        string get_name() const;
         void set_cpf(string cpf);
-        const string get_cpf();
+        string get_cpf() const;
         void set_password(string password);
-        const string get_password();
+        string get_password() const;
         void set_email(string email);
-        const string get_email();
+        string get_email() const;
         void set_phone_number(string number);
-        const string get_phone_number();
+        string get_phone_number() const;
         void set_vip(bool status);
-        bool get_vip();
-
+        bool get_vip() const;
 
 };
 

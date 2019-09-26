@@ -19,7 +19,6 @@ Client::~Client(){
 }
 void Client::update_shop_history(float total, vector<Product> cart){
     vector<string> product_categories;
-
     for(size_t i=0; i<cart.size(); i++){
         product_categories = split(cart[i].get_category(), '/');
         for(auto& category : product_categories){
@@ -94,7 +93,7 @@ void Client::edit_data(){
             }
         break;
         case 5:
-            cout<< "A VIP client has a special discount of 15%% in every purchase."<<endl;
+            cout<< "A VIP client has a special discount of 15% in every purchase."<<endl;
             if(this->vip == true){
                 cout<< "You already have the VIP status!" <<endl;
                 break;
@@ -121,7 +120,7 @@ void Client::display_shop_history(){
 		cout<< it->first <<"\t\t\t"<< it->second <<endl;
 	}
 }
-const map<string, float> Client::get_shop_history(){
+map<string, float> Client::get_shop_history() const{
     return shop_history;
 }
 void Client::set_shop_history(string category, float num){
@@ -134,7 +133,7 @@ void Client::display_client(){
     cout<< "Client: "<<this->name<<' '<<this->cpf<<endl;
 }
 
-const string Client::get_name(){
+string Client::get_name() const{
     return name;
 }
 void Client::set_name(string name){
@@ -143,7 +142,7 @@ void Client::set_name(string name){
     else
         this-> name = name;
 }
-const string Client::get_cpf(){
+string Client::get_cpf() const{
     return cpf;
 }
 void Client::set_cpf(string cpf){
@@ -152,24 +151,24 @@ void Client::set_cpf(string cpf){
 void Client::set_password(string password){
     this->password = password;
 }
-const string Client::get_password(){
+string Client::get_password() const{
     return password;
 }
 void Client::set_email(string email){
     this->email = email;
 }
-const string Client::get_email(){
+string Client::get_email() const{
     return email;
 }
 void Client::set_phone_number(string number){
     this->phone_number = number;
 }
-const string Client::get_phone_number(){
+string Client::get_phone_number() const{
     return phone_number;
 }
 void Client::set_vip(bool status){
     this->vip = status;
 }
-bool Client::get_vip(){
+bool Client::get_vip() const{
     return vip;
 }
