@@ -33,8 +33,8 @@ void Client::update_shop_history(float total, vector<Product> cart){
 }
 void Client::edit_data(){
     string name, password, email, phone;map<string, float> shop_history;
-    cout<<'\t'<<left<<setw(15)<< "1:Edit name"<<setfill(' ')<<setw(21)<< "2:Change password"<<setfill(' ')<<setw(16)<<"3:Edit email"<<setfill(' ')<<setw(16)<< "4:Edit phone"<<setfill(' ')<< "5:Become VIP"<<endl;
-    Store::input_option(5, "Enter 1 to edit name, 2 to change password, 3 to edit email or 4 to become VIP.");
+    cout<<'\t'<<left<<setw(17)<< "[1]:Edit name"<<setfill(' ')<<setw(23)<< "[2]:Change password"<<setfill(' ')<<setw(18)<<"[3]:Edit email"<<setfill(' ')<<setw(18)<< "[4]:Edit phone"<<setfill(' ')<< "[5]:Become VIP"<<endl;
+    Store::input_option(5, "Enter [1] to edit name, [2] to change password, [3] to edit email, [4] to edit phone number or [5] to become VIP.");
     switch(option){
         case 1:
             cout<< "New name: ";
@@ -93,17 +93,18 @@ void Client::edit_data(){
             }
         break;
         case 5:
-            cout<< "A VIP client has a special discount of 15% in every purchase."<<endl;
+            cout<<'\t'<< "A VIP client has a special discount of 15% in every purchase."<<endl;
             if(this->vip == true){
-                cout<< "You already have the VIP status!" <<endl;
+                cout<<'\t'<< "You already have the VIP status!" <<endl;
                 break;
             }
             if(this->shop_history["TOTAL"]<200.0){
-                cout<< "To become a VIP client, one must have bought at least $200 in products"<<endl;
+                cout<<'\t'<< "To become a VIP client, one must have bought at least $200 in products."<<endl;
+                cout<< "Current total: $"<< this->shop_history["TOTAL"] <<endl;
             }
             else{
                 this->vip = true;
-                cout<< "You are now a VIP client!"<<endl;
+                cout<<'\t'<< "You are now a VIP client!"<<endl;
                 Logon::overWrite_file("clients.txt", Logon::get_client_list());
             }
         break;

@@ -5,6 +5,8 @@ vector<Product> Stock::stock;
 int index;
 
 void Stock::add_product(){
+    system("clear");
+    cout<< "=============================== Add product ===============================" <<endl;
     string product_name, category;
     double price; int amount;
 
@@ -61,6 +63,8 @@ void Stock::add_product(){
 }
 
 void Stock::restock(){
+    system("clear");
+    cout<< "================================= Restock =================================" <<endl;
     string product_name, category; int amount;
 
     cout<< "Product: ";
@@ -68,16 +72,21 @@ void Stock::restock(){
         fill_string_spaces(product_name);
         lowercase(product_name);
     if(Stock::verify_stock(product_name)){
-        cout<< "Quantity increase "<<"⇪ ";
-        cin>> amount;
+        cout<<'\t'<<left<<setw(20)<< "[Product]" <<setfill(' ')<< "[Amount]" <<endl;
+        cout<<'\t'<<left<<setw(20)<< stock[index].get_product_name() <<setfill(' ')<< stock[index].get_amount() <<endl;
+
+        amount = get_input<int>("Quantity increase ⇪ ");
         while(amount<=0){
-            clear_fail_state();
             cout<<'\t'<< "Invalid amount"<<endl;
-            cout<< "Quantity increase "<<"⇪ ";
-            cin>> amount;
+            amount = get_input<int>("Quantity increase ⇪ ");
         }
         stock[index].set_amount(stock[index].get_amount()+amount);
         over_write("stock.txt", stock);
+        system("clear");
+
+        cout<<'\t'<< "Increased ["+stock[index].get_product_name()+"] amount by ["<<amount<<"]" <<endl;
+        cout<<'\t'<<left<<setw(20)<< "[Product]" <<setfill(' ')<< "[Amount]" <<endl;
+        cout<<'\t'<<left<<setw(20)<< stock[index].get_product_name() <<setfill(' ')<< stock[index].get_amount() <<endl;
     }
     else{
         cout<<'\t'<< "Product not found"<<endl;

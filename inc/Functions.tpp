@@ -8,7 +8,7 @@ type get_input(const string& msg){
         cin>> valor;
         if(cin.fail()){
             clear_fail_state();
-            cout<< "Invalid input" <<endl;
+            cout<<'\t'<< "Invalid input" <<endl;
         }
         else{
             cin.ignore(numeric_limits<streamsize>::max(), '\n');

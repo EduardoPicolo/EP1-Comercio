@@ -1,6 +1,7 @@
 #include "Store.hpp"
 
 void Store::start_session(){
+    system("clear");
     cout<< "============================== Start Session ==============================" <<endl;
     cout<<'\t'<<left<<setw(15)<< "[1]:Sign in"<<setfill(' ')<<setw(16)<< "[2]:Register"<<setfill(' ')<< "[3]:Exit"<< endl;
     Store::input_option(3, "Enter [1] to login, [2] to register or [3] to exit.");
@@ -31,12 +32,12 @@ void Store::main_menu(){
     cout<< "================================ Main Menu ================================" <<endl;
     if(client->get_cpf()=="00000000011"){
         cout<<'\t'<<left<<setw(12)<< "[1]:Shop"<<setfill(' ')<<setw(22)<< "[2]:Recommendations"<<setfill(' ')
-        <<setw(16)<< "[3]:Settings"<<setfill(' ')<<setw(13)<< "[4]:Logout"<<setfill(' ')<< "[5]:Stock"<<endl;
-        Store::input_option(5 ,"Enter [1] to shop, [2] for recommendations, [3] to edit account, [4] to logout or [5] for stock.");
+        <<setw(15)<< "[3]:Profile"<<setfill(' ')<<setw(13)<< "[4]:Logout"<<setfill(' ')<< "[5]:Stock"<<endl;
+        Store::input_option(5 ,"Enter [1] to shop, [2] for recommendations, [3] to edit profile, [4] to logout or [5] for stock.");
     }
     else{
-        cout<<'\t'<<left<<setw(12)<< "[1]:Shop"<<setfill(' ')<<setw(22)<< "[2]:Recommendations"<<setfill(' ')<<setw(16)<< "[3]:Settings"<<setfill(' ')<< "[4]:Logout"<<endl;
-        Store::input_option(4 ,"Enter [1] to shop, [2] for recommendations, [3] to edit account or [4] to logout.");
+        cout<<'\t'<<left<<setw(12)<< "[1]:Shop"<<setfill(' ')<<setw(22)<< "[2]:Recommendations"<<setfill(' ')<<setw(15)<< "[3]:Profile"<<setfill(' ')<< "[4]:Logout"<<endl;
+        Store::input_option(4 ,"Enter [1] to shop, [2] for recommendations, [3] to edit profile or [4] to logout.");
     }
 
     switch(option){
@@ -50,6 +51,7 @@ void Store::main_menu(){
             client->edit_data();
         break;
         case 4:
+            system("clear");
             *client = Client();
             Store::start_session();
         break;
@@ -87,6 +89,7 @@ void Store::stock_mode(){
 }
 
 void Store::shop_mode(){
+    system("clear");
     cout<< "================================= *SHOP* =================================" <<endl;
 
     Cart cart;
@@ -121,8 +124,8 @@ void Store::shop_mode(){
                 lowercase(category);
         }
         cout<<endl;
-        cout<<"\t\t"<< "*PRODUCTS*"<<endl;
-        cout<<'\t'<<"Index"<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
+        cout<<"\t\t\t"<< "*PRODUCTS*"<<endl;
+        cout<<'\t'<<"Index"<<'\t'<<left<<setw(20)<<"[Product]"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
         for(size_t i=0; i<catalogue[category].size(); i++){
             cout<<'\t'<<'['<<i<<']'<<'\t'; catalogue[category][i]->displayProduct();
         }
@@ -198,17 +201,21 @@ void Store::recommendation_mode(){
             continue;
         // cout<< category->first<<endl;
         randInt = rand() % catalogue[category->first].size();
-        cout<<'\t'<< cont <<". "; catalogue[category->first][randInt].displayProduct();
+        cout<<'\t'<< cont <<"."; catalogue[category->first][randInt].displayProduct();
         cont++;
     }
     cout<<endl;
 }
 
 void Store::input_option(const int& n_options, const string& e_message){
-    vector<int> options(n_options);
-    iota(options.begin(), options.end(), 1);
+    // vector<int> options(n_options);
+    // iota(options.begin(), options.end(), 1);
     option = get_input<int>(">> ");
-    while(!(find(begin(options), end(options), option)!=end(options))){
+    // while(!(find(begin(options), end(options), option)!=end(options))){
+        // cout<<'\t'<< "Invalid option. "<< e_message <<endl;
+    //     option = get_input<int>(">> ");
+    // }
+    while(option<1||option>n_options){
         cout<<'\t'<< "Invalid option. "<< e_message <<endl;
         option = get_input<int>(">> ");
     }

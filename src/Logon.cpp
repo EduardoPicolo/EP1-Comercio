@@ -5,9 +5,11 @@ vector<Client> Logon::client_list;
 int clientIndex;
 
 void Logon::sign_up(){
+    system("clear");
+    cout<< "================================= Register =================================" <<endl;
     string name, cpf, password, email, phone_number;
 
-    cout<< "CPF: ";
+    cout<< "CPF (Only numbers): ";
     getline(cin>>ws, cpf);
     if(Logon::validate_cpf(cpf)){
         switch(verify_client(cpf)){
@@ -77,11 +79,13 @@ bool Logon::verify_client(string cpf){
     return false; // Client NOT registered
 }
 bool Logon::validate_cpf(const string& cpf){
-    if(cpf.size()<11)
+    if(cpf.size()<11){
+        cout<<'\t'<< "CPF must have 11 digits (only numbers)." <<endl;
         return false;
+    }
     for(size_t i=0; i<cpf.size(); i++){
         if(!isdigit(cpf[i])){
-            cout<< "Invalid CPF"<<endl;
+            cout<<'\t'<< "Invalid CPF"<<endl;
             return false;
         }
     }
@@ -89,9 +93,11 @@ bool Logon::validate_cpf(const string& cpf){
 }
 
 void Logon::sign_in(){
+    system("clear");
+    cout<< "================================= Sign in =================================" <<endl;
     string cpf, password;
 
-    cout<<"Client's CPF: ";
+    cout<<"CPF (Only numbers): ";
     getline(cin>>ws, cpf);
     if(validate_cpf(cpf)){
         switch(verify_client(cpf)){
@@ -103,7 +109,7 @@ void Logon::sign_in(){
                 client = &client_list[clientIndex];
             }
             else{
-                cout<< "Wrong password" <<endl;
+                cout<<'\t'<< "Wrong password" <<endl;
                 cout<<'\t'<<left<<setw(17)<< "[1]:Try again"<<setfill(' ')<< "[2]:Cancel" <<endl;
                 Store::input_option(2, "Enter [1] to try again or [2] to cancel.");
                 switch(option){
@@ -120,9 +126,9 @@ void Logon::sign_in(){
             }
         break;
         case false:
-            cout<< "CPF not found" <<endl;
+            cout<< '\t'<< "CPF not found." <<endl;
             cout<<'\t'<<left<<setw(17)<< "[1]:Try again"<<setfill(' ')<< "[2]:Register" <<endl;
-            Store::input_option(2, "Enter [1] to try again or [2] to cancel.");
+            Store::input_option(2, "Enter [1] to try again or [2] to register.");
                 switch(option){
                     case 1:
                         Logon::sign_in();
