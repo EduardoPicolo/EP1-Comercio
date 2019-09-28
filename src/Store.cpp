@@ -200,6 +200,7 @@ void Store::recommendation_mode(){
         randInt = rand() % catalogue[category->first].size();
         Product p = catalogue[category->first][randInt];
         while(find_if(recommended_products.begin(), recommended_products.end(), [&p](Product& product_inVector){return product_inVector == p;})!=recommended_products.end()){
+            if(catalogue[category->first].size()==1) break; //if there is only 1 product in that category and that product already is in the vector, break infinite loop.
             randInt = rand() % catalogue[category->first].size();
             p = catalogue[category->first][randInt];
         }
