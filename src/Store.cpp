@@ -167,6 +167,7 @@ void Store::shop_mode(){
 }
 
 void Store::recommendation_mode(){
+    system("clear");
     cout<< "===========================================================================" <<endl;
     if(client->get_name().length()==0){
         cout<< "A client must be logged in to see recommendations."<<endl;
@@ -208,13 +209,7 @@ void Store::recommendation_mode(){
 }
 
 void Store::input_option(const int& n_options, const string& e_message){
-    // vector<int> options(n_options);
-    // iota(options.begin(), options.end(), 1);
     option = get_input<int>(">> ");
-    // while(!(find(begin(options), end(options), option)!=end(options))){
-        // cout<<'\t'<< "Invalid option. "<< e_message <<endl;
-    //     option = get_input<int>(">> ");
-    // }
     while(option<1||option>n_options){
         cout<<'\t'<< "Invalid option. "<< e_message <<endl;
         option = get_input<int>(">> ");
