@@ -179,12 +179,12 @@ void Store::recommendation_mode(){
         return;
     }
 
-    int cont = 1;
     vector<Product> productList = Stock::get_stock();
     map<string, float> shop_history = client->get_shop_history();
     vector<pair<string, float>> sorted_history = order(shop_history);
     map<string, vector<Product>> catalogue;
     vector<string> product_categories;
+    vector<Product> recommended_products;
 
     for(size_t i=0; i<productList.size(); i++){
         product_categories = split(productList[i].get_category(), '/');
@@ -195,15 +195,21 @@ void Store::recommendation_mode(){
 
     srand(time(NULL));
     int randInt;
+    for(auto category=sorted_history.cbegin(); category!=sorted_history.cend(); category++){
+        if(category->first == "TOTAL") continue;
+        randInt = rand() % catalogue[category->first].size();
+        Product p = catalogue[category->first][randInt];
+        while(find_if(recommended_products.begin(), recommended_products.end(), [&p](Product& product_inVector){return product_inVector == p;})!=recommended_products.end()){
+            randInt = rand() % catalogue[category->first].size();
+            p = catalogue[category->first][randInt];
+        }
+        recommended_products.push_back(p);
+    }
+
     cout<<"\t\t\t"<< "*RECOMMENDED PRODUCTS*"<<endl;
     cout<<'\t'<<left<<setw(20)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
-    for(auto category=sorted_history.cbegin(); category!=sorted_history.cend(); category++){
-        if(category->first == "TOTAL")
-            continue;
-        // cout<< category->first<<endl;
-        randInt = rand() % catalogue[category->first].size();
-        cout<<'\t'<< cont <<"."; catalogue[category->first][randInt].displayProduct();
-        cont++;
+    for(size_t i=0; i<recommended_products.size(); i++){
+        cout<<'\t'<<i+1<<'.'; recommended_products[i].displayProduct();
     }
     cout<<endl;
 }
