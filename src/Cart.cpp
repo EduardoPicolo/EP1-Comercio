@@ -12,19 +12,21 @@ Cart::~Cart(){
 void Cart::add_product(Product product, int amount){
     if(Stock::verify_amount(product, amount)){
         if(verifyCart(product)){ // Product already in cart, increase its amount
-            cout<<"\t" "Product amount in cart increased"<<endl;
+            // cout<<"\t" "Product amount in cart increased"<<endl;
+            cout<<'\t'<< "["+product.get_product_name()+"] amount in cart increased." <<endl;
             cart[productIndex].set_amount(cart[productIndex].get_amount()+amount);
             update_total();
         }
         else{ //Product not in cart, add
-            cout<<"\t" "Product added to cart"<<endl;
+            // cout<<"\t" "Product added to cart"<<endl;
+            cout<<'\t'<< "["+product.get_product_name()+"] added to cart." <<endl;
             product.set_amount(amount);
             cart.push_back(product);
             update_total();
         }
     }
     else{
-        cout<<'\t'<< "Invalid amount"<<endl;
+        cout<<'\t'<< "Invalid amount."<<endl;
     }
 }
 

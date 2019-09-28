@@ -195,7 +195,7 @@ void Store::recommendation_mode(){
     srand(time(NULL));
     int randInt;
     cout<<"\t\t\t"<< "*RECOMMENDED PRODUCTS*"<<endl;
-    cout<<'\t'<<left<<setw(18)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
+    cout<<'\t'<<left<<setw(20)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
     for(auto category=sorted_history.cbegin(); category!=sorted_history.cend(); category++){
         if(category->first == "TOTAL")
             continue;

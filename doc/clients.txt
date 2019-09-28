@@ -6,4 +6,4 @@
 44444444444 Fizz;4;fizz@mail;444;0;SHOP_HISTORY-Bebida-3-Food-3-Guloseima-2-TOTAL-22
 00000000011 Admin;admin;admin@mail;000;0;SHOP_HISTORY-Bebida-3-Food-1-Guloseima-5-TOTAL-13.5
 66666666666 O grande;6;grande@email;6666;1;SHOP_HISTORY-Bebida-1-Food-2-Salgado-1-TOTAL-216.15-Teste-20
-77777777777 Sete;7;sete@mail;777;0;SHOP_HISTORY-Foo-2-TOTAL-20
+77777777777 Sete;7;sete@mail;777;0;SHOP_HISTORY-Bebida-1-Foo-2-Food-1-Guloseima-1-TOTAL-26
