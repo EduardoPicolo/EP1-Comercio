@@ -63,58 +63,36 @@ $(function() {
 <div class="title">EP1 - OO 2019.2 (UnB - Gama) </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h3>Eduardo Nunes Pícolo (180113151)</h3>
+<div class="textblock"><h4>Eduardo Nunes Pícolo (180113151)</h4>
 <h2>Descrição</h2>
-<p>Victoria possui um pequeno comércio que atende a população de seu bairro. Com o passar do tempo, a pequena empreendedora foi adquirindo experiência e, por conta de seu excelente poder de negociação, ela conseguia reduzir significativamente o preço dos produtos oferecidos.</p>
-<p>Entretanto, apenas preços baixos não eram o bastante para manter a clientela. Em uma noite de inspiração, Victoria pensou em duas estratégias para atrair mais pessoas:</p><ul>
-<li>Oferecer descontos de 15% para clientes sócios;</li>
-<li>Oferecer produtos recomendados exclusivamente para cada cliente;</li>
-</ul>
-<p>Para colocar as ideias em prática, ela deve abandonar seu velho hábito de utilizar seu estimado caderninho para gerenciar sua loja. Uma amiga te recomendou para desenvolver um <em>software</em> que ajude o estabelecimento a implementar as novas estratégias de negócio. Com a sua ajuda, <b>todas as vendas serão realizadas pelo computador operado por uma funcionária</b>. Em uma breve conversa com Victoria, foi possível entender algumas características importantes do sistema:</p><ul>
-<li>Victoria está aprendendo C++ em um curso online e, portanto, prefere que o sistema seja feito nesta linguagem para que ela consiga fazer as próprias manutenções quando necessário;</li>
-<li>Devem existir três modos de operação do sistema:<ul>
-<li><b>Modo venda</b></li>
-<li><b>Modo recomendação</b></li>
-<li><b>Modo estoque</b></li>
-</ul>
-</li>
-</ul>
+<p>O <em>software</em> possui três modos de operação: modo venda, modo recomendação e modo estoque. Para utiliza-los é preciso primeiro estar Logado como um cliente cadastrado ou como Admin (O Admin já está cadastrado no sistema). Caso o cliente não esteja cadastrado, é possivel realizar o registro. O acesso aos modos de operação é feito pelo menu principal, que somente será mostrado apos o Login.</p>
+<h3>Cadastro</h3>
+<p>Realizar o cadastro de um novo cliente.</p>
+<p>Para cadastrar-se, insira o CPF, que será verificado, nome, senha, email e telefone.</p>
+<p>Ao finalizar o cadastrado, o cliente estará automaticamente Logado.</p>
+<h3>Login</h3>
+<p>O login é obrigatório para o uso das outras funcionalidades.</p>
+<p>Para entar, digite o CPF e a senha.</p>
+<p>O CPF do Admin é '98765432100' e a senha é 'admin'.</p>
 <h3>Modo venda</h3>
-<p>Em relação ao modo venda, deve-se observar os seguintes pontos:</p><ul>
-<li>Antes de cada venda, deve ser possível inserir os dados do cliente para identificar se ele é sócio ou não;</li>
-<li>Caso o cliente não possua cadastro, ele é feito antes da compra;</li>
-<li>A cada compra, deve ser possível colocar vários produtos no carrinho;</li>
-<li>No fim da compra, devem ser exibidas na tela as seguintes informações:<ul>
-<li>Lista de produtos vendidos, a quantidade e seus respectivos valores;</li>
-<li>Valor total dos produtos;</li>
-<li>Valor do desconto oferecido;</li>
-<li>Valor final da venda;</li>
-</ul>
-</li>
-<li>Ao fim, caso a compra apresente algum produto em quantidade maior que a existente no estoque, ela deve ser cancelada sem alterar o estoque e uma mensagem de erro deve ser apresentada;</li>
-</ul>
-<p>Para evitar o recadastro de clientes, Victoria deseja que os dados de cadastro sejam salvos em arquivos. Assim, será possível acessar os dados mesmo que se encerre a execução do programa.</p>
-<h3>Modo estoque</h3>
-<p>Para manter o estoque do estabelecimento, deve ser possível cadastrar novos produtos (não haverá a necessidade de se remover produtos, apenas de se atualizar sua quantidade). Além disso, para evitar o recadastro de produtos e categorias, os dados devem ser armazenados em arquivos.</p>
-<p>Aqui estão alguns aspectos importantes deste modo:</p><ul>
-<li>Há várias categorias de produtos existentes no estabelecimento e, sempre que possível, Victoria tenta trazer coisas novas (O número de categorias não é fixo mas, assim como no caso dos produtos, não será necessário remover nenhuma categoria);</li>
-<li>Um produto pode pertencer a mais de uma categoria;</li>
-</ul>
+<p>O modo venda permite ao cliente escolher produtos e adiciona-los ao seu carrinho.</p>
+<p>Primeiro, o cliente escolhe uma categoria dentre as categoria listadas e então seleciona o índice do produto que deseja comprar, em seguida será dada a opção para continuar comprando, confirmar a compra ou cancelar a compra e retornar ao menu principal.</p>
+<p>Caso a comprar seja confirmada, será listado os produtos do carrinho, seus respectivos preços e quantidades adquiridas, e o total da compra.</p>
+<p>Se o cliente tiver o status de VIP, receberá um disconto de 15% no total.</p>
 <h3>Modo recomendação</h3>
-<p>Para listar os itens recomendados para cada cliente, Victoria pensou em uma solução bem simples. A cada compra, é possível identificar a categoria de cada produto. Com este dado, é possível saber qual categoria que mais interessa o cliente.</p>
-<p>Neste modo, também há alguns pontos a serem considerados:</p><ul>
-<li>Ao entrar no modo recomendação, deve ser possível inserir os dados do cliente para buscar os produtos recomendados exclusivamente;</li>
-<li>Caso o cliente não possua cadastro, uma mensagem de erro deve ser mostrada;</li>
-<li>A lista de recomendações deve ter as seguintes características:<ul>
-<li>Até 10 produtos;</li>
-<li>Ordenados de acordo com o grau de recomendação (mais recomendados primeiro, menos recomendados por último);</li>
-<li>Caso o grau de recomendação seja o mesmo, o critério de ordenação deve obedecer à ordem lexicográfica;</li>
-</ul>
-</li>
-</ul>
-<h2>Orientações</h2>
-<p>Quando finalizado, o projeto deverá conter um arquivo, na pasta <code>docs</code>, contendo instruções de execução (comandos, menus, etc) e a lista de dependências (bibliotecas ou pacotes necessários para se executar o software).</p>
-<p>Existe um material de apoio na <a href="https://gitlab.com/oofga/eps/eps_2019_2/ep1/wikis/Home">wiki do repositório</a> contendo orientações técnicas relevantes para o desenvolvimento deste projeto. </p>
+<p>As recomendações serão feitas a partir do histórico de compras do cliente, mais especificamente, das categorias que o mesmo mais compra.</p>
+<p>Ao acessar o modo recomendação, pelo menu principal, será listado até 10 produtos, cada um pertencente a uma categoria.</p>
+<p>Caso o cliente não possua um histórico de compras, nenhum produto será recomendado.</p>
+<p>Para comprar algum produto recomendado, acesse o modo venda.</p>
+<h3>Perfil</h3>
+<p>No perfil é possivel editar dados do cliente.</p>
+<p>Não é possivel alterar o CPF, somente senha, nome, email e telefone.</p>
+<p>Também há a opção de 'tornar-se VIP', para clientes frequentes e que possuem um certo histórico de compras. O status de VIP dá um desconto de 15% em todas as compras.</p>
+<h3>Modo estoque</h3>
+<p>Somente o Admin tem acesso ao estoque.</p>
+<p>Aqui, é possivel registrar novos produtos e reabaster o estoque.</p>
+<p>Para registrar um novo produto basta inserir o nome do produto, categoria, preço e quantidade. Caso a categoria não exista, ela será criada automaticamente.</p>
+<p>Para reabastecer um produto no estoque, insira o nome do produto e a quantidade que será adicionada ao respectivo produto. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

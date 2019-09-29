@@ -1,73 +1,59 @@
-\subsubsection*{Eduardo Nunes Pícolo (180113151)}
+\paragraph*{Eduardo Nunes Pícolo (180113151)}
 
 \subsection*{Descrição}
 
-Victoria possui um pequeno comércio que atende a população de seu bairro. Com o passar do tempo, a pequena empreendedora foi adquirindo experiência e, por conta de seu excelente poder de negociação, ela conseguia reduzir significativamente o preço dos produtos oferecidos.
+O {\itshape software} possui três modos de operação\+: modo venda, modo recomendação e modo estoque. Para utiliza-\/los é preciso primeiro estar Logado como um cliente cadastrado ou como Admin (O Admin já está cadastrado no sistema). Caso o cliente não esteja cadastrado, é possivel realizar o registro. O acesso aos modos de operação é feito pelo menu principal, que somente será mostrado apos o Login.
 
-Entretanto, apenas preços baixos não eram o bastante para manter a clientela. Em uma noite de inspiração, Victoria pensou em duas estratégias para atrair mais pessoas\+:
-\begin{DoxyItemize}
-\item Oferecer descontos de 15\% para clientes sócios;
-\item Oferecer produtos recomendados exclusivamente para cada cliente;
-\end{DoxyItemize}
+\subsubsection*{Cadastro}
 
-Para colocar as ideias em prática, ela deve abandonar seu velho hábito de utilizar seu estimado caderninho para gerenciar sua loja. Uma amiga te recomendou para desenvolver um {\itshape software} que ajude o estabelecimento a implementar as novas estratégias de negócio. Com a sua ajuda, {\bfseries todas as vendas serão realizadas pelo computador operado por uma funcionária}. Em uma breve conversa com Victoria, foi possível entender algumas características importantes do sistema\+:
-\begin{DoxyItemize}
-\item Victoria está aprendendo C++ em um curso online e, portanto, prefere que o sistema seja feito nesta linguagem para que ela consiga fazer as próprias manutenções quando necessário;
-\item Devem existir três modos de operação do sistema\+:
-\begin{DoxyItemize}
-\item {\bfseries Modo venda}
-\item {\bfseries Modo recomendação}
-\item {\bfseries Modo estoque}
-\end{DoxyItemize}
-\end{DoxyItemize}
+Realizar o cadastro de um novo cliente.
+
+Para cadastrar-\/se, insira o C\+PF, que será verificado, nome, senha, email e telefone.
+
+Ao finalizar o cadastrado, o cliente estará automaticamente Logado.
+
+\subsubsection*{Login}
+
+O login é obrigatório para o uso das outras funcionalidades.
+
+Para entar, digite o C\+PF e a senha.
+
+O C\+PF do Admin é \textquotesingle{}98765432100\textquotesingle{} e a senha é \textquotesingle{}admin\textquotesingle{}.
 
 \subsubsection*{Modo venda}
 
-Em relação ao modo venda, deve-\/se observar os seguintes pontos\+:
-\begin{DoxyItemize}
-\item Antes de cada venda, deve ser possível inserir os dados do cliente para identificar se ele é sócio ou não;
-\item Caso o cliente não possua cadastro, ele é feito antes da compra;
-\item A cada compra, deve ser possível colocar vários produtos no carrinho;
-\item No fim da compra, devem ser exibidas na tela as seguintes informações\+:
-\begin{DoxyItemize}
-\item Lista de produtos vendidos, a quantidade e seus respectivos valores;
-\item Valor total dos produtos;
-\item Valor do desconto oferecido;
-\item Valor final da venda;
-\end{DoxyItemize}
-\item Ao fim, caso a compra apresente algum produto em quantidade maior que a existente no estoque, ela deve ser cancelada sem alterar o estoque e uma mensagem de erro deve ser apresentada;
-\end{DoxyItemize}
+O modo venda permite ao cliente escolher produtos e adiciona-\/los ao seu carrinho.
 
-Para evitar o recadastro de clientes, Victoria deseja que os dados de cadastro sejam salvos em arquivos. Assim, será possível acessar os dados mesmo que se encerre a execução do programa.
+Primeiro, o cliente escolhe uma categoria dentre as categoria listadas e então seleciona o índice do produto que deseja comprar, em seguida será dada a opção para continuar comprando, confirmar a compra ou cancelar a compra e retornar ao menu principal.
 
-\subsubsection*{Modo estoque}
+Caso a comprar seja confirmada, será listado os produtos do carrinho, seus respectivos preços e quantidades adquiridas, e o total da compra.
 
-Para manter o estoque do estabelecimento, deve ser possível cadastrar novos produtos (não haverá a necessidade de se remover produtos, apenas de se atualizar sua quantidade). Além disso, para evitar o recadastro de produtos e categorias, os dados devem ser armazenados em arquivos.
-
-Aqui estão alguns aspectos importantes deste modo\+:
-\begin{DoxyItemize}
-\item Há várias categorias de produtos existentes no estabelecimento e, sempre que possível, Victoria tenta trazer coisas novas (O número de categorias não é fixo mas, assim como no caso dos produtos, não será necessário remover nenhuma categoria);
-\item Um produto pode pertencer a mais de uma categoria;
-\end{DoxyItemize}
+Se o cliente tiver o status de V\+IP, receberá um disconto de 15\% no total.
 
 \subsubsection*{Modo recomendação}
 
-Para listar os itens recomendados para cada cliente, Victoria pensou em uma solução bem simples. A cada compra, é possível identificar a categoria de cada produto. Com este dado, é possível saber qual categoria que mais interessa o cliente.
+As recomendações serão feitas a partir do histórico de compras do cliente, mais especificamente, das categorias que o mesmo mais compra.
 
-Neste modo, também há alguns pontos a serem considerados\+:
-\begin{DoxyItemize}
-\item Ao entrar no modo recomendação, deve ser possível inserir os dados do cliente para buscar os produtos recomendados exclusivamente;
-\item Caso o cliente não possua cadastro, uma mensagem de erro deve ser mostrada;
-\item A lista de recomendações deve ter as seguintes características\+:
-\begin{DoxyItemize}
-\item Até 10 produtos;
-\item Ordenados de acordo com o grau de recomendação (mais recomendados primeiro, menos recomendados por último);
-\item Caso o grau de recomendação seja o mesmo, o critério de ordenação deve obedecer à ordem lexicográfica;
-\end{DoxyItemize}
-\end{DoxyItemize}
+Ao acessar o modo recomendação, pelo menu principal, será listado até 10 produtos, cada um pertencente a uma categoria.
 
-\subsection*{Orientações}
+Caso o cliente não possua um histórico de compras, nenhum produto será recomendado.
 
-Quando finalizado, o projeto deverá conter um arquivo, na pasta {\ttfamily docs}, contendo instruções de execução (comandos, menus, etc) e a lista de dependências (bibliotecas ou pacotes necessários para se executar o software).
+Para comprar algum produto recomendado, acesse o modo venda.
 
-Existe um material de apoio na \href{https://gitlab.com/oofga/eps/eps_2019_2/ep1/wikis/Home}{\tt wiki do repositório} contendo orientações técnicas relevantes para o desenvolvimento deste projeto. 
+\subsubsection*{Perfil}
+
+No perfil é possivel editar dados do cliente.
+
+Não é possivel alterar o C\+PF, somente senha, nome, email e telefone.
+
+Também há a opção de \textquotesingle{}tornar-\/se V\+IP\textquotesingle{}, para clientes frequentes e que possuem um certo histórico de compras. O status de V\+IP dá um desconto de 15\% em todas as compras.
+
+\subsubsection*{Modo estoque}
+
+Somente o Admin tem acesso ao estoque.
+
+Aqui, é possivel registrar novos produtos e reabaster o estoque.
+
+Para registrar um novo produto basta inserir o nome do produto, categoria, preço e quantidade. Caso a categoria não exista, ela será criada automaticamente.
+
+Para reabastecer um produto no estoque, insira o nome do produto e a quantidade que será adicionada ao respectivo produto. 

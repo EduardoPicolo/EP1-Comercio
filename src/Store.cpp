@@ -30,7 +30,7 @@ void Store::start_session(){
 
 void Store::main_menu(){
     cout<< "================================ Main Menu ================================" <<endl;
-    if(client->get_cpf()=="00000000011"){
+    if(client->get_cpf()=="98765432100"){
         cout<<'\t'<<left<<setw(12)<< "[1]:Shop"<<setfill(' ')<<setw(22)<< "[2]:Recommendations"<<setfill(' ')
         <<setw(15)<< "[3]:Profile"<<setfill(' ')<<setw(13)<< "[4]:Logout"<<setfill(' ')<< "[5]:Stock"<<endl;
         Store::input_option(5 ,"Enter [1] to shop, [2] for recommendations, [3] to edit profile, [4] to logout or [5] for stock.");
