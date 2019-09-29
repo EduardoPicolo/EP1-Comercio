@@ -1,7 +1,7 @@
 Agua	Bebida	3.5	25
-Balinha	Guloseima	0.5	27
-Coca	Bebida	5	17
-Coxinha	Salgado	2.5	20
+Balinha	Guloseima	0.5	28
+Coca	Bebida	5	20
+Coxinha	Salgado	2.5	21
 Cafe	Bebida	1.5	20
 Exemplo_exemplo	Exemplo	99	20
 Obelixo	Food	5	17
@@ -9,4 +9,5 @@ Pizza	Salgado	4	20
 Teste	Teste	10	31
 Geladinho	Bebida/Guloseima	1	15
 Teste_exemplo	Teste/Exemplo/Food	1	17
-Foo	Foo	10	19
+Foo	Foo	10	20
+Buzz	Buzz	10	20

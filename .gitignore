@@ -37,3 +37,8 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+#doxygen
+doxygenfile
+html/
+latex/

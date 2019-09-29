@@ -1,7 +1,7 @@
 #include "Stock.hpp"
 #include "Store.hpp"
 
-vector<Product> Stock::stock;
+vector<Product> Stock::stock = Stock::read_file("stock.txt") ;
 int index;
 
 void Stock::add_product(){
