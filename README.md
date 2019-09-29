@@ -1,4 +1,5 @@
 # EP1 - OO 2019.2 (UnB - Gama)
+### Eduardo Nunes Pícolo (180113151)
 
 ## Descrição
 

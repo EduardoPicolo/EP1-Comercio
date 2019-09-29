@@ -1,0 +1,73 @@
+\subsubsection*{Eduardo Nunes Pícolo (180113151)}
+
+\subsection*{Descrição}
+
+Victoria possui um pequeno comércio que atende a população de seu bairro. Com o passar do tempo, a pequena empreendedora foi adquirindo experiência e, por conta de seu excelente poder de negociação, ela conseguia reduzir significativamente o preço dos produtos oferecidos.
+
+Entretanto, apenas preços baixos não eram o bastante para manter a clientela. Em uma noite de inspiração, Victoria pensou em duas estratégias para atrair mais pessoas\+:
+\begin{DoxyItemize}
+\item Oferecer descontos de 15\% para clientes sócios;
+\item Oferecer produtos recomendados exclusivamente para cada cliente;
+\end{DoxyItemize}
+
+Para colocar as ideias em prática, ela deve abandonar seu velho hábito de utilizar seu estimado caderninho para gerenciar sua loja. Uma amiga te recomendou para desenvolver um {\itshape software} que ajude o estabelecimento a implementar as novas estratégias de negócio. Com a sua ajuda, {\bfseries todas as vendas serão realizadas pelo computador operado por uma funcionária}. Em uma breve conversa com Victoria, foi possível entender algumas características importantes do sistema\+:
+\begin{DoxyItemize}
+\item Victoria está aprendendo C++ em um curso online e, portanto, prefere que o sistema seja feito nesta linguagem para que ela consiga fazer as próprias manutenções quando necessário;
+\item Devem existir três modos de operação do sistema\+:
+\begin{DoxyItemize}
+\item {\bfseries Modo venda}
+\item {\bfseries Modo recomendação}
+\item {\bfseries Modo estoque}
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsubsection*{Modo venda}
+
+Em relação ao modo venda, deve-\/se observar os seguintes pontos\+:
+\begin{DoxyItemize}
+\item Antes de cada venda, deve ser possível inserir os dados do cliente para identificar se ele é sócio ou não;
+\item Caso o cliente não possua cadastro, ele é feito antes da compra;
+\item A cada compra, deve ser possível colocar vários produtos no carrinho;
+\item No fim da compra, devem ser exibidas na tela as seguintes informações\+:
+\begin{DoxyItemize}
+\item Lista de produtos vendidos, a quantidade e seus respectivos valores;
+\item Valor total dos produtos;
+\item Valor do desconto oferecido;
+\item Valor final da venda;
+\end{DoxyItemize}
+\item Ao fim, caso a compra apresente algum produto em quantidade maior que a existente no estoque, ela deve ser cancelada sem alterar o estoque e uma mensagem de erro deve ser apresentada;
+\end{DoxyItemize}
+
+Para evitar o recadastro de clientes, Victoria deseja que os dados de cadastro sejam salvos em arquivos. Assim, será possível acessar os dados mesmo que se encerre a execução do programa.
+
+\subsubsection*{Modo estoque}
+
+Para manter o estoque do estabelecimento, deve ser possível cadastrar novos produtos (não haverá a necessidade de se remover produtos, apenas de se atualizar sua quantidade). Além disso, para evitar o recadastro de produtos e categorias, os dados devem ser armazenados em arquivos.
+
+Aqui estão alguns aspectos importantes deste modo\+:
+\begin{DoxyItemize}
+\item Há várias categorias de produtos existentes no estabelecimento e, sempre que possível, Victoria tenta trazer coisas novas (O número de categorias não é fixo mas, assim como no caso dos produtos, não será necessário remover nenhuma categoria);
+\item Um produto pode pertencer a mais de uma categoria;
+\end{DoxyItemize}
+
+\subsubsection*{Modo recomendação}
+
+Para listar os itens recomendados para cada cliente, Victoria pensou em uma solução bem simples. A cada compra, é possível identificar a categoria de cada produto. Com este dado, é possível saber qual categoria que mais interessa o cliente.
+
+Neste modo, também há alguns pontos a serem considerados\+:
+\begin{DoxyItemize}
+\item Ao entrar no modo recomendação, deve ser possível inserir os dados do cliente para buscar os produtos recomendados exclusivamente;
+\item Caso o cliente não possua cadastro, uma mensagem de erro deve ser mostrada;
+\item A lista de recomendações deve ter as seguintes características\+:
+\begin{DoxyItemize}
+\item Até 10 produtos;
+\item Ordenados de acordo com o grau de recomendação (mais recomendados primeiro, menos recomendados por último);
+\item Caso o grau de recomendação seja o mesmo, o critério de ordenação deve obedecer à ordem lexicográfica;
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+\subsection*{Orientações}
+
+Quando finalizado, o projeto deverá conter um arquivo, na pasta {\ttfamily docs}, contendo instruções de execução (comandos, menus, etc) e a lista de dependências (bibliotecas ou pacotes necessários para se executar o software).
+
+Existe um material de apoio na \href{https://gitlab.com/oofga/eps/eps_2019_2/ep1/wikis/Home}{\tt wiki do repositório} contendo orientações técnicas relevantes para o desenvolvimento deste projeto. 
