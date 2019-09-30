@@ -44,7 +44,6 @@ void Client::edit_data(){
                 cout<< "Failed to edit name"<<endl;
             }
             else{
-                // client->set_name(name);
                 lowercase(name);
                 this->name = name;
                 Logon::overWrite_file("clients.txt", Logon::get_client_list());
@@ -52,12 +51,11 @@ void Client::edit_data(){
             }
         break;
         case 2:
-            cout<< "Enter current password";
+            cout<< "Enter current password: ";
             cin>> password;
             if(client->get_password()==password){
                 cout<< "New password: ";
                 cin>> password;
-                // client->set_password(password);
                 this->password = password;
                 Logon::overWrite_file("clients.txt", Logon::get_client_list());
                 cout<< "Password successfuly changed."<<endl;
@@ -73,7 +71,6 @@ void Client::edit_data(){
                 cout<< "Failed to edit email"<<endl;
             }
             else{
-                // client->set_email(email);
                 this->email = email;
                 Logon::overWrite_file("clients.txt", Logon::get_client_list());
                 cout<< "Email successfuly edited."<<endl;

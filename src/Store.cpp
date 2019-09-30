@@ -125,7 +125,7 @@ void Store::shop_mode(){
         }
         cout<<endl;
         cout<<"\t\t\t"<< "*PRODUCTS*"<<endl;
-        cout<<'\t'<<"Index"<<'\t'<<left<<setw(20)<<"[Product]"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
+        cout<<'\t'<<"Index"<<'\t'<<left<<setw(21)<<"[Product]"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
         for(size_t i=0; i<catalogue[category].size(); i++){
             cout<<'\t'<<'['<<i<<']'<<'\t'; catalogue[category][i]->displayProduct();
         }
@@ -208,7 +208,7 @@ void Store::recommendation_mode(){
     }
 
     cout<<"\t\t\t"<< "*RECOMMENDED PRODUCTS*"<<endl;
-    cout<<'\t'<<left<<setw(20)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
+    cout<<'\t'<<left<<setw(23)<<"Product"<<setfill(' ')<<setw(11)<<"Price"<<setfill(' ')<<"Amount"<<endl;
     for(size_t i=0; i<recommended_products.size(); i++){
         cout<<'\t'<<i+1<<'.'; recommended_products[i].displayProduct();
     }

@@ -1,9 +1,3 @@
-11122233300 teste;teste;ts@email;996;0;SHOP_HISTORY-Bebida-2-Guloseima-8-Salgado-5-TOTAL-26
-11111111111 Edu;1;qwery@email;999;0;SHOP_HISTORY-Bebida-1-Exemplo-8-Food-5-Guloseima-1-Salgado-2-TOTAL-7-Teste-5
-22222222222 exemplo;2;exemplo@mail;222;1;SHOP_HISTORY-Bebida-3-Exemplo-9-Guloseima-1-TOTAL-297
-33333333333 buzz;3;bz69@email;333;0;SHOP_HISTORY-Exemplo-1-Food-5-Guloseima-2-Salgado-1-TOTAL-127.5
-55555555555 bar;5;b@email;555;1;SHOP_HISTORY-Bebida-2-Exemplo-2-Food-2-Guloseima-22-Salgado-1-TOTAL-222.775
-44444444444 Fizz;4;fizz@mail;444;0;SHOP_HISTORY-Bebida-3-Food-3-Guloseima-2-TOTAL-22
-98765432100 Admin;admin;admin@mail;000;0;SHOP_HISTORY-Bebida-3-Food-1-Guloseima-5-TOTAL-13.5
-66666666666 O grande;6;grande@email;6666;1;SHOP_HISTORY-Bebida-1-Buzz-1-Food-2-Salgado-1-TOTAL-224.65-Teste-20
-77777777777 Sete;7;sete@mail;777;0;SHOP_HISTORY-Bebida-1-Foo-2-Food-1-Guloseima-1-TOTAL-26
+98765432100 Admin;admin;admin@mail;000;0;SHOP_HISTORY-TOTAL-0
+11122233300 Eduardo;123;edu@email;981820000;0;SHOP_HISTORY-Bebida-2-Guloseima-2-TOTAL-17.48
+33322211100 Fulano;12345;fulano@email;00008888;0;SHOP_HISTORY-Bebida-1-Guloseima-4-Higiene-1-Laticinio-1-Limpeza-1-TOTAL-15.19
